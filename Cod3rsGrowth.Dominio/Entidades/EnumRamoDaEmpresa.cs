@@ -1,12 +1,9 @@
-﻿
-using System.ComponentModel;
-
-
+﻿using System.ComponentModel;
 namespace Cod3rsGrowth.Dominio.Entidades
 {
     public enum EnumRamoDaEmpresa
     {
-        [Description("Tem como objetivo produção de produtos")]
+        [Description("Tem como objetivo a produção de produtos")]
         Industria,
         [Description("Movimenta diferentes tipos de produtos")]
         Comercio,

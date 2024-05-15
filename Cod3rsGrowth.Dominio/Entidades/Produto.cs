@@ -1,8 +1,6 @@
-﻿
-
-namespace Cod3rsGrowth.Dominio.Entidades
+﻿namespace Cod3rsGrowth.Dominio.Entidades
 {
-    public class Produtos
+    public class Produto
     {
         public int Id { get; set; }
         public string Nome { get; set; }
@@ -12,5 +10,4 @@ namespace Cod3rsGrowth.Dominio.Entidades
         public DateTime DataValidade { get; set; }
         public int EmpresaId { get; set; }
     }
-
 }

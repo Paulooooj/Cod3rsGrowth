@@ -1,6 +1,4 @@
-﻿
-
-namespace Cod3rsGrowth.Dominio.Entidades
+﻿namespace Cod3rsGrowth.Dominio.Entidades
 {
     public class Empresa
     {
@@ -8,6 +6,5 @@ namespace Cod3rsGrowth.Dominio.Entidades
         public string RazaoSocial { get; set; }
         public string CNPJ { get; set; }
         public EnumRamoDaEmpresa Ramo { get; set; }
-
     }
 }
