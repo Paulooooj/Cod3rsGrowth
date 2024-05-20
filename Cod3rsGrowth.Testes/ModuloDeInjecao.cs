@@ -10,8 +10,5 @@ namespace Cod3rsGrowth.Testes
         {
             servico.AddScoped<IServicoEmpresa, ServicoEmpresa>();
         }
-
-
-
     }
 }
