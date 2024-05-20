@@ -41,13 +41,15 @@ namespace Cod3rsGrowth.Testes
             Assert.True(verificarTipoLista);
         }
         [Fact]
-
         public void remover_item_por_id()
         {
-            var listaRemovida = _servicoEmpresa.Remover(1);
-            var tamanhoAtualList = listaRemovida.Count();
+            int idParaRemover = 3;
+            var listaRemovida = _servicoEmpresa.Remover(idParaRemover);
+            var tamanhoDaListaAtual = listaRemovida.Count();
 
-            Assert.Equal(tamanhoAtualList, 2);
+            int tamanhoDaListaEsperado = 2;
+
+            Assert.Equal(tamanhoDaListaEsperado, tamanhoDaListaAtual);
             
         }
 
