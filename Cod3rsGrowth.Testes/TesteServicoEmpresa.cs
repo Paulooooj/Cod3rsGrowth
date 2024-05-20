@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection.Emit;
 
 namespace Cod3rsGrowth.Testes
 {
@@ -46,12 +45,8 @@ namespace Cod3rsGrowth.Testes
             int idParaRemover = 3;
             var listaRemovida = _servicoEmpresa.Remover(idParaRemover);
             var tamanhoDaListaAtual = listaRemovida.Count();
-
             int tamanhoDaListaEsperado = 2;
-
             Assert.Equal(tamanhoDaListaEsperado, tamanhoDaListaAtual);
-            
         }
-
     }
 }

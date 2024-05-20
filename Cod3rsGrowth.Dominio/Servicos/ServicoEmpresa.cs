@@ -20,7 +20,6 @@ namespace Cod3rsGrowth.Dominio.Servicos
         public List<Empresa> Remover(int id)
         {
             var listaRemover = ObterTodos();
-
             foreach(var item in listaRemover.ToList()) { 
               if(item.Id == id)
                 {
@@ -30,5 +29,4 @@ namespace Cod3rsGrowth.Dominio.Servicos
             return listaRemover;
         }
     }
-
 }
