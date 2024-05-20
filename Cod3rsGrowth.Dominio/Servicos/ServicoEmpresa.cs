@@ -1,5 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Interfaces;
+using System.ComponentModel;
+using System.Net.Http.Headers;
 
 namespace Cod3rsGrowth.Dominio.Servicos
 {
@@ -15,5 +17,18 @@ namespace Cod3rsGrowth.Dominio.Servicos
             };
             return listaEmpresas;
         }
+        public List<Empresa> Remover(int id)
+        {
+            var listaRemover = ObterTodos();
+
+            foreach(var item in listaRemover.ToList()) { 
+              if(item.Id == id)
+                {
+                    listaRemover.Remove(item);
+                }
+            }
+            return listaRemover;
+        }
     }
+
 }
