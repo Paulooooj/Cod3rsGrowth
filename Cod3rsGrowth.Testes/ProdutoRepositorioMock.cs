@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Testes
             throw new NotImplementedException();
         }
 
-        public List<Produto> ObterTodos(int id)
+        public List<Produto> ObterTodos()
         {
             throw new NotImplementedException();
         }
