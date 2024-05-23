@@ -7,6 +7,7 @@ namespace Cod3rsGrowth.Testes
     {
         public void Adicionar(Empresa empresa)
         {
+
             throw new NotImplementedException();
         }
 
