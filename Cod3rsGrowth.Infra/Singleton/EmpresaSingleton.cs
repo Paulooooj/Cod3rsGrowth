@@ -9,17 +9,16 @@ namespace Cod3rsGrowth.Infra.Singleton
         }
 
         private static EmpresaSingleton? _instancia;
-        private static object ObjetoLock = new object();
-
         public static EmpresaSingleton Instancia
         {
             get
             {
-                lock (ObjetoLock)
+                if (_instancia == null)
                 {
-                    if (_instancia == null) _instancia = new EmpresaSingleton();
-                    return _instancia;
+                    lock (typeof(EmpresaSingleton))
+                        if (_instancia == null) _instancia = new EmpresaSingleton();
                 }
+                return _instancia;
             }
         }
     }

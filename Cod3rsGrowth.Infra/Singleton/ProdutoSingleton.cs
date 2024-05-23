@@ -6,21 +6,19 @@ namespace Cod3rsGrowth.Infra.Singleton
     {
         private ProdutoSingleton()
         {
-        }
+        } 
 
-        private static ProdutoSingleton _instancia;
-        public List<Produto> ListaDeProdutos;
-        private static object ObjetoLock = new object();
-
+        private static ProdutoSingleton? _instancia;
         public static ProdutoSingleton Instancia
         {
             get
             {
-                lock (ObjetoLock)
+                if (_instancia == null)
                 {
-                    if (_instancia == null) _instancia = new ProdutoSingleton();
-                    return _instancia;
+                    lock (typeof(ProdutoSingleton))
+                        if (_instancia == null) _instancia = new ProdutoSingleton();
                 }
+                return _instancia;
             }
         }
     }
