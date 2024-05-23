@@ -1,19 +1,41 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Infra.Singleton;
 
 namespace Cod3rsGrowth.Dominio.Servicos
 {
     public class ServicoEmpresa : IServicoEmpresa
     {
-        public List<Empresa> ObterTodos()
+        public List<Empresa> CriarLista()
         {
-            var listaEmpresas = new List<Empresa> 
+            var listaDeEmpresas = EmpresaSingleton.Instancia;
+            var listaEmpresa = new List<Empresa>
             {
-            new Empresa { Id = 1, RazaoSocial = "InventSoftware", CNPJ = "123456789", Ramo = EnumRamoDaEmpresa.Servico },
-            new Empresa { Id = 2, RazaoSocial = "EmpresaTeste", CNPJ = "987654321", Ramo = EnumRamoDaEmpresa.Industria },
-            new Empresa { Id = 3, RazaoSocial = "TesteEmpresa", CNPJ = "543216789", Ramo = EnumRamoDaEmpresa.Comercio },
+                new Empresa
+                {
+                   Id = 1,
+                   RazaoSocial = "InventSoftware",
+                   CNPJ = "123456789",
+                   Ramo = EnumRamoDaEmpresa.Servico
+                },
+                new Empresa
+                {
+                   Id = 2,
+                   RazaoSocial = "Heinz",
+                   CNPJ = "987654321",
+                   Ramo = EnumRamoDaEmpresa.Industria
+                },
+                new Empresa
+                {
+                   Id = 3,
+                   RazaoSocial = "LojasAmericanas",
+                   CNPJ = "543216789",
+                   Ramo = EnumRamoDaEmpresa.Comercio
+                },
             };
-            return listaEmpresas;
-        }
+            
+            listaDeEmpresas.AddRange(listaEmpresa);
+            return listaDeEmpresas;      
+        }        
     }
 }

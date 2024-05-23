@@ -1,9 +1,9 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-
+    
 namespace Cod3rsGrowth.Dominio.Interfaces
 {
-    public interface IServicoEmpresa
+    public interface IServicoProduto
     {
-        public List<Empresa> CriarLista();
+        public List<Produto> CriarLista();
     }
 }

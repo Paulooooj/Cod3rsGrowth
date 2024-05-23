@@ -1,20 +1,12 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
-using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Dominio.Interfaces;
 
-namespace Cod3rsGrowth.Testes.Testes
+namespace Cod3rsGrowth.Servico.Servicos
 {
-    public class TesteProdutoRepositorio :TesteBase
+    public class ServicoProduto : IServicoProduto
     {
-        private readonly IProdutoRepositorio _repositorioProduto;
-        public TesteProdutoRepositorio()
-        {
-            _repositorioProduto = ServiceProvider.GetService<IProdutoRepositorio>()
-                ?? throw new Exception($"Erro ao obter servico {nameof(IProdutoRepositorio)}");
-        }
-
-        public void CriarLista()
+        public List<Produto> CriarLista()
         {
             var listaProduto = new List<Produto>
             {
@@ -23,7 +15,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     Id = 2,
                     Nome = "Molho de Tomate",
                     ValorDoProduto = 5.50m,
-                    DataCadastro = DateTime.Now,
+                    DataCadastro = DateTime.Today,
                     TemDataValida = true,
                     DataValidade = DateTime.Parse("30/05/2024"),
                     EmpresaId = 2
@@ -33,7 +25,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     Id = 1,
                     Nome = "BankPlus",
                     ValorDoProduto = 10500m,
-                    DataCadastro = DateTime.Now,
+                    DataCadastro = DateTime.Today,
                     TemDataValida = false,
                     EmpresaId = 1
                 },
@@ -42,14 +34,15 @@ namespace Cod3rsGrowth.Testes.Testes
                     Id = 3,
                     Nome = "Arroz",
                     ValorDoProduto = 24.50m,
-                    DataCadastro = DateTime.Now,
+                    DataCadastro = DateTime.Today,
                     TemDataValida = true,
                     DataValidade = DateTime.Parse("10/09/2025"),
                     EmpresaId = 3
                 },
             };
-            var instancia = ProdutoSingleton.Instancia;
-            instancia.AddRange(listaProduto);
+            var listaDeProdutos = ProdutoSingleton.Instancia;
+            listaDeProdutos.AddRange(listaProduto);
+            return listaDeProdutos;
         }
     }
 }
