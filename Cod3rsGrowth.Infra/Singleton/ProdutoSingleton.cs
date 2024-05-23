@@ -13,11 +13,8 @@ namespace Cod3rsGrowth.Infra.Singleton
         {
             get
             {
-                if (_instancia == null)
-                {
                     lock (typeof(ProdutoSingleton))
                         if (_instancia == null) _instancia = new ProdutoSingleton();
-                }
                 return _instancia;
             }
         }
