@@ -40,9 +40,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                     EmpresaId = 3
                 },
             };
-            var listaDeProdutos = ProdutoSingleton.Instancia;
-            listaDeProdutos.AddRange(listaProduto);
-            return listaDeProdutos;
+            return listaProduto;
         }
     }
 }
