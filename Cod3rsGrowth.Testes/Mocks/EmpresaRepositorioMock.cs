@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Infra.Singleton;
 
 namespace Cod3rsGrowth.Testes
 {
@@ -7,7 +8,6 @@ namespace Cod3rsGrowth.Testes
     {
         public void Adicionar(Empresa empresa)
         {
-
             throw new NotImplementedException();
         }
 
@@ -28,7 +28,8 @@ namespace Cod3rsGrowth.Testes
 
         public List<Empresa> ObterTodos()
         {
-            throw new NotImplementedException();
+            var listaEmpresa = EmpresaSingleton.Instancia.ToList();
+            return listaEmpresa;
         }
     }
 }

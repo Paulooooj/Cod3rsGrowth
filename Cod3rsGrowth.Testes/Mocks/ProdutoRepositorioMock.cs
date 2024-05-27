@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Infra.Singleton;
 
 namespace Cod3rsGrowth.Testes
 {
@@ -27,7 +28,8 @@ namespace Cod3rsGrowth.Testes
 
         public List<Produto> ObterTodos()
         {
-            throw new NotImplementedException();
+            var listaProduto = ProdutoSingleton.Instancia.ToList();
+            return listaProduto;
         }
     }
 }
