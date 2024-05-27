@@ -3,7 +3,7 @@ using Cod3rsGrowth.Infra.Interfaces;
 
 namespace Cod3rsGrowth.Testes
 {
-    public class EmpresaRepositorioMock : IEmpresaRepositorio
+    public class EmpresaRepositorioMock : IRepositorioEmpresa
     {
         public void Adicionar(Empresa empresa)
         {

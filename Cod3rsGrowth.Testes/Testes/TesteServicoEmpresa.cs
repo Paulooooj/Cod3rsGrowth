@@ -48,8 +48,8 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void testar_se_a_lista_e_do_tipo_empresa()
         {
-            var resultadoRetornado = _servicoEmpresa.CriarLista();
-            Assert.IsType<EmpresaSingleton>(resultadoRetornado);
+            var resultadoRetornado = _servicoEmpresa.CriarLista().ToList();
+            Assert.IsType<List<Empresa>>(resultadoRetornado);
         }
     }
 }

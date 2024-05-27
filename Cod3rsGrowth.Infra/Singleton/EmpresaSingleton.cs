@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Infra.Singleton
         private EmpresaSingleton()
         {
         }
-
+        
         private static EmpresaSingleton? _instancia;
         public static EmpresaSingleton Instancia
         {
