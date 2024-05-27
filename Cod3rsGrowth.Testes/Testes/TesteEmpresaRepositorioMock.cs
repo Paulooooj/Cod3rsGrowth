@@ -8,6 +8,7 @@ namespace Cod3rsGrowth.Testes.Testes
     public class TesteEmpresaRepositorioMock : TesteBase
     {
         private readonly IRepositorioEmpresa _repositorioEmpresa;
+
         public TesteEmpresaRepositorioMock()
         {
             _repositorioEmpresa = ServiceProvider.GetService<IRepositorioEmpresa>()

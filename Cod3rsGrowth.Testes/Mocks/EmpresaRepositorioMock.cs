@@ -7,6 +7,7 @@ namespace Cod3rsGrowth.Testes
     public class EmpresaRepositorioMock : IRepositorioEmpresa
     {
         private readonly EmpresaSingleton _instanciaEmpresaSingleton = EmpresaSingleton.Instancia;
+
         public void Adicionar(Empresa empresa)
         {
             throw new NotImplementedException();
