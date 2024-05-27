@@ -1,10 +1,13 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Infra.Singleton;
 
 namespace Cod3rsGrowth.Testes
 {
     public class ProdutoRepositorioMock : IRepositorioProduto
     {
+        private readonly ProdutoSingleton _intanciaProdutoSingleton = ProdutoSingleton.Instancia;
+
         public void Adicionar(Produto produto)
         {
             throw new NotImplementedException();
@@ -27,7 +30,7 @@ namespace Cod3rsGrowth.Testes
 
         public List<Produto> ObterTodos()
         {
-            throw new NotImplementedException();
+           return _intanciaProdutoSingleton.ToList();
         }
     }
 }
