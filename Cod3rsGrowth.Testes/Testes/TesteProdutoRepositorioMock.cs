@@ -23,10 +23,34 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Equivalent(listaProduto, listaProdutoRetornadaMock);
         }
 
+        [Fact]
+        public void testar_se_retorna_o_objeto_certo_por_id()
+        {
+            var listaProduto = CriarLista();
+            var retornoProduto = _repositorioProduto.ObterPorId(1);
+            Assert.Equivalent(listaProduto[0], retornoProduto);
+        }
+
+        [Fact]
+        public void testar_um_id_que_não_existe()
+        {
+            var lista = CriarLista();
+            Assert.Throws<Exception>(() => _repositorioProduto.ObterPorId(4));
+        }
+
         public List<Produto> CriarLista()
         {
             var listaProduto = new List<Produto>
             {
+                new Produto
+                {
+                    Id = 1,
+                    Nome = "BankPlus",
+                    ValorDoProduto = 10500m,
+                    DataCadastro = DateTime.Today,
+                    TemDataValida = false,
+                    EmpresaId = 1
+                },
                 new Produto
                 {
                     Id = 2,
@@ -36,15 +60,6 @@ namespace Cod3rsGrowth.Testes.Testes
                     TemDataValida = true,
                     DataValidade = DateTime.Parse("30/05/2024"),
                     EmpresaId = 2
-                },
-                new Produto
-                {
-                    Id = 1,
-                    Nome = "BankPlus",
-                    ValorDoProduto = 10500m,
-                    DataCadastro = DateTime.Today,
-                    TemDataValida = false,
-                    EmpresaId = 1
                 },
                 new Produto
                 {

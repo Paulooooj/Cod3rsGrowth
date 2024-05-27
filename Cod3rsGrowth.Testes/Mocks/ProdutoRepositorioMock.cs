@@ -25,12 +25,14 @@ namespace Cod3rsGrowth.Testes
 
         public Produto ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            var produto = _intanciaProdutoSingleton.Where(x => x.Id == id).FirstOrDefault()
+                ?? throw new Exception($"O ID {id} não foi encontrado");
+            return produto;
         }
 
         public List<Produto> ObterTodos()
         {
-           return _intanciaProdutoSingleton.ToList();
+           return _intanciaProdutoSingleton;
         }
     }
 }
