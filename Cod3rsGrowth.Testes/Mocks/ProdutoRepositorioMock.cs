@@ -6,6 +6,7 @@ namespace Cod3rsGrowth.Testes
 {
     public class ProdutoRepositorioMock : IRepositorioProduto
     {
+        private readonly ProdutoSingleton _intanciaProdutoSingleton = ProdutoSingleton.Instancia;
         public void Adicionar(Produto produto)
         {
             throw new NotImplementedException();
@@ -28,8 +29,7 @@ namespace Cod3rsGrowth.Testes
 
         public List<Produto> ObterTodos()
         {
-            var listaProduto = ProdutoSingleton.Instancia.ToList();
-            return listaProduto;
+           return _intanciaProdutoSingleton.ToList();
         }
     }
 }

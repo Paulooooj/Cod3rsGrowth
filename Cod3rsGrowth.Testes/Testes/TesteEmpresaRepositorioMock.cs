@@ -16,38 +16,13 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void testar_se_o_obtertodos_retorna_o_valor_esperado()
         {
-            var listaEmpresa = new List<Empresa>
-            {
-                new Empresa
-                {
-                   Id = 1,
-                   RazaoSocial = "InventSoftware",
-                   CNPJ = "123456789",
-                   Ramo = EnumRamoDaEmpresa.Servico
-                },
-                new Empresa
-                {
-                   Id = 2,
-                   RazaoSocial = "Heinz",
-                   CNPJ = "987654321",
-                   Ramo = EnumRamoDaEmpresa.Industria
-                },
-                new Empresa
-                {
-                   Id = 3,
-                   RazaoSocial = "LojasAmericanas",
-                   CNPJ = "543216789",
-                   Ramo = EnumRamoDaEmpresa.Comercio
-                },
-            };
-            CriarLista();
+            var listaEmpresa = CriarLista();
             var listaEmpresaRetornada = _repositorioEmpresa.ObterTodos();
             Assert.Equivalent(listaEmpresa, listaEmpresaRetornada);
         }
 
-        public void CriarLista()
+        public List<Empresa> CriarLista()
         {
-            var listaDeEmpresas = EmpresaSingleton.Instancia;
             var listaEmpresa = new List<Empresa>
             {
                 new Empresa
@@ -72,7 +47,9 @@ namespace Cod3rsGrowth.Testes.Testes
                    Ramo = EnumRamoDaEmpresa.Comercio
                 },
             };
-            listaDeEmpresas.AddRange(listaEmpresa);
+            var listaDeEmpresasSingleton = EmpresaSingleton.Instancia;
+            listaDeEmpresasSingleton.AddRange(listaEmpresa);
+            return listaEmpresa;
         }
     }
 }
