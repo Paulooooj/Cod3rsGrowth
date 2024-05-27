@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Dominio.Entidades
 {
-    public class Empresa
+    public class Empresa 
     {
         public int Id { get; set; }
         public string RazaoSocial { get; set; }
