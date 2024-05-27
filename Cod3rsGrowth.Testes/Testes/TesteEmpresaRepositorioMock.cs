@@ -22,6 +22,21 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Equivalent(listaEmpresa, listaEmpresaRetornada);
         }
 
+        [Fact]
+        public void testar_se_retorna_o_objeto_certo_por_id()
+        {
+            var listaEmpresa = CriarLista();
+            var retornoEmpresa = _repositorioEmpresa.ObterPorId(2);
+            Assert.Equivalent(listaEmpresa[1], retornoEmpresa);
+        }
+
+        [Fact]
+        public void testar_um_id_que_não_existe()
+        {
+            var lista = CriarLista();
+            Assert.Throws<Exception>(() => _repositorioEmpresa.ObterPorId(4));
+        }
+
         public List<Empresa> CriarLista()
         {
             var listaEmpresa = new List<Empresa>

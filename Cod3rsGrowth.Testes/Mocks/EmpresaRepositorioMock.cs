@@ -25,12 +25,14 @@ namespace Cod3rsGrowth.Testes
 
         public Empresa ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            var empresa = _instanciaEmpresaSingleton.Where(x=> x.Id == id).FirstOrDefault()
+                ?? throw new Exception($"O ID {id} não foi encontrado");
+            return empresa;
         }
 
         public List<Empresa> ObterTodos()
         {
-            return _instanciaEmpresaSingleton.ToList();
+            return _instanciaEmpresaSingleton;
         }
     }
 }

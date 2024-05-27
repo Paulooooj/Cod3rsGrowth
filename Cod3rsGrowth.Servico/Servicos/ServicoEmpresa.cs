@@ -8,7 +8,6 @@ namespace Cod3rsGrowth.Dominio.Servicos
     {
         public List<Empresa> CriarLista()
         {
-            var listaDeEmpresas = EmpresaSingleton.Instancia;
             var listaEmpresa = new List<Empresa>
             {
                 new Empresa
@@ -33,9 +32,7 @@ namespace Cod3rsGrowth.Dominio.Servicos
                    Ramo = EnumRamoDaEmpresa.Comercio
                 },
             };
-            
-            listaDeEmpresas.AddRange(listaEmpresa);
-            return listaDeEmpresas;      
+            return listaEmpresa;      
         }        
     }
 }
