@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Testes.Testes
@@ -35,6 +36,13 @@ namespace Cod3rsGrowth.Testes.Testes
         {
             var lista = CriarLista();
             Assert.Throws<Exception>(() => _repositorioEmpresa.ObterPorId(4));
+        }
+
+        [Fact]
+        public void testa_validacao_do_id()
+        {
+            Empresa empresa = new Empresa {Id = 1, RazaoSocial = "EmpresaTestea", CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico};
+            _repositorioEmpresa.Adicionar(empresa);
         }
 
         public List<Empresa> CriarLista()
