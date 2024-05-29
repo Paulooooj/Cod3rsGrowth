@@ -59,7 +59,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void _testar_se_enviar_o_id_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
+        public void testar_se_enviar_o_id_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
         {
             var produto = new Produto
             {
@@ -75,7 +75,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void _testar_se_enviar_o_nome_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
+        public void testar_se_enviar_o_nome_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
         {
             var produto = new Produto
             {

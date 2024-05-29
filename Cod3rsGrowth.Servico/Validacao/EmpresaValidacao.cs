@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 
 namespace Cod3rsGrowth.Servico.Validacao
 {
@@ -12,13 +13,13 @@ namespace Cod3rsGrowth.Servico.Validacao
             RuleFor(x => x.Id)
                 .NotEmpty()
                 .WithMessage("O campo id é obrigatorio");
-            
+
             RuleFor(x => x.RazaoSocial)
                 .NotEmpty()
                 .WithMessage("O campo Razão Social é obrigatorio")
                 .MaximumLength(20)
                 .WithMessage("Número máximo de caracteres atingido");
-            
+
             RuleFor(x => x.CNPJ)
                 .NotEmpty()
                 .WithMessage("O campo CNPJ é obrigatorio")
@@ -26,16 +27,24 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .WithMessage("O CNPJ tem que ter 14 caracteres")
                 .Must((x, _) => ValidarSeTemCaracteres(x.CNPJ))
                 .WithMessage("Só é permitido números");
-            
+
             RuleFor(x => x.Ramo)
                 .IsInEnum()
-                .WithMessage("Ramo inválido"); // não está funcionando da forma correta
+                .WithMessage("Ramo inválido")
+                .Must((x, _) => VerificarSeOEnumEstaVazio(x.Ramo)).WithMessage("O campo enum é obrigatório");
         }
 
         private static bool ValidarSeTemCaracteres(string cnpj)
         {
             bool valid = cnpj.All(char.IsDigit);
             return valid;
+        }
+
+        public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa) 
+        {
+            if(enumRamoEmpresa == (EnumRamoDaEmpresa)0) return false;
+            return true;
+
         }
     }
 }
