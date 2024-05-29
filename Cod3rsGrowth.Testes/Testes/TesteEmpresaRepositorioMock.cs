@@ -57,18 +57,19 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
+        public void _testar_se_enviar_o_razaosocial_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
+        {
+            var empresa = new Empresa { Id = 6, CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
+        }
+
+
+        [Fact]
         public void _testar_se_enviar_o_id_vazio_a_mensagem_do_erro_vai_ser_igual_a_esperada()
         {
             var empresa = new Empresa { RazaoSocial = "EmpresaTestea", CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
             Assert.Equal("O campo id é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
-        }
-
-        [Fact]
-        public void _testar_se_enviar_o_razaosocial_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
-        {
-            var empresa = new Empresa { Id = 6, CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
-            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
         }
 
         public List<Empresa> CriarLista()
