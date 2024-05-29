@@ -33,33 +33,33 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_um_id_que_não_existe()
+        public void testar_um_id_que_nao_existe()
         {
             var lista = CriarLista();
             Assert.Throws<Exception>(() => _repositorioProduto.ObterPorId(4));
         }
 
         [Fact]
-        public void testa_verificar_se_esta_sendo_adicionado_um_novo_objeto_no_metodo_adicionar()
+        public void testando_se_o_metodo_adicionar_esta_funcionando()
         {
             var produto = new Produto 
             { 
                 Id = 5,
                 Nome = "teste", 
                 ValorDoProduto = 12.50m, 
-                DataCadastro = DateTime.Today, 
+                DataCadastro = DateTime.Parse("29/05/2024"), 
                 TemDataValida = true, 
                 DataValidade = DateTime.Parse("12/10/2024"), 
                 EmpresaId = 3 
             };
             _repositorioProduto.Adicionar(produto);
-            var retornoProduto = ProdutoSingleton.Instancia.Where(x => x.Id == produto.Id).FirstOrDefault()
+            var retornoProduto = ProdutoSingleton.Instancia.FirstOrDefault()
                  ?? throw new Exception($"O ID {produto.Id} não foi encontrado"); ;
             Assert.Equivalent(retornoProduto, produto);
         }
 
         [Fact]
-        public void testar_se_enviar_o_id_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
+        public void testando_se_ao_enviar_id_vazio_vai_retornar_excecao_de_nao_validacao()
         {
             var produto = new Produto
             {
@@ -70,28 +70,26 @@ namespace Cod3rsGrowth.Testes.Testes
                 DataValidade = DateTime.Parse("12/10/2024"),
                 EmpresaId = 3
             };
-            var empresa = new Empresa { RazaoSocial = "EmpresaTestea", CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
         }
 
         [Fact]
-        public void testar_se_enviar_o_nome_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
+        public void testando_se_ao_nao_enviar_nome_vai_retornar_exececao_de_nao_validacao()
         {
             var produto = new Produto
             {
-                Nome = "teste",
+                Id = 2,
                 ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
                 TemDataValida = true,
                 DataValidade = DateTime.Parse("12/10/2024"),
                 EmpresaId = 3
             };
-            var empresa = new Empresa { Id = 6, CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
         }
 
         [Fact]
-        public void _testar_se_enviar_o_id_vazio_a_mensagem_do_erro_vai_ser_igual_a_esperada()
+        public void testar_se_enviar_o_id_vazio_a_mensagem_de_nao_validacao_retorna_correta()
         {
             var produto = new Produto
             {

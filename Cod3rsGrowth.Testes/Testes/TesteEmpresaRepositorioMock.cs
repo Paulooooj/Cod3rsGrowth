@@ -40,24 +40,24 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testa_verificar_se_esta_sendo_adicionado_um_novo_objeto_no_metodo_adicionar()
+        public void testa_se_o_metodo_adicionar_esta_funcionando()
         {
             var empresa = new Empresa {Id = 5, RazaoSocial = "EmpresaTestea", CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Adicionar(empresa);
-            var retornoEmpresa = EmpresaSingleton.Instancia.Where(x => x.Id == empresa.Id).FirstOrDefault() 
+            var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault() 
                 ?? throw new Exception($"O ID {empresa.Id} não foi encontrado"); ;
             Assert.Equivalent(empresa, retornoEmpresa);
         }
 
         [Fact]
-        public void testar_se_enviar_o_id_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
+        public void testar_se_ao_enviar_o_id_vazio_vai_retornar_uma_nao_validacao()
         {
             var empresa = new Empresa {RazaoSocial = "EmpresaTestea", CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
         }
 
         [Fact]
-        public void testar_se_enviar_o_razaosocial_vazio_no_objeto_o_adicionar_vai_funcionar_ou_vai_aconter_erro()
+        public void testar_se_enviar_o_razaosocial_vai_retornar_uma_nao_validacao()
         {
             var empresa = new Empresa { Id = 6, CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
@@ -65,7 +65,7 @@ namespace Cod3rsGrowth.Testes.Testes
 
 
         [Fact]
-        public void testar_se_enviar_o_id_vazio_a_mensagem_do_erro_vai_ser_igual_a_esperada()
+        public void testar_se_enviar_o_id_vazio_a_mensagem_do_nao_validacao_vai_ser_correta()
         {
             var empresa = new Empresa { RazaoSocial = "EmpresaTestea", CNPJ = "12345678912344", Ramo = EnumRamoDaEmpresa.Servico };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));

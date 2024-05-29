@@ -24,14 +24,14 @@ namespace Cod3rsGrowth.Servico.Validacao
             
             RuleFor(x => x.DataCadastro)
                 .NotEmpty().WithMessage("É necessário informar a data de cadastro")
-                .Must(x => x >= DateTime.Today).WithMessage("Data de cadastro tem que ser a atual");
+                .Must(x => x == DateTime.Today).WithMessage("Data de cadastro tem que ser a atual");
             
             RuleFor(x => x.TemDataValida)
                 .NotEmpty().WithMessage("Campo obrigatorio");
            
             RuleFor(x => x.DataValidade)
                 .Must(x => x > DateTime.Today)
-                .WithMessage("Não pode ser uma data antes e nem a de hoje");
+                .WithMessage("Tem que ser a data de hoje");
             
             RuleFor(x => x.EmpresaId)
                 .NotEmpty()
