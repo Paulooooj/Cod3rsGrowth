@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_se_o_obtertodos_retorna_o_valor_esperado()
+        public void deve_retornar_o_objeto_esperado_no_metodo_obter_todos()
         {
             var listaProduto = CriarLista();
             var listaProdutoRetornadaMock = _repositorioProduto.ObterTodos();
@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_se_retorna_o_objeto_certo_por_id()
+        public void deve_retornar_o_objeto_esperado_no_metodo_obter_por_id()
         {
             var listaProduto = CriarLista();
             var retornoProduto = _repositorioProduto.ObterPorId(1);
@@ -33,14 +33,14 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_um_id_que_nao_existe()
+        public void dever_estourar_excecao_por_enviar_id_que_nao_existe()
         {
             var lista = CriarLista();
             Assert.Throws<Exception>(() => _repositorioProduto.ObterPorId(4));
         }
 
         [Fact]
-        public void testando_se_o_metodo_adicionar_esta_funcionando()
+        public void deve_adicionar_um_novo_produto_na_lista_singleton()
         {
             var produto = new Produto 
             { 
@@ -59,7 +59,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testando_se_ao_enviar_id_vazio_vai_retornar_excecao_de_nao_validacao()
+        public void deve_estourar_uma_excecao_ao_mandar_um_id_vazio()
         {
             var produto = new Produto
             {
@@ -74,7 +74,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testando_se_ao_nao_enviar_nome_vai_retornar_exececao_de_nao_validacao()
+        public void deve_estourar_uma_excecao_ao_mandar_um_nome_vazio()
         {
             var produto = new Produto
             {
@@ -89,7 +89,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_se_enviar_o_id_vazio_a_mensagem_de_nao_validacao_retorna_correta()
+        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_id_vazio_esta_correta()
         {
             var produto = new Produto
             {
