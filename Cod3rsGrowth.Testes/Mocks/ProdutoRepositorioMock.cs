@@ -1,16 +1,25 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Testes
 {
     public class ProdutoRepositorioMock : IRepositorioProduto
     {
-        private readonly ProdutoSingleton _intanciaProdutoSingleton = ProdutoSingleton.Instancia;
+        private readonly ProdutoSingleton _intanciaProdutoSingleton;
+        private readonly IValidator<Produto> _empresaValidacao;
+
+        public ProdutoRepositorioMock(IValidator<Produto> empresaValidacao)
+        {
+            _intanciaProdutoSingleton = ProdutoSingleton.Instancia;
+            _empresaValidacao = empresaValidacao;
+        }
 
         public void Adicionar(Produto produto)
         {
-            throw new NotImplementedException();
+            _empresaValidacao.ValidateAndThrow(produto);
+            _intanciaProdutoSingleton.Add(produto);
         }
 
         public void Atualizar(Produto produto)

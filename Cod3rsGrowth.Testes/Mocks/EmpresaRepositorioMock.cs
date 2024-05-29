@@ -1,21 +1,25 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
-using Cod3rsGrowth.Servico.Validacao;
 using FluentValidation;
 
 namespace Cod3rsGrowth.Testes
 {
     public class EmpresaRepositorioMock : IRepositorioEmpresa
     {
-        private readonly EmpresaSingleton _instanciaEmpresaSingleton = EmpresaSingleton.Instancia;
-        private readonly EmpresaValidacao _empresaValidacao = new();
-        //private readonly IValidator<Empresa> _empresaValidacao;
+        private readonly EmpresaSingleton _instanciaEmpresaSingleton;
+        private readonly IValidator<Empresa> _empresaValidacao;
+
+        public EmpresaRepositorioMock(IValidator<Empresa> empresavalidacao)
+        {
+            _instanciaEmpresaSingleton = EmpresaSingleton.Instancia;
+            _empresaValidacao = empresavalidacao;
+        }
 
         public void Adicionar(Empresa empresa)
-
         {
             _empresaValidacao.ValidateAndThrow(empresa);
+            _instanciaEmpresaSingleton.Add(empresa);
         }
 
         public void Atualizar(Empresa empresa)
