@@ -53,8 +53,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 EmpresaId = 5
             };
             _repositorioProduto.Adicionar(produto);
-            var retornoProduto = ProdutoSingleton.Instancia.FirstOrDefault()
-                 ?? throw new Exception($"O ID {produto.Id} não foi encontrado"); ;
+            var retornoProduto = ProdutoSingleton.Instancia.FirstOrDefault();
             Assert.Equivalent(retornoProduto, produto);
         }
 
@@ -117,8 +116,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 EmpresaId = 1
             };
             _repositorioProduto.Atualizar(produto);
-            var retornoProduto = ProdutoSingleton.Instancia.Where(x => x.Id == produto.Id).FirstOrDefault()
-               ?? throw new Exception($"O ID {produto.Id} não foi encontrado");
+            var retornoProduto = ProdutoSingleton.Instancia.Where(x => x.Id == produto.Id).FirstOrDefault();
             Assert.Equivalent(produto, retornoProduto);
         }
 

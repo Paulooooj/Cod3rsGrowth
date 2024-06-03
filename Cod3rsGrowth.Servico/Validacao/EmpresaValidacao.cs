@@ -41,8 +41,7 @@ namespace Cod3rsGrowth.Servico.Validacao
 
         public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa) 
         {
-            if(enumRamoEmpresa == EnumRamoDaEmpresa.NaoDefinido) return false;
-            return true;
+            return !(enumRamoEmpresa == EnumRamoDaEmpresa.NaoDefinido);
         }
     }
 }

@@ -44,8 +44,7 @@ namespace Cod3rsGrowth.Testes.Testes
         {
             var empresa = new Empresa {Id = 5, RazaoSocial = "EmpresaTestea", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Adicionar(empresa);
-            var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault() 
-                ?? throw new Exception($"O ID {empresa.Id} não foi encontrado"); ;
+            var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault(); 
             Assert.Equivalent(empresa, retornoEmpresa);
         }
 
@@ -74,7 +73,7 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void  deve_estourar_excecao_caso_enum_seja_vazio()
         {
-            var empresa = new Empresa { Id = 6, RazaoSocial = "EmpresaTestea", CNPJ = "17384563927162" };
+            var empresa = new Empresa { Id = 6, RazaoSocial = "EmpresaTestea", CNPJ = "17384563927162"};
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
         }
 
@@ -84,8 +83,7 @@ namespace Cod3rsGrowth.Testes.Testes
            var listaRetornada = CriarLista();
             var empresa = new Empresa { Id = 2, RazaoSocial = "EstudioMusical", CNPJ = "12345678954367", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Atualizar(empresa);
-            var retornoEmpresa = EmpresaSingleton.Instancia.Where(x => x.Id == empresa.Id).FirstOrDefault()
-                ?? throw new Exception($"O ID {empresa.Id} não foi encontrado"); 
+            var retornoEmpresa = EmpresaSingleton.Instancia.Where(x => x.Id == empresa.Id).FirstOrDefault();
             Assert.Equivalent(empresa, retornoEmpresa);
         }
 
