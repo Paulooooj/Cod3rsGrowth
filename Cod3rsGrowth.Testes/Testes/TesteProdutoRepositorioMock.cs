@@ -47,10 +47,10 @@ namespace Cod3rsGrowth.Testes.Testes
                 Id = 5,
                 Nome = "teste", 
                 ValorDoProduto = 12.50m, 
-                DataCadastro = DateTime.Parse("29/05/2024"), 
+                DataCadastro = DateTime.Parse("03/06/2024"), 
                 TemDataValida = true, 
-                DataValidade = DateTime.Parse("12/10/2024"), 
-                EmpresaId = 3 
+                DataValidade = DateTime.Parse("12/10/2024"),
+                EmpresaId = 5
             };
             _repositorioProduto.Adicionar(produto);
             var retornoProduto = ProdutoSingleton.Instancia.FirstOrDefault()

@@ -32,10 +32,12 @@ namespace Cod3rsGrowth.Servico.Validacao
             RuleFor(x => x.DataValidade)
                 .Must(x => x > DateTime.Today)
                 .WithMessage("Tem que ser a data de hoje");
-            
+
             RuleFor(x => x.EmpresaId)
+                .NotNull().WithMessage("O Id não pode ser nulo")
                 .NotEmpty()
                 .WithMessage("O campo Empresa Id é obrigatorio");
+                
         }
     }
 }
