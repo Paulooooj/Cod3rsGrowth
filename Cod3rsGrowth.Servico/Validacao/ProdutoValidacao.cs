@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .NotNull().WithMessage("campo obrigatorio");
 
             RuleFor(x => x.DataValidade)
-                .Must(x => x > DateTime.Today || x == DateTime.MinValue)
+                .Must(x => x > DateTime.Today || x == null)
                 .WithMessage("Não pode ser uma data menor ou igual a hoje");
       
             RuleFor(x => x.EmpresaId)

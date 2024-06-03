@@ -113,6 +113,8 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "teste11111",
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
+                TemDataValida = true,
+                DataValidade = DateTime.Parse("30/06/2024"),
                 EmpresaId = 1
             };
             _repositorioProduto.Atualizar(produto);
@@ -130,6 +132,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
                 TemDataValida = false,
+                DataValidade = DateTime.Parse("30/06/2024"),
                 EmpresaId = 1
             };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Atualizar(produto));
@@ -145,6 +148,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
                 TemDataValida = false,
+                DataValidade = null,
                 EmpresaId = 1
             };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Atualizar(produto));
@@ -162,6 +166,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     ValorDoProduto = 10500m,
                     DataCadastro = DateTime.Today,
                     TemDataValida = false,
+                    DataValidade = null,
                     EmpresaId = 1
                 },
                 new Produto
