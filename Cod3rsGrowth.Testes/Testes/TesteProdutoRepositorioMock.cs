@@ -42,13 +42,13 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_adicionar_um_novo_produto_na_lista_singleton()
         {
-            var produto = new Produto 
-            { 
+            var produto = new Produto
+            {
                 Id = 5,
-                Nome = "teste", 
-                ValorDoProduto = 12.50m, 
-                DataCadastro = DateTime.Parse("03/06/2024"), 
-                TemDataValida = true, 
+                Nome = "teste",
+                ValorDoProduto = 12.50m,
+                DataCadastro = DateTime.Parse("03/06/2024"),
+                TemDataValida = true,
                 DataValidade = DateTime.Parse("12/10/2024"),
                 EmpresaId = 5
             };
@@ -104,6 +104,55 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Equal("O campo id é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
+        [Fact]
+        public void deve_atualizar_um_objeto_escolhido_na_lista()
+        {
+            var listaRetornada = CriarLista();
+            var produto = new Produto
+            {
+                Id = 1,
+                Nome = "teste11111",
+                ValorDoProduto = 10500m,
+                DataCadastro = DateTime.Today,
+                EmpresaId = 1
+            };
+            _repositorioProduto.Atualizar(produto);
+            var retornoProduto = ProdutoSingleton.Instancia.Where(x => x.Id == produto.Id).FirstOrDefault()
+               ?? throw new Exception($"O ID {produto.Id} não foi encontrado");
+            Assert.Equivalent(produto, retornoProduto);
+        }
+
+        [Fact]
+        public void deve_verificar_se_mandar_sem_nome_vai_estourar_uma_excecao()
+        {
+            var listaRetornada = CriarLista();
+            var produto = new Produto
+            {
+                Id = 1,
+                ValorDoProduto = 10500m,
+                DataCadastro = DateTime.Today,
+                TemDataValida = false,
+                EmpresaId = 1
+            };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Atualizar(produto));
+        }
+
+        [Fact]
+        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_nome_vazio_no_metodo_atualizar_esta_correta()
+        {
+            var listaRetornada = CriarLista();
+            var produto = new Produto
+            {
+                Id = 1,
+                ValorDoProduto = 10500m,
+                DataCadastro = DateTime.Today,
+                TemDataValida = false,
+                EmpresaId = 1
+            };
+            var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Atualizar(produto));
+            Assert.Equal("O campo Nome é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
+        }
+
         public List<Produto> CriarLista()
         {
             var listaProduto = new List<Produto>
@@ -124,7 +173,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     ValorDoProduto = 5.50m,
                     DataCadastro = DateTime.Today,
                     TemDataValida = true,
-                    DataValidade = DateTime.Parse("30/05/2024"),
+                    DataValidade = DateTime.Parse("30/06/2024"),
                     EmpresaId = 2
                 },
                 new Produto

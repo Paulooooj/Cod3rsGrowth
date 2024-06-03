@@ -1,7 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
-using System.Text.RegularExpressions;
 
 namespace Cod3rsGrowth.Servico.Validacao
 {
@@ -45,7 +43,6 @@ namespace Cod3rsGrowth.Servico.Validacao
         {
             if(enumRamoEmpresa == EnumRamoDaEmpresa.NaoDefinido) return false;
             return true;
-
         }
     }
 }

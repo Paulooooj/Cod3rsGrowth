@@ -22,9 +22,13 @@ namespace Cod3rsGrowth.Testes
             _instanciaEmpresaSingleton.Add(empresa);
         }
 
-        public void Atualizar(Empresa empresa)
+        public void Atualizar(Empresa empresaAtualizada)
         {
-            throw new NotImplementedException();
+            _empresaValidacao.ValidateAndThrow(empresaAtualizada);
+            var verificacaoSeTemID = _instanciaEmpresaSingleton.Find(x => x.Id == empresaAtualizada.Id) 
+                ?? throw new Exception($"O Id {empresaAtualizada.Id} não existe"); 
+            var posicao = _instanciaEmpresaSingleton.FindIndex(x => x.Id == empresaAtualizada.Id);
+            _instanciaEmpresaSingleton[posicao] = empresaAtualizada;
         }
 
         public void Deletar(Empresa empresa)
@@ -34,7 +38,7 @@ namespace Cod3rsGrowth.Testes
 
         public Empresa ObterPorId(int id)
         {
-            var empresa = _instanciaEmpresaSingleton.Where(x=> x.Id == id).FirstOrDefault()
+            var empresa = _instanciaEmpresaSingleton.Where(x => x.Id == id).FirstOrDefault()
                 ?? throw new Exception($"O ID {id} não foi encontrado");
             return empresa;
         }

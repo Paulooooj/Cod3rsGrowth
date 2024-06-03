@@ -63,7 +63,6 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
         }
 
-
         [Fact]
         public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_id_vazio_esta_correta()
         {
@@ -77,6 +76,33 @@ namespace Cod3rsGrowth.Testes.Testes
         {
             var empresa = new Empresa { Id = 6, RazaoSocial = "EmpresaTestea", CNPJ = "17384563927162" };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
+        }
+
+        [Fact]
+        public void deve_atualizar_um_objeto_escolhido_na_lista()
+        {
+           var listaRetornada = CriarLista();
+            var empresa = new Empresa { Id = 2, RazaoSocial = "EstudioMusical", CNPJ = "12345678954367", Ramo = EnumRamoDaEmpresa.Servico };
+            _repositorioEmpresa.Atualizar(empresa);
+            var retornoEmpresa = EmpresaSingleton.Instancia.Where(x => x.Id == empresa.Id).FirstOrDefault()
+                ?? throw new Exception($"O ID {empresa.Id} não foi encontrado"); 
+            Assert.Equivalent(empresa, retornoEmpresa);
+        }
+
+        [Fact]
+        public void deve_verificar_se_mandar_sem_razaosocial_vai_estourar_uma_excecao()
+        {
+            var listaRetornada = CriarLista();
+            var empresa = new Empresa { Id = 3, CNPJ = "12345678954367", Ramo = EnumRamoDaEmpresa.Servico };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Atualizar(empresa));
+        }
+
+        [Fact]
+        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_razaosocial_vazio_no_metodo_atualizar_esta_correta()
+        {
+            var empresa = new Empresa {Id = 2, CNPJ = "93748374898123", Ramo = EnumRamoDaEmpresa.Servico };
+            var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Atualizar(empresa));
+            Assert.Equal("O campo Razão Social é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
         public List<Empresa> CriarLista()
