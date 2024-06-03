@@ -13,10 +13,11 @@ namespace Cod3rsGrowth.Testes.Testes
         {
             _repositorioProduto = ServiceProvider.GetService<IRepositorioProduto>()
                 ?? throw new Exception($"Erro ao obter servico {nameof(IRepositorioProduto)}");
+            ProdutoSingleton.Instancia.Clear();
         }
 
         [Fact]
-        public void testar_se_o_obtertodos_retorna_o_valor_esperado()
+        public void deve_retornar_o_objeto_esperado_no_metodo_obter_todos()
         {
             var listaProduto = CriarLista();
             var listaProdutoRetornadaMock = _repositorioProduto.ObterTodos();
@@ -24,7 +25,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_se_retorna_o_objeto_certo_por_id()
+        public void deve_retornar_o_objeto_esperado_no_metodo_obter_por_id()
         {
             var listaProduto = CriarLista();
             var retornoProduto = _repositorioProduto.ObterPorId(1);
@@ -32,10 +33,75 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_um_id_que_não_existe()
+        public void dever_estourar_excecao_por_enviar_id_que_nao_existe()
         {
             var lista = CriarLista();
             Assert.Throws<Exception>(() => _repositorioProduto.ObterPorId(4));
+        }
+
+        [Fact]
+        public void deve_adicionar_um_novo_produto_na_lista_singleton()
+        {
+            var produto = new Produto 
+            { 
+                Id = 5,
+                Nome = "teste", 
+                ValorDoProduto = 12.50m, 
+                DataCadastro = DateTime.Parse("03/06/2024"), 
+                TemDataValida = true, 
+                DataValidade = DateTime.Parse("12/10/2024"),
+                EmpresaId = 5
+            };
+            _repositorioProduto.Adicionar(produto);
+            var retornoProduto = ProdutoSingleton.Instancia.FirstOrDefault()
+                 ?? throw new Exception($"O ID {produto.Id} não foi encontrado"); ;
+            Assert.Equivalent(retornoProduto, produto);
+        }
+
+        [Fact]
+        public void deve_estourar_uma_excecao_ao_mandar_um_id_vazio()
+        {
+            var produto = new Produto
+            {
+                Nome = "teste",
+                ValorDoProduto = 12.50m,
+                DataCadastro = DateTime.Today,
+                TemDataValida = true,
+                DataValidade = DateTime.Parse("12/10/2024"),
+                EmpresaId = 3
+            };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
+        }
+
+        [Fact]
+        public void deve_estourar_uma_excecao_ao_mandar_um_nome_vazio()
+        {
+            var produto = new Produto
+            {
+                Id = 2,
+                ValorDoProduto = 12.50m,
+                DataCadastro = DateTime.Today,
+                TemDataValida = true,
+                DataValidade = DateTime.Parse("12/10/2024"),
+                EmpresaId = 3
+            };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
+        }
+
+        [Fact]
+        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_id_vazio_esta_correta()
+        {
+            var produto = new Produto
+            {
+                Nome = "teste",
+                ValorDoProduto = 12.50m,
+                DataCadastro = DateTime.Today,
+                TemDataValida = true,
+                DataValidade = DateTime.Parse("12/10/2024"),
+                EmpresaId = 3
+            };
+            var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
+            Assert.Equal("O campo id é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
         public List<Produto> CriarLista()

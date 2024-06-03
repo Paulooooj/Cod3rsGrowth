@@ -13,9 +13,11 @@ namespace Cod3rsGrowth.Testes.Testes
         {
             _repositorioEmpresa = ServiceProvider.GetService<IRepositorioEmpresa>()
                 ?? throw new Exception($"Erro ao obter servico {nameof(IRepositorioEmpresa)}");
+            EmpresaSingleton.Instancia.Clear();
         }
+
         [Fact]
-        public void testar_se_o_obtertodos_retorna_o_valor_esperado()
+        public void deve_retornar_o_objeto_esperado_no_metodo_obter_todos()
         {
             var listaEmpresa = CriarLista();
             var listaEmpresaRetornada = _repositorioEmpresa.ObterTodos();
@@ -23,7 +25,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_se_retorna_o_objeto_certo_por_id()
+        public void deve_retornar_o_objeto_esperado_no_metodo_obter_por_id()
         {
             var listaEmpresa = CriarLista();
             var retornoEmpresa = _repositorioEmpresa.ObterPorId(2);
@@ -31,10 +33,50 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void testar_um_id_que_não_existe()
+        public void dever_estourar_excecao_por_enviar_id_que_nao_existe()
         {
             var lista = CriarLista();
             Assert.Throws<Exception>(() => _repositorioEmpresa.ObterPorId(4));
+        }
+
+        [Fact]
+        public void deve_adicionar_um_nova_empresa_na_lista_singleton()
+        {
+            var empresa = new Empresa {Id = 5, RazaoSocial = "EmpresaTestea", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
+            _repositorioEmpresa.Adicionar(empresa);
+            var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault() 
+                ?? throw new Exception($"O ID {empresa.Id} não foi encontrado"); ;
+            Assert.Equivalent(empresa, retornoEmpresa);
+        }
+
+        [Fact]
+        public void deve_estourar_uma_excecao_ao_mandar_um_id_vazio()
+        {
+            var empresa = new Empresa {RazaoSocial = "EmpresaTestea", CNPJ = "97483647581234", Ramo = EnumRamoDaEmpresa.Servico };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
+        }
+
+        [Fact]
+        public void deve_estourar_uma_excecao_ao_mandar_um_razaosocial_vazia()
+        {
+            var empresa = new Empresa { Id = 6, CNPJ = "27348926374839", Ramo = EnumRamoDaEmpresa.Servico };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
+        }
+
+
+        [Fact]
+        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_id_vazio_esta_correta()
+        {
+            var empresa = new Empresa { RazaoSocial = "EmpresaTestea", CNPJ = "93748374898123", Ramo = EnumRamoDaEmpresa.Servico };
+            var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
+            Assert.Equal("O campo id é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
+        }
+
+        [Fact]
+        public void  deve_estourar_excecao_caso_enum_seja_vazio()
+        {
+            var empresa = new Empresa { Id = 6, RazaoSocial = "EmpresaTestea", CNPJ = "17384563927162" };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
         }
 
         public List<Empresa> CriarLista()
@@ -45,21 +87,21 @@ namespace Cod3rsGrowth.Testes.Testes
                 {
                    Id = 1,
                    RazaoSocial = "InventSoftware",
-                   CNPJ = "123456789",
+                   CNPJ = "16274837465234",
                    Ramo = EnumRamoDaEmpresa.Servico
                 },
                 new Empresa
                 {
                    Id = 2,
                    RazaoSocial = "Heinz",
-                   CNPJ = "987654321",
+                   CNPJ = "83748362748959",
                    Ramo = EnumRamoDaEmpresa.Industria
                 },
                 new Empresa
                 {
                    Id = 3,
                    RazaoSocial = "LojasAmericanas",
-                   CNPJ = "543216789",
+                   CNPJ = "17238765364783",
                    Ramo = EnumRamoDaEmpresa.Comercio
                 },
             };
