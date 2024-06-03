@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Servico.Validacao
 
             RuleFor(x => x.DataValidade)
                 .Must(x => x > DateTime.Today || x == DateTime.MinValue)
-                .WithMessage("Não pode ser a data de hoje");
+                .WithMessage("Não pode ser uma data menor ou igual a hoje");
       
             RuleFor(x => x.EmpresaId)
                 .NotNull().WithMessage("O Id não pode ser nulo")
