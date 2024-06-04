@@ -103,6 +103,39 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Equal("O campo Razão Social é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
+        [Fact]
+        public void deve_remover_um_objeto_escolhido_na_lista()
+        {
+            CriarLista();
+            var empresa = new Empresa
+            {
+                Id = 1,
+                RazaoSocial = "InventSoftware",
+                CNPJ = "16274837465234",
+                Ramo = EnumRamoDaEmpresa.Servico
+            };
+
+            _repositorioEmpresa.Deletar(empresa.Id);
+            Assert.DoesNotContain(EmpresaSingleton.Instancia, x => x == empresa);
+        }
+
+        [Fact]
+        public void dever_estourar_excecao_ao_mandar_um_id_invalido()
+        {
+            CriarLista();
+            int idInvalido = 5;
+            Assert.Throws<Exception>(() => _repositorioEmpresa.Deletar(idInvalido));
+        }
+
+        [Fact]
+        public void deve_verificar_se_ao_mandar_um_id_invalido_retorna_a_mensagem_correta()
+        {
+            CriarLista();
+            int idInvalido = 5;
+            var mensagemDeErro = Assert.Throws<System.Exception>(() => _repositorioEmpresa.Deletar(idInvalido));
+            Assert.Equal($"Empresa com Id: {idInvalido} não encontrado", mensagemDeErro.Message);
+        }
+
         public List<Empresa> CriarLista()
         {
             var listaEmpresa = new List<Empresa>

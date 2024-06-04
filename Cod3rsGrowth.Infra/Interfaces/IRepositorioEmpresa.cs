@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Infra.Interfaces
         List<Empresa> ObterTodos();
         void Adicionar(Empresa empresa);
         void Atualizar(Empresa empresa);
-        void Deletar(Empresa empresa);
+        void Deletar(int id);
         Empresa ObterPorId(int id);
     }
 }
