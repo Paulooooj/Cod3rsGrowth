@@ -26,7 +26,7 @@ namespace Cod3rsGrowth.Testes
         {
             _produtoValidacao.ValidateAndThrow(produtoAtualizado);
             var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produtoAtualizado.Id)
-                ?? throw new Exception($"O Id {produtoAtualizado.Id} não existe"); 
+                ?? throw new Exception($"Produto com Id: {produtoAtualizado.Id} não encontrado"); 
             var posicao = _intanciaProdutoSingleton.FindIndex(x => x.Id == produtoAtualizado.Id);
             _intanciaProdutoSingleton[posicao] = produtoAtualizado;
         }
@@ -34,14 +34,14 @@ namespace Cod3rsGrowth.Testes
         public void Deletar(int id)
         {
             var objetoASerRemovido = _intanciaProdutoSingleton.Find(x => x.Id == id)
-                ?? throw new Exception($"O Id {id} não foi encontrado");
+                ?? throw new Exception($"Produto com Id: {id} não encontrado");
             _intanciaProdutoSingleton.Remove(objetoASerRemovido);
         }
 
         public Produto ObterPorId(int id)
         {
             var produto = _intanciaProdutoSingleton.Where(x => x.Id == id).FirstOrDefault()
-                ?? throw new Exception($"O ID {id} não foi encontrado");
+                ?? throw new Exception($"Produto com Id: {id} não encontrado");
             return produto;
         }
 

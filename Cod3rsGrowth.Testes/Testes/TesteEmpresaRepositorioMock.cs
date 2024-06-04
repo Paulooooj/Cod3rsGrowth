@@ -133,7 +133,7 @@ namespace Cod3rsGrowth.Testes.Testes
             CriarLista();
             int idInvalido = 5;
             var mensagemDeErro = Assert.Throws<System.Exception>(() => _repositorioEmpresa.Deletar(idInvalido));
-            Assert.Equal($"O Id {idInvalido} não foi encontrado", mensagemDeErro.Message);
+            Assert.Equal($"Empresa com Id: {idInvalido} não encontrado", mensagemDeErro.Message);
         }
 
         public List<Empresa> CriarLista()
