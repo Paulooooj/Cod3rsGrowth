@@ -31,9 +31,11 @@ namespace Cod3rsGrowth.Testes
             _instanciaEmpresaSingleton[posicao] = empresaAtualizada;
         }
 
-        public void Deletar(Empresa empresa)
+        public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            var objetoASerRemovido = _instanciaEmpresaSingleton.Find(x => x.Id == id)
+                ?? throw new Exception($"O Id {id} não existe");
+            _instanciaEmpresaSingleton.Remove(objetoASerRemovido);
         }
 
         public Empresa ObterPorId(int id)

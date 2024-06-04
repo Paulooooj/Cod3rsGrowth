@@ -31,9 +31,11 @@ namespace Cod3rsGrowth.Testes
             _intanciaProdutoSingleton[posicao] = produtoAtualizado;
         }
 
-        public void Deletar(Produto produto)
+        public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            var objetoASerRemovido = _intanciaProdutoSingleton.Find(x => x.Id == id)
+                ?? throw new Exception($"O Id {id} não existe");
+            _intanciaProdutoSingleton.Remove(objetoASerRemovido);
         }
 
         public Produto ObterPorId(int id)

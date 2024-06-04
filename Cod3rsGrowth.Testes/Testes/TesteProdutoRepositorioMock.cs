@@ -155,6 +155,41 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Equal("O campo Nome é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
+        [Fact]
+        public void deve_remover_um_objeto_escolhido_na_lista()
+        {
+            CriarLista();
+            var produto = new Produto
+            {
+                Id = 1,
+                Nome = "BankPlus",
+                ValorDoProduto = 10500m,
+                DataCadastro = DateTime.Today,
+                TemDataValida = false,
+                DataValidade = null,
+                EmpresaId = 1
+            };
+            _repositorioProduto.Deletar(produto.Id);
+            Assert.DoesNotContain(ProdutoSingleton.Instancia, x => x == produto);
+        }
+
+        [Fact]
+        public void dever_estourar_excecao_ao_mandar_um_id_invalido()
+        {
+            CriarLista();
+            int idInvalido = 5;
+            Assert.Throws<Exception>(() => _repositorioProduto.Deletar(idInvalido));
+        }
+
+        [Fact]
+        public void deve_verificar_se_ao_mandar_um_id_invalido_retorna_a_mensagem_correta()
+        {
+            CriarLista();
+            int idInvalido = 5;
+            var mensagemDeErro = Assert.Throws<System.Exception>(() => _repositorioProduto.Deletar(idInvalido));
+            Assert.Equal($"O Id {idInvalido} não existe", mensagemDeErro.Message);
+        }
+
         public List<Produto> CriarLista()
         {
             var listaProduto = new List<Produto>
