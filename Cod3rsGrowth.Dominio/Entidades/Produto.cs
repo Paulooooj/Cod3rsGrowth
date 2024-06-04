@@ -7,7 +7,7 @@
         public decimal ValorDoProduto { get; set; }
         public DateTime DataCadastro { get; set; }
         public bool TemDataValida { get; set; }
-        public DateTime DataValidade { get; set; }
+        public DateTime? DataValidade { get; set; }
         public int EmpresaId { get; set; }
     }
 }

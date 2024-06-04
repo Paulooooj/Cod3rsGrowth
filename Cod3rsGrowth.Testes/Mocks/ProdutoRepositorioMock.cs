@@ -8,23 +8,27 @@ namespace Cod3rsGrowth.Testes
     public class ProdutoRepositorioMock : IRepositorioProduto
     {
         private readonly ProdutoSingleton _intanciaProdutoSingleton;
-        private readonly IValidator<Produto> _empresaValidacao;
+        private readonly IValidator<Produto> _produtoValidacao;
 
-        public ProdutoRepositorioMock(IValidator<Produto> empresaValidacao)
+        public ProdutoRepositorioMock(IValidator<Produto> produtoValidacao)
         {
             _intanciaProdutoSingleton = ProdutoSingleton.Instancia;
-            _empresaValidacao = empresaValidacao;
+            _produtoValidacao = produtoValidacao;
         }
 
         public void Adicionar(Produto produto)
         {
-            _empresaValidacao.ValidateAndThrow(produto);
+            _produtoValidacao.ValidateAndThrow(produto);
             _intanciaProdutoSingleton.Add(produto);
         }
 
-        public void Atualizar(Produto produto)
+        public void Atualizar(Produto produtoAtualizado)
         {
-            throw new NotImplementedException();
+            _produtoValidacao.ValidateAndThrow(produtoAtualizado);
+            var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produtoAtualizado.Id)
+                ?? throw new Exception($"O Id {produtoAtualizado.Id} não existe"); 
+            var posicao = _intanciaProdutoSingleton.FindIndex(x => x.Id == produtoAtualizado.Id);
+            _intanciaProdutoSingleton[posicao] = produtoAtualizado;
         }
 
         public void Deletar(Produto produto)

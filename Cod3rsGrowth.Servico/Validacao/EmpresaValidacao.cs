@@ -1,7 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
-using System.Text.RegularExpressions;
 
 namespace Cod3rsGrowth.Servico.Validacao
 {
@@ -43,9 +41,7 @@ namespace Cod3rsGrowth.Servico.Validacao
 
         public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa) 
         {
-            if(enumRamoEmpresa == EnumRamoDaEmpresa.NaoDefinido) return false;
-            return true;
-
+            return !(enumRamoEmpresa == EnumRamoDaEmpresa.NaoDefinido);
         }
     }
 }
