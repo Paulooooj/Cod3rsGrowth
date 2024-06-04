@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using FluentValidation;
+using System.Reflection.Emit;
 
 namespace Cod3rsGrowth.Servico.Validacao
 {
@@ -29,10 +30,10 @@ namespace Cod3rsGrowth.Servico.Validacao
             RuleFor(x => x.TemDataValida)
                 .NotNull().WithMessage("campo obrigatorio");
 
-            RuleFor(x => x.DataValidade)
-                .Must(x => x > DateTime.Today || x == null)
-                .WithMessage("Não pode ser uma data menor ou igual a hoje");
-      
+            RuleFor(x => x)
+                .Must(x => x.DataValidade >= x.DataCadastro.AddMonths(3) || x.DataValidade == null)
+                .WithMessage("O produto deve ter data de validade de no mínimo três meses");
+
             RuleFor(x => x.EmpresaId)
                 .NotNull().WithMessage("O Id não pode ser nulo")
                 .NotEmpty()
