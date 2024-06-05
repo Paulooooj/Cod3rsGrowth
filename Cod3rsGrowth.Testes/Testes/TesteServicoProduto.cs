@@ -1,17 +1,16 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interfaces;
-using Cod3rsGrowth.Infra.Singleton;
+using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Testes.Testes
 {
     public class TesteServicoProduto : TesteBase
     {
-        private readonly IServicoProduto _servicoProduto;
+        private readonly ServicoProduto _servicoProduto;
         public TesteServicoProduto()
         {
-            _servicoProduto = ServiceProvider.GetService<IServicoProduto>()
-                ?? throw new Exception($"Erro ao obter servico {nameof(IServicoProduto)}");
+            _servicoProduto = ServiceProvider.GetService<ServicoProduto>()
+                ?? throw new Exception($"Erro ao obter servico {nameof(ServicoProduto)}");
         }
 
         [Fact]

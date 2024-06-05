@@ -1,9 +1,8 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Dominio.Servicos
 {
-    public class ServicoEmpresa : IServicoEmpresa
+    public class ServicoEmpresa 
     {
         public List<Empresa> CriarLista()
         {

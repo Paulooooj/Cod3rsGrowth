@@ -1,10 +1,8 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Singleton;
-using Cod3rsGrowth.Dominio.Interfaces;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
-    public class ServicoProduto : IServicoProduto
+    public class ServicoProduto 
     {
         public List<Produto> CriarLista()
         {

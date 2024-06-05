@@ -1,16 +1,16 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interfaces;
+using Cod3rsGrowth.Dominio.Servicos;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Testes.Testes
 {
     public class TesteServicoEmpresa : TesteBase
     {
-        private readonly IServicoEmpresa _servicoEmpresa;
+        private readonly ServicoEmpresa _servicoEmpresa;
         public TesteServicoEmpresa()
         {
-            _servicoEmpresa = ServiceProvider.GetService<IServicoEmpresa>()
-                ?? throw new Exception($"Erro ao obter servico {nameof(IServicoEmpresa)}");
+            _servicoEmpresa = ServiceProvider.GetService<ServicoEmpresa>()
+                ?? throw new Exception($"Erro ao obter servico {nameof(ServicoEmpresa)}");
         }
 
         [Fact]

@@ -1,5 +1,4 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servico.Servicos;
@@ -13,8 +12,8 @@ namespace Cod3rsGrowth.Testes
     {
       public static void AdicionarDependenciasNoEscopo(ServiceCollection servico)
         {
-            servico.AddScoped<IServicoEmpresa, ServicoEmpresa>();
-            servico.AddScoped<IServicoProduto, ServicoProduto>();
+            servico.AddScoped<ServicoEmpresa>();
+            servico.AddScoped<ServicoProduto>();
             servico.AddScoped<IValidator<Empresa>, EmpresaValidacao>();
             servico.AddScoped<IValidator<Produto>, ProdutoValidacao>();
             servico.AddScoped<IRepositorioEmpresa, EmpresaRepositorioMock>();
