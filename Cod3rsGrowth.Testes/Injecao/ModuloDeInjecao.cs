@@ -1,7 +1,10 @@
-﻿using Cod3rsGrowth.Dominio.Interfaces;
+﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Dominio.Interfaces;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Servico.Servicos;
+using Cod3rsGrowth.Servico.Validacao;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Testes
@@ -12,8 +15,10 @@ namespace Cod3rsGrowth.Testes
         {
             servico.AddScoped<IServicoEmpresa, ServicoEmpresa>();
             servico.AddScoped<IServicoProduto, ServicoProduto>();
-            servico.AddScoped<IEmpresaRepositorio, EmpresaRepositorioMock>();
-            servico.AddScoped<IProdutoRepositorio, ProdutoRepositorioMock>();
+            servico.AddScoped<IValidator<Empresa>, EmpresaValidacao>();
+            servico.AddScoped<IValidator<Produto>, ProdutoValidacao>();
+            servico.AddScoped<IRepositorioEmpresa, EmpresaRepositorioMock>();
+            servico.AddScoped<IRepositorioProduto, ProdutoRepositorioMock>();
         }
     }
 }

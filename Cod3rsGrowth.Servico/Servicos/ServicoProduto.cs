@@ -12,6 +12,15 @@ namespace Cod3rsGrowth.Servico.Servicos
             {
                 new Produto
                 {
+                    Id = 1,
+                    Nome = "BankPlus",
+                    ValorDoProduto = 10500m,
+                    DataCadastro = DateTime.Today,
+                    TemDataValida = false,
+                    EmpresaId = 1
+                },
+                new Produto
+                {
                     Id = 2,
                     Nome = "Molho de Tomate",
                     ValorDoProduto = 5.50m,
@@ -19,15 +28,6 @@ namespace Cod3rsGrowth.Servico.Servicos
                     TemDataValida = true,
                     DataValidade = DateTime.Parse("30/05/2024"),
                     EmpresaId = 2
-                },
-                new Produto
-                {
-                    Id = 1,
-                    Nome = "BankPlus",
-                    ValorDoProduto = 10500m,
-                    DataCadastro = DateTime.Today,
-                    TemDataValida = false,
-                    EmpresaId = 1
                 },
                 new Produto
                 {
@@ -40,9 +40,7 @@ namespace Cod3rsGrowth.Servico.Servicos
                     EmpresaId = 3
                 },
             };
-            var listaDeProdutos = ProdutoSingleton.Instancia;
-            listaDeProdutos.AddRange(listaProduto);
-            return listaDeProdutos;
+            return listaProduto;
         }
     }
 }
