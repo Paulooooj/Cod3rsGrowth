@@ -31,8 +31,7 @@ namespace Cod3rsGrowth.Servico.Validacao
 
         private static bool ValidarSeECNPJ(string cnpj)
         {
-                var valid = cnpj.All(char.IsDigit);
-                return valid;
+                return cnpj.All(char.IsDigit);
         }
 
         public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa) 
