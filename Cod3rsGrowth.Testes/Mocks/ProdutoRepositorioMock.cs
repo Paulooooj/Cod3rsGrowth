@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Testes
 
         public Produto ObterPorId(int id)
         {
-            var produto = _intanciaProdutoSingleton.Where(x => x.Id == id).FirstOrDefault()
+            var produto = _intanciaProdutoSingleton.Find(x => x.Id == id)
                 ?? throw new Exception($"Produto com Id: {id} não encontrado");
             return produto;
         }

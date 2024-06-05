@@ -9,17 +9,13 @@ namespace Cod3rsGrowth.Servico.Validacao
         {
             ClassLevelCascadeMode = CascadeMode.Stop;
 
-            RuleFor(x => x.Id)
-                .NotEmpty()
-                .WithMessage("O campo id é obrigatorio");
-
             RuleFor(x => x.RazaoSocial)
                 .NotEmpty()
                 .WithMessage("O campo Razão Social é obrigatorio")
                 .MaximumLength(20)
                 .WithMessage("Número máximo de caracteres atingido");
 
-            RuleFor(x => x.CNPJ)
+            RuleFor(x => x.CNPJ).Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .WithMessage("O campo CNPJ é obrigatorio")
                 .Length(14)
@@ -35,8 +31,8 @@ namespace Cod3rsGrowth.Servico.Validacao
 
         private static bool ValidarSeECNPJ(string cnpj)
         {
-            var valid = cnpj.All(char.IsDigit);
-            return valid;
+                var valid = cnpj.All(char.IsDigit);
+                return valid;
         }
 
         public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa) 

@@ -49,9 +49,9 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void deve_estourar_uma_excecao_ao_mandar_um_id_vazio()
+        public void deve_estourar_uma_excecao_ao_mandar_um_cnpj_vazio()
         {
-            var empresa = new Empresa {RazaoSocial = "EmpresaTestea", CNPJ = "97483647581234", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 1, RazaoSocial = "EmpresaTestea", Ramo = EnumRamoDaEmpresa.Servico };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
         }
 
@@ -63,11 +63,11 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_id_vazio_esta_correta()
+        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_cnpj_vazio_esta_correta()
         {
-            var empresa = new Empresa { RazaoSocial = "EmpresaTestea", CNPJ = "93748374898123", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa {Id = 1, RazaoSocial = "EmpresaTestea", Ramo = EnumRamoDaEmpresa.Servico };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
-            Assert.Equal("O campo id é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
+            Assert.Equal("O campo CNPJ é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
         [Fact]

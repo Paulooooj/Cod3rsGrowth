@@ -58,12 +58,11 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void deve_estourar_uma_excecao_ao_mandar_um_id_vazio()
+        public void deve_estourar_uma_excecao_ao_mandar_um_valorDoProduto_vazio()
         {
             var produto = new Produto
             {
                 Nome = "teste",
-                ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
                 TemDataValida = true,
                 DataValidade = DateTime.Parse("12/10/2024"),
@@ -88,19 +87,18 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_id_vazio_esta_correta()
+        public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_valorDoProduto_vazio_esta_correta()
         {
             var produto = new Produto
             {
                 Nome = "teste",
-                ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
                 TemDataValida = true,
                 DataValidade = DateTime.Parse("12/10/2024"),
                 EmpresaId = 3
             };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
-            Assert.Equal("O campo id é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
+            Assert.Equal("O campo valor é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
         [Fact]

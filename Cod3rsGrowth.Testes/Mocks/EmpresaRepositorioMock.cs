@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Testes
 
         public Empresa ObterPorId(int id)
         {
-            var empresa = _instanciaEmpresaSingleton.Where(x => x.Id == id).FirstOrDefault()
+            var empresa = _instanciaEmpresaSingleton.Find(x => x.Id == id)
                 ?? throw new Exception($"Empresa com Id: {id} não encontrado");
             return empresa;
         }
