@@ -27,7 +27,7 @@ namespace Cod3rsGrowth.Testes
             _empresaValidacao.ValidateAndThrow(empresaAtualizada);
             var verificacaoSeTemID = _instanciaEmpresaSingleton.Find(x => x.Id == empresaAtualizada.Id)
                 ?? throw new Exception($"Empresa com Id: {empresaAtualizada.Id} não encontrado");
-            var posicao = _instanciaEmpresaSingleton.FindIndex(x => x.Id == empresaAtualizada.Id);
+            var posicao = _instanciaEmpresaSingleton.IndexOf(verificacaoSeTemID);
             _instanciaEmpresaSingleton[posicao] = empresaAtualizada;
         }
 
