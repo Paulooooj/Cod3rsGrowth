@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Cod3rsGrowth.Dominio.Servicos
 {
-    public class ServicoEmpresa 
+    public class ServicoEmpresa
     {
         public List<Empresa> CriarLista()
         {
@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Dominio.Servicos
                    Ramo = EnumRamoDaEmpresa.Comercio
                 },
             };
-            return listaEmpresa;      
-        }        
+            return listaEmpresa;
+        }
     }
 }

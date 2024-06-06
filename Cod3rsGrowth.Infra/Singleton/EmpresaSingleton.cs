@@ -8,14 +8,14 @@ namespace Cod3rsGrowth.Infra.Singleton
         private EmpresaSingleton()
         {
         }
-        
+
         private static EmpresaSingleton? _instancia;
         public static EmpresaSingleton Instancia
         {
             get
             {
-                    lock (typeof(EmpresaSingleton))
-                        if (_instancia == null) _instancia = new EmpresaSingleton();
+                lock (typeof(EmpresaSingleton))
+                    if (_instancia == null) _instancia = new EmpresaSingleton();
                 return _instancia;
             }
         }

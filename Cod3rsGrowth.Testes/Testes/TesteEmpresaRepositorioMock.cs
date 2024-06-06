@@ -42,9 +42,9 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_adicionar_um_nova_empresa_na_lista_singleton()
         {
-            var empresa = new Empresa {Id = 5, RazaoSocial = "EmpresaTestea", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 5, RazaoSocial = "EmpresaTestea", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Adicionar(empresa);
-            var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault(); 
+            var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault();
             Assert.Equivalent(empresa, retornoEmpresa);
         }
 
@@ -65,22 +65,22 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_cnpj_vazio_esta_correta()
         {
-            var empresa = new Empresa {Id = 1, RazaoSocial = "EmpresaTestea", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 1, RazaoSocial = "EmpresaTestea", Ramo = EnumRamoDaEmpresa.Servico };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
             Assert.Equal("O campo CNPJ é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
         [Fact]
-        public void  deve_estourar_excecao_caso_enum_seja_vazio()
+        public void deve_estourar_excecao_caso_enum_seja_vazio()
         {
-            var empresa = new Empresa { Id = 6, RazaoSocial = "EmpresaTestea", CNPJ = "17384563927162"};
+            var empresa = new Empresa { Id = 6, RazaoSocial = "EmpresaTestea", CNPJ = "17384563927162" };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Adicionar(empresa));
         }
 
         [Fact]
         public void deve_atualizar_um_objeto_escolhido_na_lista()
         {
-           var listaRetornada = CriarLista();
+            var listaRetornada = CriarLista();
             var empresa = new Empresa { Id = 2, RazaoSocial = "EstudioMusical", CNPJ = "12345678954367", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Atualizar(empresa);
             var retornoEmpresa = EmpresaSingleton.Instancia.Where(x => x.Id == empresa.Id).FirstOrDefault();
@@ -98,7 +98,7 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_verificar_se_a_mensagem_apos_estourar_uma_excecao_de_enviar_um_razaosocial_vazio_no_metodo_atualizar_esta_correta()
         {
-            var empresa = new Empresa {Id = 2, CNPJ = "93748374898123", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 2, CNPJ = "93748374898123", Ramo = EnumRamoDaEmpresa.Servico };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Atualizar(empresa));
             Assert.Equal("O campo Razão Social é obrigatorio", mensagemDeErro.Errors.Single().ErrorMessage);
         }

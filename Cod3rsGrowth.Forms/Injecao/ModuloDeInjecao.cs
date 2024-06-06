@@ -6,7 +6,6 @@ namespace Cod3rsGrowth.Forms.Injecao
     {
         public static void AdicionarDependenciasNoEscopo(ServiceCollection servico)
         {
-
         }
     }
 }

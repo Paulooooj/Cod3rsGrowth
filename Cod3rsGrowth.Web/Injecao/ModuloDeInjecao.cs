@@ -4,7 +4,6 @@
     {
         public static void AdicionarDependenciasNoEscopo(ServiceCollection servico)
         {
-           
         }
     }
 }

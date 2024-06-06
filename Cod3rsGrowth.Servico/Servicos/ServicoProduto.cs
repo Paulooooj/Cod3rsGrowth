@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
-    public class ServicoProduto 
+    public class ServicoProduto
     {
         public List<Produto> CriarLista()
         {

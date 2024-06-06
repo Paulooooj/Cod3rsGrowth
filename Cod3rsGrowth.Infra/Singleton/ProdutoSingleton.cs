@@ -7,15 +7,15 @@ namespace Cod3rsGrowth.Infra.Singleton
     {
         private ProdutoSingleton()
         {
-        } 
+        }
 
         private static ProdutoSingleton? _instancia;
         public static ProdutoSingleton Instancia
         {
             get
             {
-                    lock (typeof(ProdutoSingleton))
-                        if (_instancia == null) _instancia = new ProdutoSingleton();
+                lock (typeof(ProdutoSingleton))
+                    if (_instancia == null) _instancia = new ProdutoSingleton();
                 return _instancia;
             }
         }

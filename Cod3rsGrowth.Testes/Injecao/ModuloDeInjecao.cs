@@ -10,7 +10,7 @@ namespace Cod3rsGrowth.Testes
 {
     public static class ModuloDeInjecao
     {
-      public static void AdicionarDependenciasNoEscopo(ServiceCollection servico)
+        public static void AdicionarDependenciasNoEscopo(ServiceCollection servico)
         {
             servico.AddScoped<ServicoEmpresa>();
             servico.AddScoped<ServicoProduto>();

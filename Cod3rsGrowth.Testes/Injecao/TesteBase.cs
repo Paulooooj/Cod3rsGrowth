@@ -10,12 +10,12 @@ namespace Cod3rsGrowth.Testes
         {
             var servicos = new ServiceCollection();
             ModuloDeInjecao.AdicionarDependenciasNoEscopo(servicos);
-            ServiceProvider = servicos.BuildServiceProvider();      
+            ServiceProvider = servicos.BuildServiceProvider();
         }
 
         public void Dispose()
         {
-            ServiceProvider.Dispose();         
+            ServiceProvider.Dispose();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
                 TemDataValida = true,
-                DataValidade = DateTime.Parse("5/09/2024"),
+                DataValidade = DateTime.Parse("10/09/2024"),
                 EmpresaId = 5
             };
             _repositorioProduto.Adicionar(produto);

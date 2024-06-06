@@ -26,7 +26,7 @@ namespace Cod3rsGrowth.Testes
         {
             _produtoValidacao.ValidateAndThrow(produtoAtualizado);
             var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produtoAtualizado.Id)
-                ?? throw new Exception($"Produto com Id: {produtoAtualizado.Id} não encontrado"); 
+                ?? throw new Exception($"Produto com Id: {produtoAtualizado.Id} não encontrado");
             var posicao = _intanciaProdutoSingleton.FindIndex(x => x.Id == produtoAtualizado.Id);
             _intanciaProdutoSingleton[posicao] = produtoAtualizado;
         }
@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Testes
 
         public List<Produto> ObterTodos()
         {
-           return _intanciaProdutoSingleton;
+            return _intanciaProdutoSingleton;
         }
     }
 }
