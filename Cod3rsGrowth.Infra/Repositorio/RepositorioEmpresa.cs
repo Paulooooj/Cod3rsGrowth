@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
             {
                 if (!string.IsNullOrEmpty(filtro.RazaoSocial))
                 {
-                    listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial == filtro.RazaoSocial);
+                    listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro.RazaoSocial));
                 }
                 if (filtro.Ramo != null)
                 {

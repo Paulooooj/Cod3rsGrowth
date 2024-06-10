@@ -44,7 +44,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
             {
                 if (!string.IsNullOrEmpty(filtro.Nome))
                 {
-                    listaProduto = listaProduto.FindAll(x => x.Nome == filtro.Nome);
+                    listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro.Nome));
                 }
                 if (filtro.ValorDoProduto != null)
                 {
