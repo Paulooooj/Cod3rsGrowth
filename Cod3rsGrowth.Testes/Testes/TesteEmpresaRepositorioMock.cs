@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ namespace Cod3rsGrowth.Testes.Testes
     public class TesteEmpresaRepositorioMock : TesteBase
     {
         private readonly IRepositorioEmpresa _repositorioEmpresa;
+        public DbCod3rsGrowth db;
 
         public TesteEmpresaRepositorioMock()
         {
