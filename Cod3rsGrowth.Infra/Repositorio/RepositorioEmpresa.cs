@@ -45,7 +45,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
                 {
                     listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial == filtro.RazaoSocial).ToList();
                 }
-                if(filtro.Ramo != EnumRamoDaEmpresa.NaoDefinido)
+                if(filtro.Ramo != null)
                 {
                     listaEmpresa = listaEmpresa.Where(x => x.Ramo == filtro.Ramo).ToList();
                 }
