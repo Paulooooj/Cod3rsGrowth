@@ -2,8 +2,6 @@
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using LinqToDB;
-using Microsoft.AspNetCore.Builder;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,14 +9,16 @@ namespace Cod3rsGrowth.Infra.Repositorio
 {
     public class RepositorioEmpresa : IRepositorioEmpresa
     {
-        private readonly DbCod3rsGrowth db;
+        private readonly DbCod3rsGrowth _db;
+
         public RepositorioEmpresa(DbCod3rsGrowth dbCod3Rs)
         {
-            db = dbCod3Rs;
+            _db = dbCod3Rs;
         }
+
         public void Adicionar(Empresa empresa)
         {
-           
+
         }
 
         public void Atualizar(Empresa empresa)
@@ -38,16 +38,16 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
-            var listaEmpresa = db.GetTable<Empresa>().ToList();
+            var listaEmpresa = _db.GetTable<Empresa>().ToList();
             if (filtro != null)
             {
-                if(filtro.RazaoSocial != null)
+                if (!string.IsNullOrEmpty(filtro.RazaoSocial))
                 {
-                    listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial == filtro.RazaoSocial).ToList();
+                    listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial == filtro.RazaoSocial);
                 }
-                if(filtro.Ramo != null)
+                if (filtro.Ramo != null)
                 {
-                    listaEmpresa = listaEmpresa.Where(x => x.Ramo == filtro.Ramo).ToList();
+                    listaEmpresa = listaEmpresa.FindAll(x => x.Ramo == filtro.Ramo);
                 }
                 return listaEmpresa;
             }

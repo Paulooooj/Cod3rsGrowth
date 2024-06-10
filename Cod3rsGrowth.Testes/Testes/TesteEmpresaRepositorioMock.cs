@@ -9,7 +9,6 @@ namespace Cod3rsGrowth.Testes.Testes
     public class TesteEmpresaRepositorioMock : TesteBase
     {
         private readonly IRepositorioEmpresa _repositorioEmpresa;
-        public DbCod3rsGrowth db;
 
         public TesteEmpresaRepositorioMock()
         {

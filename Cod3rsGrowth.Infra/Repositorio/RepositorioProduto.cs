@@ -10,11 +10,11 @@ namespace Cod3rsGrowth.Infra.Repositorio
 {
     public class RepositorioProduto : IRepositorioProduto
     {
-        private readonly DbCod3rsGrowth db;
-        
+        private readonly DbCod3rsGrowth _db;
+
         public RepositorioProduto(DbCod3rsGrowth dbCoders)
         {
-            db = dbCoders;
+            _db = dbCoders;
         }
 
         public void Adicionar(Produto produto)
@@ -39,20 +39,20 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            var listaProduto = db.GetTable<Produto>().ToList();
-            if(filtro != null)
+            var listaProduto = _db.GetTable<Produto>().ToList();
+            if (filtro != null)
             {
-                if(filtro.Nome != null)
+                if (!string.IsNullOrEmpty(filtro.Nome))
                 {
-                   listaProduto = listaProduto.Where(x => x.Nome == filtro.Nome).ToList();
+                    listaProduto = listaProduto.FindAll(x => x.Nome == filtro.Nome);
                 }
-                if(filtro.ValorDoProduto != null)
+                if (filtro.ValorDoProduto != null)
                 {
-                    listaProduto = listaProduto.Where(x => x.ValorDoProduto == filtro.ValorDoProduto).ToList();
+                    listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro.ValorDoProduto);
                 }
-                if(filtro.DataCadastro != null)
+                if (filtro.DataCadastro != null)
                 {
-                    listaProduto = listaProduto.Where(x => x.DataCadastro == filtro.DataCadastro).ToList();
+                    listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro.DataCadastro);
                 }
                 return listaProduto;
             }
