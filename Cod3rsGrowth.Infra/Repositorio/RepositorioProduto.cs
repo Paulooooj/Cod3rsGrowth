@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Adicionar(Produto produto)
         {
-            throw new NotImplementedException();
+            _db.Insert(produto);
         }
 
         public void Atualizar(Produto produto)
