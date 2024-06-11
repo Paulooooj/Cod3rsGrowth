@@ -35,7 +35,7 @@ namespace Cod3rsGrowth.Servico.Validacao
             return cnpj.All(char.IsDigit);
         }
 
-        public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa) 
+        public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa)
         {
             return !(enumRamoEmpresa == EnumRamoDaEmpresa.NaoDefinido);
         }

@@ -39,17 +39,14 @@ namespace Cod3rsGrowth.Infra.Repositorio
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
             var listaEmpresa = _db.GetTable<Empresa>().ToList();
-            if (filtro != null)
+
+            if (!string.IsNullOrEmpty(filtro.RazaoSocial))
             {
-                if (!string.IsNullOrEmpty(filtro.RazaoSocial))
-                {
-                    listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro.RazaoSocial));
-                }
-                if (filtro.Ramo != null)
-                {
-                    listaEmpresa = listaEmpresa.FindAll(x => x.Ramo == filtro.Ramo);
-                }
-                return listaEmpresa;
+                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro.RazaoSocial));
+            }
+            if (filtro.Ramo != null)
+            {
+                listaEmpresa = listaEmpresa.FindAll(x => x.Ramo == filtro.Ramo);
             }
             return listaEmpresa;
         }
