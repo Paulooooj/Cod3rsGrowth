@@ -1,12 +1,22 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
+using LinqToDB;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cod3rsGrowth.Infra.Repositorio
 {
     public class RepositorioProduto : IRepositorioProduto
     {
+        private readonly DbCod3rsGrowth _db;
+
+        public RepositorioProduto(DbCod3rsGrowth dbCoders)
+        {
+            _db = dbCoders;
+        }
+
         public void Adicionar(Produto produto)
         {
             throw new NotImplementedException();
@@ -27,9 +37,23 @@ namespace Cod3rsGrowth.Infra.Repositorio
             throw new NotImplementedException();
         }
 
-        public List<Produto> ObterTodos()
+        public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            throw new NotImplementedException();
+            var listaProduto = _db.GetTable<Produto>().ToList();
+
+            if (!string.IsNullOrEmpty(filtro?.Nome))
+            {
+                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome));
+            }
+            if (filtro?.ValorDoProduto != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro?.ValorDoProduto);
+            }
+            if (filtro?.DataCadastro != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataCadastro);
+            }
+            return listaProduto;
         }
     }
 }

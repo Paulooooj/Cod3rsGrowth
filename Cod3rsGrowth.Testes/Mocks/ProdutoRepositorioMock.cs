@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
 using FluentValidation;
@@ -45,7 +46,7 @@ namespace Cod3rsGrowth.Testes
             return produto;
         }
 
-        public List<Produto> ObterTodos()
+        public List<Produto> ObterTodos(FiltroProduto? produto = null)
         {
             return _intanciaProdutoSingleton;
         }

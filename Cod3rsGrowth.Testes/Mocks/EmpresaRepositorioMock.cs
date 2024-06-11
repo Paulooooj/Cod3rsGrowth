@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
 using FluentValidation;
@@ -45,7 +46,7 @@ namespace Cod3rsGrowth.Testes
             return empresa;
         }
 
-        public List<Empresa> ObterTodos()
+        public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
             return _instanciaEmpresaSingleton;
         }
