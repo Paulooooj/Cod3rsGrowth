@@ -41,17 +41,17 @@ namespace Cod3rsGrowth.Infra.Repositorio
         {
             var listaProduto = _db.GetTable<Produto>().ToList();
 
-            if (!string.IsNullOrEmpty(filtro.Nome))
+            if (!string.IsNullOrEmpty(filtro?.Nome))
             {
-                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro.Nome));
+                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome));
             }
-            if (filtro.ValorDoProduto != null)
+            if (filtro?.ValorDoProduto != null)
             {
-                listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro.ValorDoProduto);
+                listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro?.ValorDoProduto);
             }
-            if (filtro.DataCadastro != null)
+            if (filtro?.DataCadastro != null)
             {
-                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro.DataCadastro);
+                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataCadastro);
             }
             return listaProduto;
         }
