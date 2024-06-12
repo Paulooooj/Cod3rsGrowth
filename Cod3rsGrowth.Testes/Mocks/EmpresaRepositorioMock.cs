@@ -43,7 +43,17 @@ namespace Cod3rsGrowth.Testes
 
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
-            return _instanciaEmpresaSingleton;
+            var listaEmpresa = _instanciaEmpresaSingleton.ToList();
+
+            if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
+            {
+                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+            }
+            if (filtro?.Ramo != null)
+            {
+                listaEmpresa = listaEmpresa.FindAll(x => x.Ramo == filtro?.Ramo);
+            }
+            return listaEmpresa;
         }
 
         public bool verificarSeTemNomeRepetido(string razaoSocial)

@@ -1,7 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Singleton;
-using LinqToDB;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Testes.Testes
@@ -135,6 +135,35 @@ namespace Cod3rsGrowth.Testes.Testes
             int idInvalido = 5;
             var mensagemDeErro = Assert.Throws<System.Exception>(() => _repositorioEmpresa.Deletar(idInvalido));
             Assert.Equal($"Empresa com Id: {idInvalido} não encontrado", mensagemDeErro.Message);
+        }
+
+        [Fact]
+        public void deve_retornar_o_objeto_correspondente_do_obtertodos_usando_filtro()
+        {
+            CriarLista();
+            var listaEmpresa = new List<Empresa>
+            {
+                new Empresa
+                {
+                   Id = 1,
+                   RazaoSocial = "InventSoftware",
+                   CNPJ = "16274837465234",
+                   Ramo = EnumRamoDaEmpresa.Servico
+                }
+            };
+            var Filtro = "inv";
+            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = Filtro });
+            Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
+        }
+
+        [Fact]
+        public void deve_verificar_se_ao_mandar_um_filtro_invalido_ele_retorna_uma_lista_vazia()
+        {
+            CriarLista();
+            var listaEmpresa = new List<Empresa> { };
+            var Filtro = "Teste";
+            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = Filtro });
+            Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
         }
 
         public List<Empresa> CriarLista()

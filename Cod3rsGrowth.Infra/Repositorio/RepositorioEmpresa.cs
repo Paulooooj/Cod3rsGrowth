@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using LinqToDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,7 +44,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
             if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
             {
-                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial));
+                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.Ramo != null)
             {
