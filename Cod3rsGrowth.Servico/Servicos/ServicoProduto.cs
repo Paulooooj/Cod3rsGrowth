@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Servico.Servicos
 
         public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            var listaProduto = _repositorioProduto.ObterTodos();
+            var listaProduto = _repositorioProduto.ObterTodos(filtro);
             return listaProduto;
         }
     }

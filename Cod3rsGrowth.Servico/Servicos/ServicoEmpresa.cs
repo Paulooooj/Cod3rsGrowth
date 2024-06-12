@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Dominio.Servicos
 
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
-            var listaEmpresa = _repositorioEmpresa.ObterTodos();
+            var listaEmpresa = _repositorioEmpresa.ObterTodos(filtro);
             return listaEmpresa;
         }
     }
