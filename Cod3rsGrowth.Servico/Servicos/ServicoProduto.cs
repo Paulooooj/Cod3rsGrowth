@@ -1,45 +1,48 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using System;
+using Cod3rsGrowth.Infra.Filtros;
+using Cod3rsGrowth.Infra.Interfaces;
+using FluentValidation;
 using System.Collections.Generic;
 
 namespace Cod3rsGrowth.Servico.Servicos
 {
     public class ServicoProduto
     {
-        public List<Produto> CriarLista()
+        private readonly IValidator<Produto> _produtoValidacao;
+        private readonly IRepositorioProduto _repositorioProduto;
+
+        public ServicoProduto(IValidator<Produto> produtoValidacao, IRepositorioProduto repositorioProduto)
         {
-            var listaProduto = new List<Produto>
-            {
-                new Produto
-                {
-                    Id = 1,
-                    Nome = "BankPlus",
-                    ValorDoProduto = 10500m,
-                    DataCadastro = DateTime.Today,
-                    TemDataValida = false,
-                    EmpresaId = 1
-                },
-                new Produto
-                {
-                    Id = 2,
-                    Nome = "Molho de Tomate",
-                    ValorDoProduto = 5.50m,
-                    DataCadastro = DateTime.Today,
-                    TemDataValida = true,
-                    DataValidade = DateTime.Parse("30/05/2024"),
-                    EmpresaId = 2
-                },
-                new Produto
-                {
-                    Id = 3,
-                    Nome = "Arroz",
-                    ValorDoProduto = 24.50m,
-                    DataCadastro = DateTime.Today,
-                    TemDataValida = true,
-                    DataValidade = DateTime.Parse("10/09/2025"),
-                    EmpresaId = 3
-                },
-            };
+            _produtoValidacao = produtoValidacao;
+            _repositorioProduto = repositorioProduto;
+        }
+
+        public void Adicionar(Produto produto)
+        {
+            _produtoValidacao.ValidateAndThrow(produto);
+            _repositorioProduto.Adicionar(produto);
+        }
+
+        public void Atualizar(Produto produto)
+        {
+            _produtoValidacao.ValidateAndThrow(produto);
+            _repositorioProduto.Atualizar(produto);
+        }
+
+        public void Deletar(int id)
+        {
+            _repositorioProduto.Deletar(id);
+        }
+
+        public Produto ObterPorId(int id)
+        {
+            var produto = _repositorioProduto.ObterPorId(id);
+            return produto;
+        }
+
+        public List<Produto> ObterTodos(FiltroProduto? filtro = null)
+        {
+            var listaProduto = _repositorioProduto.ObterTodos(filtro);
             return listaProduto;
         }
     }

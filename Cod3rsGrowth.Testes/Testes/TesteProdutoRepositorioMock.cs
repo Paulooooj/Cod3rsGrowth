@@ -1,18 +1,18 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
+using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Testes.Testes
 {
     public class TesteProdutoRepositorioMock : TesteBase
     {
-        private readonly IRepositorioProduto _repositorioProduto;
+        private readonly ServicoProduto _repositorioProduto;
 
         public TesteProdutoRepositorioMock()
         {
-            _repositorioProduto = ServiceProvider.GetService<IRepositorioProduto>()
-                ?? throw new Exception($"Erro ao obter servico {nameof(IRepositorioProduto)}");
+            _repositorioProduto = ServiceProvider.GetService<ServicoProduto>()
+                ?? throw new Exception($"Erro ao obter servico {nameof(ServicoProduto)}");
             ProdutoSingleton.Instancia.Clear();
         }
 
@@ -49,7 +49,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
                 TemDataValida = true,
-                DataValidade = DateTime.Parse("10/09/2024"),
+                DataValidade = DateTime.Parse("10/11/2024"),
                 EmpresaId = 5
             };
             _repositorioProduto.Adicionar(produto);

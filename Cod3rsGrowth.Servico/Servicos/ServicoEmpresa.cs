@@ -1,36 +1,48 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Filtros;
+using Cod3rsGrowth.Infra.Interfaces;
+using FluentValidation;
 using System.Collections.Generic;
 
 namespace Cod3rsGrowth.Dominio.Servicos
 {
     public class ServicoEmpresa
     {
-        public List<Empresa> CriarLista()
+        private readonly IValidator<Empresa> _empresaValidacao;
+        private readonly IRepositorioEmpresa _repositorioEmpresa;
+
+        public ServicoEmpresa(IValidator<Empresa> empresavalidacao, IRepositorioEmpresa repositorioEmpresa)
         {
-            var listaEmpresa = new List<Empresa>
-            {
-                new Empresa
-                {
-                   Id = 1,
-                   RazaoSocial = "InventSoftware",
-                   CNPJ = "123456789",
-                   Ramo = EnumRamoDaEmpresa.Servico
-                },
-                new Empresa
-                {
-                   Id = 2,
-                   RazaoSocial = "Heinz",
-                   CNPJ = "987654321",
-                   Ramo = EnumRamoDaEmpresa.Industria
-                },
-                new Empresa
-                {
-                   Id = 3,
-                   RazaoSocial = "LojasAmericanas",
-                   CNPJ = "543216789",
-                   Ramo = EnumRamoDaEmpresa.Comercio
-                },
-            };
+            _empresaValidacao = empresavalidacao;
+            _repositorioEmpresa = repositorioEmpresa;
+        }
+
+        public void Adicionar(Empresa empresa)
+        {
+            _empresaValidacao.ValidateAndThrow(empresa);
+            _repositorioEmpresa.Adicionar(empresa);
+        }
+
+        public void Atualizar(Empresa empresa)
+        {
+            _empresaValidacao.ValidateAndThrow(empresa);
+            _repositorioEmpresa.Atualizar(empresa);
+        }
+
+        public void Deletar(int id)
+        {
+            _repositorioEmpresa.Deletar(id);
+        }
+
+        public Empresa ObterPorId(int id)
+        {
+            var empresa = _repositorioEmpresa.ObterPorId(id);
+            return empresa;
+        }
+
+        public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
+        {
+            var listaEmpresa = _repositorioEmpresa.ObterTodos(filtro);
             return listaEmpresa;
         }
     }

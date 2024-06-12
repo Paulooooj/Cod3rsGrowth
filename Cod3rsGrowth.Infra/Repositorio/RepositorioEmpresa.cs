@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using LinqToDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,6 +20,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
         public void Adicionar(Empresa empresa)
         {
 
+            _db.Insert(empresa);
         }
 
         public void Atualizar(Empresa empresa)
@@ -39,16 +41,22 @@ namespace Cod3rsGrowth.Infra.Repositorio
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
             var listaEmpresa = _db.GetTable<Empresa>().ToList();
-            
+
             if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
             {
-                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial));
+                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.Ramo != null)
             {
                 listaEmpresa = listaEmpresa.FindAll(x => x.Ramo == filtro?.Ramo);
             }
             return listaEmpresa;
+        }
+
+        public bool verificarSeTemNomeRepetido(string razaoSocial)
+        {
+            var verificacao = _db.GetTable<Empresa>().ToList().FindAll(x => x.RazaoSocial == razaoSocial);
+            return !(verificacao == null);
         }
     }
 }

@@ -2,30 +2,25 @@
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
-using FluentValidation;
 
 namespace Cod3rsGrowth.Testes
 {
     public class ProdutoRepositorioMock : IRepositorioProduto
     {
         private readonly ProdutoSingleton _intanciaProdutoSingleton;
-        private readonly IValidator<Produto> _produtoValidacao;
 
-        public ProdutoRepositorioMock(IValidator<Produto> produtoValidacao)
+        public ProdutoRepositorioMock()
         {
             _intanciaProdutoSingleton = ProdutoSingleton.Instancia;
-            _produtoValidacao = produtoValidacao;
         }
 
         public void Adicionar(Produto produto)
         {
-            _produtoValidacao.ValidateAndThrow(produto);
             _intanciaProdutoSingleton.Add(produto);
         }
 
         public void Atualizar(Produto produtoAtualizado)
         {
-            _produtoValidacao.ValidateAndThrow(produtoAtualizado);
             var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produtoAtualizado.Id)
                 ?? throw new Exception($"Produto com Id: {produtoAtualizado.Id} não encontrado");
             var posicao = _intanciaProdutoSingleton.IndexOf(verificacaoSeTemID);

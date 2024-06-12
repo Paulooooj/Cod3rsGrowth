@@ -1,6 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Servicos;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Singleton;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,12 +8,12 @@ namespace Cod3rsGrowth.Testes.Testes
 {
     public class TesteEmpresaRepositorioMock : TesteBase
     {
-        private readonly IRepositorioEmpresa _repositorioEmpresa;
+        private readonly ServicoEmpresa _repositorioEmpresa;
 
         public TesteEmpresaRepositorioMock()
         {
-            _repositorioEmpresa = ServiceProvider.GetService<IRepositorioEmpresa>()
-                ?? throw new Exception($"Erro ao obter servico {nameof(IRepositorioEmpresa)}");
+            _repositorioEmpresa = ServiceProvider.GetService<ServicoEmpresa>()
+                ?? throw new Exception($"Erro ao obter servico {nameof(ServicoEmpresa)}");
             EmpresaSingleton.Instancia.Clear();
         }
 
@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_adicionar_um_nova_empresa_na_lista_singleton()
         {
-            var empresa = new Empresa { Id = 5, RazaoSocial = "EmpresaTestea", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 5, RazaoSocial = "InventSoftware", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Adicionar(empresa);
             var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault();
             Assert.Equivalent(empresa, retornoEmpresa);
@@ -135,6 +135,35 @@ namespace Cod3rsGrowth.Testes.Testes
             int idInvalido = 5;
             var mensagemDeErro = Assert.Throws<System.Exception>(() => _repositorioEmpresa.Deletar(idInvalido));
             Assert.Equal($"Empresa com Id: {idInvalido} não encontrado", mensagemDeErro.Message);
+        }
+
+        [Fact]
+        public void deve_retornar_o_objeto_correspondente_do_obtertodos_usando_filtro()
+        {
+            CriarLista();
+            var listaEmpresa = new List<Empresa>
+            {
+                new Empresa
+                {
+                   Id = 1,
+                   RazaoSocial = "InventSoftware",
+                   CNPJ = "16274837465234",
+                   Ramo = EnumRamoDaEmpresa.Servico
+                }
+            };
+            var Filtro = "inv";
+            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = Filtro });
+            Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
+        }
+
+        [Fact]
+        public void deve_verificar_se_ao_mandar_um_filtro_invalido_ele_retorna_uma_lista_vazia()
+        {
+            CriarLista();
+            var listaEmpresa = new List<Empresa> { };
+            var Filtro = "Teste";
+            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = Filtro });
+            Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
         }
 
         public List<Empresa> CriarLista()
