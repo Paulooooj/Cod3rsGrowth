@@ -18,6 +18,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Adicionar(Empresa empresa)
         {
+
             _db.Insert(empresa);
         }
 
@@ -39,7 +40,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
             var listaEmpresa = _db.GetTable<Empresa>().ToList();
-            
+
             if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
             {
                 listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial));
@@ -49,6 +50,12 @@ namespace Cod3rsGrowth.Infra.Repositorio
                 listaEmpresa = listaEmpresa.FindAll(x => x.Ramo == filtro?.Ramo);
             }
             return listaEmpresa;
+        }
+
+        public bool verificarSeTemNomeRepetido(string razaoSocial)
+        {
+            var verificacao = _db.GetTable<Empresa>().ToList().FindAll(x => x.RazaoSocial == razaoSocial);
+            return (verificacao == null);
         }
     }
 }

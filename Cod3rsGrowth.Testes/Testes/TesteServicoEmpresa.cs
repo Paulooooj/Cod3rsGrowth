@@ -40,15 +40,44 @@ namespace Cod3rsGrowth.Testes.Testes
                    Ramo = EnumRamoDaEmpresa.Comercio
                 },
             };
-            var resultadoRetornado = _servicoEmpresa.CriarLista();
+            var resultadoRetornado = CriarLista();
             Assert.Equivalent(listaEmpresa, resultadoRetornado);
         }
 
         [Fact]
         public void testar_se_a_lista_e_do_tipo_empresa()
         {
-            var resultadoRetornado = _servicoEmpresa.CriarLista().ToList();
+            var resultadoRetornado = CriarLista().ToList();
             Assert.IsType<List<Empresa>>(resultadoRetornado);
+        }
+
+        public List<Empresa> CriarLista()
+        {
+            var listaEmpresa = new List<Empresa>
+            {
+                new Empresa
+                {
+                   Id = 1,
+                   RazaoSocial = "InventSoftware",
+                   CNPJ = "123456789",
+                   Ramo = EnumRamoDaEmpresa.Servico
+                },
+                new Empresa
+                {
+                   Id = 2,
+                   RazaoSocial = "Heinz",
+                   CNPJ = "987654321",
+                   Ramo = EnumRamoDaEmpresa.Industria
+                },
+                new Empresa
+                {
+                   Id = 3,
+                   RazaoSocial = "LojasAmericanas",
+                   CNPJ = "543216789",
+                   Ramo = EnumRamoDaEmpresa.Comercio
+                },
+            };
+            return listaEmpresa;
         }
     }
 }

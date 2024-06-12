@@ -2,30 +2,25 @@
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
-using FluentValidation;
 
 namespace Cod3rsGrowth.Testes
 {
     public class EmpresaRepositorioMock : IRepositorioEmpresa
     {
         private readonly EmpresaSingleton _instanciaEmpresaSingleton;
-        private readonly IValidator<Empresa> _empresaValidacao;
 
-        public EmpresaRepositorioMock(IValidator<Empresa> empresavalidacao)
+        public EmpresaRepositorioMock()
         {
             _instanciaEmpresaSingleton = EmpresaSingleton.Instancia;
-            _empresaValidacao = empresavalidacao;
         }
 
         public void Adicionar(Empresa empresa)
         {
-            _empresaValidacao.ValidateAndThrow(empresa);
             _instanciaEmpresaSingleton.Add(empresa);
         }
 
         public void Atualizar(Empresa empresaAtualizada)
         {
-            _empresaValidacao.ValidateAndThrow(empresaAtualizada);
             var verificacaoSeTemID = _instanciaEmpresaSingleton.Find(x => x.Id == empresaAtualizada.Id)
                 ?? throw new Exception($"Empresa com Id: {empresaAtualizada.Id} não encontrado");
             var posicao = _instanciaEmpresaSingleton.IndexOf(verificacaoSeTemID);
@@ -49,6 +44,12 @@ namespace Cod3rsGrowth.Testes
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
             return _instanciaEmpresaSingleton;
+        }
+
+        public bool verificarSeTemNomeRepetido(string razaoSocial)
+        {
+            var verificacao = _instanciaEmpresaSingleton.FindAll(x => x.RazaoSocial == razaoSocial);
+            return !(verificacao == null);
         }
     }
 }

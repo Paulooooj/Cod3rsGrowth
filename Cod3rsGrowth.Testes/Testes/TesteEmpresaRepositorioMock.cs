@@ -1,19 +1,19 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
-using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Infra.Interfaces;
+using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Singleton;
+using LinqToDB;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Testes.Testes
 {
     public class TesteEmpresaRepositorioMock : TesteBase
     {
-        private readonly IRepositorioEmpresa _repositorioEmpresa;
+        private readonly ServicoEmpresa _repositorioEmpresa;
 
         public TesteEmpresaRepositorioMock()
         {
-            _repositorioEmpresa = ServiceProvider.GetService<IRepositorioEmpresa>()
-                ?? throw new Exception($"Erro ao obter servico {nameof(IRepositorioEmpresa)}");
+            _repositorioEmpresa = ServiceProvider.GetService<ServicoEmpresa>()
+                ?? throw new Exception($"Erro ao obter servico {nameof(ServicoEmpresa)}");
             EmpresaSingleton.Instancia.Clear();
         }
 
@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_adicionar_um_nova_empresa_na_lista_singleton()
         {
-            var empresa = new Empresa { Id = 5, RazaoSocial = "EmpresaTestea", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 5, RazaoSocial = "InventSoftware", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Adicionar(empresa);
             var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault();
             Assert.Equivalent(empresa, retornoEmpresa);

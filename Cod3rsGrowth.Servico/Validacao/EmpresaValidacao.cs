@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
 using System.Linq;
 
@@ -6,15 +7,20 @@ namespace Cod3rsGrowth.Servico.Validacao
 {
     public class EmpresaValidacao : AbstractValidator<Empresa>
     {
-        public EmpresaValidacao()
+        private readonly IRepositorioEmpresa _repositorioEmpresa;
+        public EmpresaValidacao(IRepositorioEmpresa repositorioEmpresa)
         {
+            _repositorioEmpresa = repositorioEmpresa;
+
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(x => x.RazaoSocial)
                 .NotEmpty()
                 .WithMessage("O campo Razão Social é obrigatorio")
                 .MaximumLength(20)
-                .WithMessage("Número máximo de caracteres atingido");
+                .WithMessage("Número máximo de caracteres atingido")
+                .Must((x, _) => _repositorioEmpresa.verificarSeTemNomeRepetido(x.RazaoSocial))
+                .WithMessage("Esse nome já existe");
 
             RuleFor(x => x.CNPJ).Cascade(CascadeMode.Stop)
                 .NotEmpty()
