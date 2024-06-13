@@ -41,9 +41,23 @@ namespace Cod3rsGrowth.Testes
             return produto;
         }
 
-        public List<Produto> ObterTodos(FiltroProduto? produto = null)
+        public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            return _intanciaProdutoSingleton;
+            var listaProduto = _intanciaProdutoSingleton.ToList();
+
+            if (!string.IsNullOrEmpty(filtro?.Nome))
+            {
+                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome, StringComparison.OrdinalIgnoreCase));
+            }
+            if (filtro?.ValorDoProduto != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro?.ValorDoProduto);
+            }
+            if (filtro?.DataCadastro != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataCadastro);
+            }
+            return listaProduto;
         }
     }
 }

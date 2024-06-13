@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Singleton;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.Extensions.DependencyInjection;
@@ -186,6 +187,38 @@ namespace Cod3rsGrowth.Testes.Testes
             int idInvalido = 5;
             var mensagemDeErro = Assert.Throws<System.Exception>(() => _repositorioProduto.Deletar(idInvalido));
             Assert.Equal($"Produto com Id: {idInvalido} não encontrado", mensagemDeErro.Message);
+        }
+
+        [Fact]
+        public void deve_retornar_o_objeto_correspondente_do_obtertodos_usando_filtro()
+        {
+            CriarLista();
+            var listaProduto = new List<Produto>
+            {
+              new Produto
+                {
+                    Id = 1,
+                    Nome = "BankPlus",
+                    ValorDoProduto = 10500m,
+                    DataCadastro = DateTime.Today,
+                    TemDataValida = false,
+                    DataValidade = null,
+                    EmpresaId = 1
+                }
+            };
+            var filtro = "bank";
+            var objetoEmpresaRetornado = _repositorioProduto.ObterTodos(new FiltroProduto { Nome = filtro });
+            Assert.Equivalent(listaProduto, objetoEmpresaRetornado);
+        }
+
+        [Fact]
+        public void deve_verificar_se_ao_mandar_um_filtro_invalido_ele_retorna_uma_lista_vazia()
+        {
+            CriarLista();
+            var listaProduto = new List<Produto> { };
+            var filtro = "Teste";
+            var objetoEmpresaRetornado = _repositorioProduto.ObterTodos(new FiltroProduto { Nome = filtro });
+            Assert.Equivalent(listaProduto, objetoEmpresaRetornado);
         }
 
         public List<Produto> CriarLista()

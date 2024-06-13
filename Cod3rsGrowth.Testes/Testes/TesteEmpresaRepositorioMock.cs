@@ -151,8 +151,8 @@ namespace Cod3rsGrowth.Testes.Testes
                    Ramo = EnumRamoDaEmpresa.Servico
                 }
             };
-            var Filtro = "inv";
-            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = Filtro });
+            var filtro = "inv";
+            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = filtro });
             Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
         }
 
@@ -161,8 +161,8 @@ namespace Cod3rsGrowth.Testes.Testes
         {
             CriarLista();
             var listaEmpresa = new List<Empresa> { };
-            var Filtro = "Teste";
-            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = Filtro });
+            var filtro = "Teste";
+            var objetoEmpresaRetornado = _repositorioEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = filtro });
             Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
         }
 

@@ -19,13 +19,19 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Adicionar(Empresa empresa)
         {
-
             _db.Insert(empresa);
         }
 
         public void Atualizar(Empresa empresa)
         {
-            throw new System.NotImplementedException();
+            var verificarId = _db.GetTable<Empresa>().ToList().Find(x => x.Id == empresa.Id)
+                ?? throw new Exception($"Empresa com Id: {empresa.Id} não encontrado"); ;
+            _db.Empresas
+                .Where(x => x.Id == empresa.Id)
+                .Set(x => x.RazaoSocial, empresa.RazaoSocial)
+                .Set(x => x.CNPJ, empresa.CNPJ)
+                .Set(x => x.Ramo, empresa.Ramo)
+                .Update();
         }
 
         public void Deletar(int id)
