@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
+using System;
 using System.Collections.Generic;
 
 namespace Cod3rsGrowth.Servico.Servicos
@@ -26,7 +27,15 @@ namespace Cod3rsGrowth.Servico.Servicos
         public void Atualizar(Produto produto)
         {
             _produtoValidacao.ValidateAndThrow(produto);
-            _repositorioProduto.Atualizar(produto);
+
+            try
+            {
+                _repositorioProduto.Atualizar(produto);
+            }
+            catch (Exception)
+            {
+                throw new Exception($"Produto com Id: {produto.Id} não encontrado");
+            }
         }
 
         public void Deletar(int id)
@@ -36,14 +45,12 @@ namespace Cod3rsGrowth.Servico.Servicos
 
         public Produto ObterPorId(int id)
         {
-            var produto = _repositorioProduto.ObterPorId(id);
-            return produto;
+            return _repositorioProduto.ObterPorId(id);
         }
 
         public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            var listaProduto = _repositorioProduto.ObterTodos(filtro);
-            return listaProduto;
+            return _repositorioProduto.ObterTodos(filtro);
         }
     }
 }

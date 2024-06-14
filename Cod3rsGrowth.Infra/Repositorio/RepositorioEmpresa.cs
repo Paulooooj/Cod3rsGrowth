@@ -24,8 +24,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Atualizar(Empresa empresa)
         {
-            var verificarId = _db.GetTable<Empresa>().ToList().Find(x => x.Id == empresa.Id)
-                ?? throw new Exception($"Empresa com Id: {empresa.Id} não encontrado"); ;
             _db.Empresas
                 .Where(x => x.Id == empresa.Id)
                 .Set(x => x.RazaoSocial, empresa.RazaoSocial)
