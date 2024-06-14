@@ -82,7 +82,7 @@ namespace Cod3rsGrowth.Testes.Testes
         public void deve_atualizar_um_objeto_escolhido_na_lista()
         {
             var listaRetornada = CriarLista();
-            var empresa = new Empresa { Id = 2, RazaoSocial = "EstudioMusical", CNPJ = "12345678954367", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 2, RazaoSocial = "Heinz", CNPJ = "12345678954367", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Atualizar(empresa);
             var retornoEmpresa = EmpresaSingleton.Instancia.Where(x => x.Id == empresa.Id).FirstOrDefault();
             Assert.Equivalent(empresa, retornoEmpresa);

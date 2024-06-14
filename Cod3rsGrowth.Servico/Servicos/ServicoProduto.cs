@@ -32,13 +32,13 @@ namespace Cod3rsGrowth.Servico.Servicos
             {
                 _repositorioProduto.Atualizar(produto);
             }
-            catch (Exception e)
+            catch (ArgumentOutOfRangeException)
             {
-                if (e.Message.StartsWith("Index was out of rang"))
-                {
-                    throw new Exception($"Produto com Id: {produto.Id} não encontrado");
-                }
-                Console.WriteLine("Erro: " + e.Message);
+                throw new Exception($"Produto com Id: {produto.Id} não encontrado");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex}");
             }
         }
 

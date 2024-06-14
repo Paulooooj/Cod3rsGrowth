@@ -36,13 +36,13 @@ namespace Cod3rsGrowth.Dominio.Servicos
             {
                 _repositorioEmpresa.Atualizar(empresa);
             }
-            catch (Exception e)
+            catch (ArgumentOutOfRangeException)
             {
-                if (e.Message.StartsWith("Index was out of rang"))
-                {
-                    throw new Exception($"Empresa com Id: {empresa.Id} não encontrado");
-                }
-                Console.WriteLine("Erro: " + e.Message);
+                throw new Exception($"Empresa com Id: {empresa.Id} não encontrado");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro: {ex}");
             }
         }
 
