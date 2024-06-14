@@ -32,13 +32,13 @@ namespace Cod3rsGrowth.Servico.Servicos
             {
                 _repositorioProduto.Atualizar(produto);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (FluentValidation.ValidationException ve)
             {
-                throw new Exception($"Produto com Id: {produto.Id} não encontrado");
+                throw new ValidationException(ve.Errors);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro: {ex}");
+                throw new Exception(ex.Message);
             }
         }
 

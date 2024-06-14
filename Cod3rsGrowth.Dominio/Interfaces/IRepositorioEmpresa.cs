@@ -11,6 +11,6 @@ namespace Cod3rsGrowth.Infra.Interfaces
         void Atualizar(Empresa empresa);
         void Deletar(int id);
         Empresa ObterPorId(int id);
-        bool verificarSeTemNomeRepetido(string razaoSocial);
+        bool verificarSeTemNomeRepetido(Empresa empresa);
     }
 }

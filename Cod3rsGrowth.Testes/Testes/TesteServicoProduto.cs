@@ -227,7 +227,7 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void deve_estourar_excecao_ao_mandar_id_que_nao_existe_para_comparar_a_mensagem()
+        public void deve_estourar_excecao_ao_mandar_id_que_nao_existe()
         {
             CriarLista();
             var produto = new Produto
@@ -240,8 +240,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 DataValidade = DateTime.Parse("30/11/2024"),
                 EmpresaId = 1
             };
-            var mensagemErro = Assert.Throws<Exception>(() => _repositorioProduto.Atualizar(produto));
-            Assert.Equal($"Produto com Id: {produto.Id} não encontrado", mensagemErro.Message);
+            var mensagemErro = Assert.Throws<System.Exception>(() => _repositorioProduto.Atualizar(produto));
         }
 
         public List<Produto> CriarLista()

@@ -20,29 +20,23 @@ namespace Cod3rsGrowth.Dominio.Servicos
 
         public void Adicionar(Empresa empresa)
         {
-            var resultado = _empresaValidacao.Validate(empresa, options => options.IncludeRuleSets("Adicionar", "default"));
-            if (!resultado.IsValid)
-            {
-                throw new ValidationException(resultado.Errors);
-            }
-            _repositorioEmpresa.Adicionar(empresa);
+            _empresaValidacao.ValidateAndThrow(empresa);
         }
 
         public void Atualizar(Empresa empresa)
         {
-            _empresaValidacao.ValidateAndThrow(empresa);
-
             try
             {
+                _empresaValidacao.ValidateAndThrow(empresa);
                 _repositorioEmpresa.Atualizar(empresa);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (FluentValidation.ValidationException ve)
             {
-                throw new Exception($"Empresa com Id: {empresa.Id} não encontrado");
+                throw new ValidationException(ve.Errors);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro: {ex}");
+                throw new Exception(ex.Message);
             }
         }
 

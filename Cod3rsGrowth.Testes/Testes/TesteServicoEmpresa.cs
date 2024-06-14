@@ -169,18 +169,17 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void deve_estourar_excecao_ao_mandar_id_que_nao_existe_para_comparar_a_mensagem()
+        public void deve_estourar_excecao_ao_mandar_id_que_nao_existe()
         {
             CriarLista();
             var empresa = new Empresa
             {
                 Id = 10,
-                RazaoSocial = "InventSoftware",
+                RazaoSocial = "EmpresaTeste",
                 CNPJ = "16274837465234",
                 Ramo = EnumRamoDaEmpresa.Servico
             };
             var mensagemErro = Assert.Throws<Exception>(() => _repositorioEmpresa.Atualizar(empresa));
-            Assert.Equal($"Empresa com Id: {empresa.Id} não encontrado", mensagemErro.Message);
         }
 
         public List<Empresa> CriarLista()
