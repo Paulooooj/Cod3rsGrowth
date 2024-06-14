@@ -29,15 +29,18 @@ namespace Cod3rsGrowth.Testes.Testes
         public void deve_retornar_o_objeto_esperado_no_metodo_obter_por_id()
         {
             var listaProduto = CriarLista();
-            var retornoProduto = _repositorioProduto.ObterPorId(1);
-            Assert.Equivalent(listaProduto[0], retornoProduto);
+            int id = 1;
+            var indexLista = 0;
+            var retornoProduto = _repositorioProduto.ObterPorId(id);
+            Assert.Equivalent(listaProduto[indexLista], retornoProduto);
         }
 
         [Fact]
         public void dever_estourar_excecao_por_enviar_id_que_nao_existe()
         {
             var lista = CriarLista();
-            Assert.Throws<Exception>(() => _repositorioProduto.ObterPorId(4));
+            int id = 4;
+            Assert.Throws<Exception>(() => _repositorioProduto.ObterPorId(id));
         }
 
         [Fact]

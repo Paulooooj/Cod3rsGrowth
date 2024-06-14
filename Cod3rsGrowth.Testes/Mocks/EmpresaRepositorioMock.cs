@@ -19,11 +19,11 @@ namespace Cod3rsGrowth.Testes
             _instanciaEmpresaSingleton.Add(empresa);
         }
 
-        public void Atualizar(Empresa empresaAtualizada)
+        public void Atualizar(Empresa empresa)
         {
-            var verificacaoSeTemID = _instanciaEmpresaSingleton.Find(x => x.Id == empresaAtualizada.Id);
+            var verificacaoSeTemID = _instanciaEmpresaSingleton.Find(x => x.Id == empresa.Id);
             var posicao = _instanciaEmpresaSingleton.IndexOf(verificacaoSeTemID);
-            _instanciaEmpresaSingleton[posicao] = empresaAtualizada;
+            _instanciaEmpresaSingleton[posicao] = empresa;
         }
 
         public void Deletar(int id)
@@ -58,7 +58,8 @@ namespace Cod3rsGrowth.Testes
         public bool verificarSeTemNomeRepetido(string razaoSocial)
         {
             var verificacao = _instanciaEmpresaSingleton.FindAll(x => x.RazaoSocial == razaoSocial);
-            return !(verificacao == null);
+            var tamanhoListaQuandoForVazia = 0;
+            return (verificacao.Count == tamanhoListaQuandoForVazia);
         }
     }
 }

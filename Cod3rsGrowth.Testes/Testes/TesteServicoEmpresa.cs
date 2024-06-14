@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_adicionar_um_nova_empresa_na_lista_singleton()
         {
-            var empresa = new Empresa { Id = 5, RazaoSocial = "InventSoftware", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
+            var empresa = new Empresa { Id = 5, RazaoSocial = "InventSoftwar", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Adicionar(empresa);
             var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault();
             Assert.Equivalent(empresa, retornoEmpresa);

@@ -4,7 +4,6 @@ using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace Cod3rsGrowth.Dominio.Servicos
 {
@@ -21,7 +20,11 @@ namespace Cod3rsGrowth.Dominio.Servicos
 
         public void Adicionar(Empresa empresa)
         {
-            _empresaValidacao.ValidateAndThrow(empresa);
+            var resultado = _empresaValidacao.Validate(empresa, options => options.IncludeRuleSets("Adicionar", "default"));
+            if (!resultado.IsValid)
+            {
+                throw new ValidationException(resultado.Errors);
+            }
             _repositorioEmpresa.Adicionar(empresa);
         }
 
@@ -33,9 +36,13 @@ namespace Cod3rsGrowth.Dominio.Servicos
             {
                 _repositorioEmpresa.Atualizar(empresa);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new Exception($"Empresa com Id: {empresa.Id} não encontrado");
+                if (e.Message.StartsWith("Index was out of rang"))
+                {
+                    throw new Exception($"Empresa com Id: {empresa.Id} não encontrado");
+                }
+                Console.WriteLine("Erro: " + e.Message);
             }
         }
 

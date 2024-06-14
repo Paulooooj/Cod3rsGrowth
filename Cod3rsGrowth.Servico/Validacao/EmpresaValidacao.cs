@@ -19,9 +19,7 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .NotEmpty()
                 .WithMessage("O campo Razão Social é obrigatorio")
                 .MaximumLength(20)
-                .WithMessage("Número máximo de caracteres atingido")
-                .Must((x, _) => _repositorioEmpresa.verificarSeTemNomeRepetido(x.RazaoSocial))
-                .WithMessage("Esse nome já existe");
+                .WithMessage("Número máximo de caracteres atingido");
 
             RuleFor(x => x.CNPJ).Cascade(CascadeMode.Stop)
                 .NotEmpty()
@@ -35,6 +33,16 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .IsInEnum()
                 .WithMessage("Ramo inválido")
                 .Must((x, _) => VerificarSeOEnumEstaVazio(x.Ramo)).WithMessage("O campo enum é obrigatório");
+
+            RuleSet("Adicionar", () =>
+            {
+                RuleFor(x => x.RazaoSocial)
+                .Must(x =>
+                {
+                    return _repositorioEmpresa.verificarSeTemNomeRepetido(x);
+                })
+                .WithMessage("Esse nome já existe");
+            });
         }
 
         private static bool ValidarSeECNPJ(string cnpj)

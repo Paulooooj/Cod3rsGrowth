@@ -24,14 +24,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Atualizar(Produto produto)
         {
-            _db.Produtos
-                .Where(x => x.Id == produto.Id)
-                .Set(x => x.Nome, produto.Nome)
-                .Set(x => x.ValorDoProduto, produto.ValorDoProduto)
-                .Set(x => x.DataCadastro, produto.DataCadastro)
-                .Set(x => x.TemDataValida, produto.TemDataValida)
-                .Set(x => x.DataValidade, produto.DataValidade)
-                .Update();
+            _db.Update(produto);
         }
 
         public void Deletar(int id)

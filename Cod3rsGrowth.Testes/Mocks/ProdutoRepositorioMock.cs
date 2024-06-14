@@ -19,11 +19,11 @@ namespace Cod3rsGrowth.Testes
             _intanciaProdutoSingleton.Add(produto);
         }
 
-        public void Atualizar(Produto produtoAtualizado)
+        public void Atualizar(Produto produto)
         {
-            var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produtoAtualizado.Id);
+            var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produto.Id);
             var posicao = _intanciaProdutoSingleton.IndexOf(verificacaoSeTemID);
-            _intanciaProdutoSingleton[posicao] = produtoAtualizado;
+            _intanciaProdutoSingleton[posicao] = produto;
         }
 
         public void Deletar(int id)
