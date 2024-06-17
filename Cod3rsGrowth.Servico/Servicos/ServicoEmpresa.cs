@@ -40,7 +40,6 @@ namespace Cod3rsGrowth.Dominio.Servicos
                 throw new Exception(ex.Message);
             }
         }
-
         public void Deletar(int id)
         {
             _repositorioEmpresa.Deletar(id);
