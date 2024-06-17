@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Atualizar(Produto produto)
         {
-            throw new NotImplementedException();
+            _db.Update(produto);
         }
 
         public void Deletar(int id)
@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
             if (!string.IsNullOrEmpty(filtro?.Nome))
             {
-                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome));
+                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.ValorDoProduto != null)
             {

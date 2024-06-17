@@ -19,13 +19,12 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Adicionar(Empresa empresa)
         {
-
             _db.Insert(empresa);
         }
 
         public void Atualizar(Empresa empresa)
         {
-            throw new System.NotImplementedException();
+            _db.Update(empresa);
         }
 
         public void Deletar(int id)
@@ -53,10 +52,18 @@ namespace Cod3rsGrowth.Infra.Repositorio
             return listaEmpresa;
         }
 
-        public bool verificarSeTemNomeRepetido(string razaoSocial)
+        public bool verificarSeTemNomeRepetido(Empresa empresa)
         {
-            var verificacao = _db.GetTable<Empresa>().ToList().FindAll(x => x.RazaoSocial == razaoSocial);
-            return !(verificacao == null);
+            var empresaNomeRepetido = _db.GetTable<Empresa>().ToList().Find(x => x.RazaoSocial == empresa.RazaoSocial);
+
+            if (empresaNomeRepetido != null)
+            {
+                if (empresaNomeRepetido.Id != empresa.Id)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Cod3rsGrowth.Servico.Validacao
     public class EmpresaValidacao : AbstractValidator<Empresa>
     {
         private readonly IRepositorioEmpresa _repositorioEmpresa;
+
         public EmpresaValidacao(IRepositorioEmpresa repositorioEmpresa)
         {
             _repositorioEmpresa = repositorioEmpresa;
@@ -18,9 +19,12 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .NotEmpty()
                 .WithMessage("O campo Razão Social é obrigatorio")
                 .MaximumLength(20)
-                .WithMessage("Número máximo de caracteres atingido")
-                .Must((x, _) => _repositorioEmpresa.verificarSeTemNomeRepetido(x.RazaoSocial))
-                .WithMessage("Esse nome já existe");
+                .WithMessage("Número máximo de caracteres atingido");
+                
+                
+            RuleFor(x => x)
+                .Must(x => _repositorioEmpresa.verificarSeTemNomeRepetido(x))
+                .WithMessage("Essa Razão Social já existe");
 
             RuleFor(x => x.CNPJ).Cascade(CascadeMode.Stop)
                 .NotEmpty()

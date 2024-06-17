@@ -2,6 +2,7 @@
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
+using System;
 using System.Collections.Generic;
 
 namespace Cod3rsGrowth.Dominio.Servicos
@@ -25,10 +26,20 @@ namespace Cod3rsGrowth.Dominio.Servicos
 
         public void Atualizar(Empresa empresa)
         {
-            _empresaValidacao.ValidateAndThrow(empresa);
-            _repositorioEmpresa.Atualizar(empresa);
+            try
+            {
+                _empresaValidacao.ValidateAndThrow(empresa);
+                _repositorioEmpresa.Atualizar(empresa);
+            }
+            catch (ValidationException ve)
+            {
+                throw new ValidationException(ve.Errors);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
-
         public void Deletar(int id)
         {
             _repositorioEmpresa.Deletar(id);
@@ -36,14 +47,12 @@ namespace Cod3rsGrowth.Dominio.Servicos
 
         public Empresa ObterPorId(int id)
         {
-            var empresa = _repositorioEmpresa.ObterPorId(id);
-            return empresa;
+            return _repositorioEmpresa.ObterPorId(id);
         }
 
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
-            var listaEmpresa = _repositorioEmpresa.ObterTodos(filtro);
-            return listaEmpresa;
+            return _repositorioEmpresa.ObterTodos(filtro);
         }
     }
 }

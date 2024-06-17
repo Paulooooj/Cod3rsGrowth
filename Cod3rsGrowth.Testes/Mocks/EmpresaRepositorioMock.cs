@@ -19,12 +19,11 @@ namespace Cod3rsGrowth.Testes
             _instanciaEmpresaSingleton.Add(empresa);
         }
 
-        public void Atualizar(Empresa empresaAtualizada)
+        public void Atualizar(Empresa empresa)
         {
-            var verificacaoSeTemID = _instanciaEmpresaSingleton.Find(x => x.Id == empresaAtualizada.Id)
-                ?? throw new Exception($"Empresa com Id: {empresaAtualizada.Id} não encontrado");
+            var verificacaoSeTemID = _instanciaEmpresaSingleton.Find(x => x.Id == empresa.Id);
             var posicao = _instanciaEmpresaSingleton.IndexOf(verificacaoSeTemID);
-            _instanciaEmpresaSingleton[posicao] = empresaAtualizada;
+            _instanciaEmpresaSingleton[posicao] = empresa;
         }
 
         public void Deletar(int id)
@@ -56,10 +55,18 @@ namespace Cod3rsGrowth.Testes
             return listaEmpresa;
         }
 
-        public bool verificarSeTemNomeRepetido(string razaoSocial)
+        public bool verificarSeTemNomeRepetido(Empresa empresa)
         {
-            var verificacao = _instanciaEmpresaSingleton.FindAll(x => x.RazaoSocial == razaoSocial);
-            return !(verificacao == null);
+            var empresaNomeRepetido = _instanciaEmpresaSingleton.Find(x => x.RazaoSocial == empresa.RazaoSocial);
+
+            if (empresaNomeRepetido != null)
+            {
+                if (empresaNomeRepetido.Id != empresa.Id)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

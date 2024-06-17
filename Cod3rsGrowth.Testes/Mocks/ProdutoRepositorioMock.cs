@@ -19,12 +19,11 @@ namespace Cod3rsGrowth.Testes
             _intanciaProdutoSingleton.Add(produto);
         }
 
-        public void Atualizar(Produto produtoAtualizado)
+        public void Atualizar(Produto produto)
         {
-            var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produtoAtualizado.Id)
-                ?? throw new Exception($"Produto com Id: {produtoAtualizado.Id} não encontrado");
+            var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produto.Id);
             var posicao = _intanciaProdutoSingleton.IndexOf(verificacaoSeTemID);
-            _intanciaProdutoSingleton[posicao] = produtoAtualizado;
+            _intanciaProdutoSingleton[posicao] = produto;
         }
 
         public void Deletar(int id)
@@ -41,9 +40,23 @@ namespace Cod3rsGrowth.Testes
             return produto;
         }
 
-        public List<Produto> ObterTodos(FiltroProduto? produto = null)
+        public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            return _intanciaProdutoSingleton;
+            var listaProduto = _intanciaProdutoSingleton.ToList();
+
+            if (!string.IsNullOrEmpty(filtro?.Nome))
+            {
+                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome, StringComparison.OrdinalIgnoreCase));
+            }
+            if (filtro?.ValorDoProduto != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro?.ValorDoProduto);
+            }
+            if (filtro?.DataCadastro != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataCadastro);
+            }
+            return listaProduto;
         }
     }
 }
