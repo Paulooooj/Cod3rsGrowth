@@ -45,7 +45,7 @@ namespace Cod3rsGrowth.Testes.Testes
         {
             var empresa = new Empresa { Id = 5, RazaoSocial = "InventSoftwar", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
             _repositorioEmpresa.Adicionar(empresa);
-            var retornoEmpresa = EmpresaSingleton.Instancia.FirstOrDefault();
+            var retornoEmpresa = EmpresaSingleton.Instancia.Find(x=> x.Id == empresa.Id);
             Assert.Equivalent(empresa, retornoEmpresa);
         }
 
@@ -180,6 +180,37 @@ namespace Cod3rsGrowth.Testes.Testes
                 Ramo = EnumRamoDaEmpresa.Servico
             };
             var mensagemErro = Assert.Throws<Exception>(() => _repositorioEmpresa.Atualizar(empresa));
+        }
+
+        [Fact]
+        public void deve_estourar_uma_excecao_e_retornar_uma_mensagem_ao_tentar_atualizar_um_objeto_com_razaosocial_repetido()
+        {
+            CriarLista();
+            var empresa = new Empresa
+            {
+                Id = 3,
+                RazaoSocial = "InventSoftware",
+                CNPJ = "12346754325678",
+                Ramo = EnumRamoDaEmpresa.Servico
+            };
+            var mensagem = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioEmpresa.Atualizar(empresa));
+            Assert.Equal("Essa Razão Social já existe", mensagem.Errors.Single().ErrorMessage);
+        }
+
+        [Fact]
+        public void deve_atualizar_a_lista_usando_o_mesmo_nome_se_tiver_o_mesmo_id()
+        {
+            CriarLista();
+            var empresa = new Empresa
+            {
+                Id = 1,
+                RazaoSocial = "InventSoftware",
+                CNPJ = "12346754325678",
+                Ramo = EnumRamoDaEmpresa.Servico
+            };
+            _repositorioEmpresa.Atualizar(empresa);
+            var retornoEmpresa = EmpresaSingleton.Instancia.Find(x => x.Id == empresa.Id);
+            Assert.Equivalent(empresa, retornoEmpresa);
         }
 
         public List<Empresa> CriarLista()

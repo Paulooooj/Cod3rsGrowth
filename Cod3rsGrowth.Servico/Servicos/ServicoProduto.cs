@@ -26,13 +26,12 @@ namespace Cod3rsGrowth.Servico.Servicos
 
         public void Atualizar(Produto produto)
         {
-            _produtoValidacao.ValidateAndThrow(produto);
-
             try
             {
+                _produtoValidacao.ValidateAndThrow(produto);
                 _repositorioProduto.Atualizar(produto);
             }
-            catch (FluentValidation.ValidationException ve)
+            catch (ValidationException ve)
             {
                 throw new ValidationException(ve.Errors);
             }

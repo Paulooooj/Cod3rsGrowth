@@ -23,8 +23,8 @@ namespace Cod3rsGrowth.Servico.Validacao
                 
                 
             RuleFor(x => x)
-                .Must((x, _) => _repositorioEmpresa.verificarSeTemNomeRepetido(x))
-                .WithMessage("Esse nome já existe");
+                .Must(x => _repositorioEmpresa.verificarSeTemNomeRepetido(x))
+                .WithMessage("Essa Razão Social já existe");
 
             RuleFor(x => x.CNPJ).Cascade(CascadeMode.Stop)
                 .NotEmpty()

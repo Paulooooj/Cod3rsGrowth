@@ -54,9 +54,16 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public bool verificarSeTemNomeRepetido(Empresa empresa)
         {
-            var verificacao = _db.GetTable<Empresa>().ToList().FindAll(x => x.RazaoSocial == razaoSocial);
-            var tamanhoListaQuandoForVazia = 0;
-            return (verificacao.Count == tamanhoListaQuandoForVazia);
+            var verificacao = _db.GetTable<Empresa>().ToList().Find(x => x.RazaoSocial == empresa.RazaoSocial);
+
+            if (verificacao != null)
+            {
+                if (verificacao.Id != empresa.Id)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

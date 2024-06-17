@@ -21,6 +21,7 @@ namespace Cod3rsGrowth.Dominio.Servicos
         public void Adicionar(Empresa empresa)
         {
             _empresaValidacao.ValidateAndThrow(empresa);
+            _repositorioEmpresa.Adicionar(empresa);
         }
 
         public void Atualizar(Empresa empresa)
@@ -30,7 +31,7 @@ namespace Cod3rsGrowth.Dominio.Servicos
                 _empresaValidacao.ValidateAndThrow(empresa);
                 _repositorioEmpresa.Atualizar(empresa);
             }
-            catch (FluentValidation.ValidationException ve)
+            catch (ValidationException ve)
             {
                 throw new ValidationException(ve.Errors);
             }

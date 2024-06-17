@@ -243,6 +243,25 @@ namespace Cod3rsGrowth.Testes.Testes
             var mensagemErro = Assert.Throws<System.Exception>(() => _repositorioProduto.Atualizar(produto));
         }
 
+        [Fact]
+        public void deve_atualizar_o_produto_atual_para_o_novo()
+        {
+            CriarLista();
+            var produto = new Produto
+            {
+                Id = 1,
+                Nome = "EmpresaTeste",
+                ValorDoProduto = 1000m,
+                DataCadastro = DateTime.Today,
+                TemDataValida = false,
+                DataValidade = null,
+                EmpresaId = 1
+            };
+            _repositorioProduto.Atualizar(produto);
+            var retornoProduto = ProdutoSingleton.Instancia.Find(x => x.Id == produto.Id);
+            Assert.Equal(produto, retornoProduto);
+        }
+
         public List<Produto> CriarLista()
         {
             var listaProduto = new List<Produto>
