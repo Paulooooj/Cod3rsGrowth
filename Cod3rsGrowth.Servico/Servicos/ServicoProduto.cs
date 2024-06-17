@@ -43,7 +43,14 @@ namespace Cod3rsGrowth.Servico.Servicos
 
         public void Deletar(int id)
         {
-            _repositorioProduto.Deletar(id);
+            try
+            {
+                _repositorioProduto.Deletar(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Produto ObterPorId(int id)

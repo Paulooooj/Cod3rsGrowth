@@ -40,9 +40,17 @@ namespace Cod3rsGrowth.Dominio.Servicos
                 throw new Exception(ex.Message);
             }
         }
+
         public void Deletar(int id)
         {
-            _repositorioEmpresa.Deletar(id);
+            try
+            {
+                _repositorioEmpresa.Deletar(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Empresa ObterPorId(int id)
