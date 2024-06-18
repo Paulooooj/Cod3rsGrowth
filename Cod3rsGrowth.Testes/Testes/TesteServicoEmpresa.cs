@@ -121,23 +121,6 @@ namespace Cod3rsGrowth.Testes.Testes
         }
 
         [Fact]
-        public void dever_estourar_excecao_ao_mandar_um_id_invalido()
-        {
-            CriarLista();
-            int idInvalido = 5;
-            Assert.Throws<Exception>(() => _repositorioEmpresa.Deletar(idInvalido));
-        }
-
-        [Fact]
-        public void deve_verificar_se_ao_mandar_um_id_invalido_retorna_a_mensagem_correta()
-        {
-            CriarLista();
-            int idInvalido = 5;
-            var mensagemDeErro = Assert.Throws<System.Exception>(() => _repositorioEmpresa.Deletar(idInvalido));
-            Assert.Equal($"Empresa com Id: {idInvalido} não encontrado", mensagemDeErro.Message);
-        }
-
-        [Fact]
         public void deve_retornar_o_objeto_correspondente_do_obtertodos_usando_filtro()
         {
             CriarLista();

@@ -29,7 +29,9 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            _db.Produtos
+                .Where(x => x.Id == id)
+                .Delete();
         }
 
         public Produto ObterPorId(int id)

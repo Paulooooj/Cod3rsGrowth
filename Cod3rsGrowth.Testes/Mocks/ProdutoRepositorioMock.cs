@@ -21,16 +21,15 @@ namespace Cod3rsGrowth.Testes
 
         public void Atualizar(Produto produto)
         {
-            var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produto.Id);
-            var posicao = _intanciaProdutoSingleton.IndexOf(verificacaoSeTemID);
+            var produtoASerAtualizado = _intanciaProdutoSingleton.Find(x => x.Id == produto.Id);
+            var posicao = _intanciaProdutoSingleton.IndexOf(produtoASerAtualizado);
             _intanciaProdutoSingleton[posicao] = produto;
         }
 
         public void Deletar(int id)
         {
-            var objetoASerRemovido = _intanciaProdutoSingleton.Find(x => x.Id == id)
-                ?? throw new Exception($"Produto com Id: {id} não encontrado");
-            _intanciaProdutoSingleton.Remove(objetoASerRemovido);
+            var produtoASerRemovido = _intanciaProdutoSingleton.Find(x => x.Id == id);
+            _intanciaProdutoSingleton.Remove(produtoASerRemovido);
         }
 
         public Produto ObterPorId(int id)
