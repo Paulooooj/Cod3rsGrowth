@@ -55,7 +55,8 @@ namespace Cod3rsGrowth.Servico.Servicos
 
         public Produto ObterPorId(int id)
         {
-            return _repositorioProduto.ObterPorId(id);
+            return _repositorioProduto.ObterPorId(id)
+                ?? throw new Exception($"Produto com Id: {id} não encontrado"); 
         }
 
         public List<Produto> ObterTodos(FiltroProduto? filtro = null)

@@ -30,13 +30,13 @@ namespace Cod3rsGrowth.Infra.Repositorio
         public void Deletar(int id)
         {
             _db.Produtos
-                .Where(x => x.Id == id)
-                .Delete();
+                .Delete(x => x.Id == id); ;
         }
 
         public Produto ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            return _db.GetTable<Produto>()
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public List<Produto> ObterTodos(FiltroProduto? filtro = null)
