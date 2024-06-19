@@ -3,6 +3,7 @@ using LinqToDB;
 using LinqToDB.AspNet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 namespace Cod3rsGrowth.Forms.Injecao
 {
     public class ModuloDeInjecao
@@ -11,9 +12,13 @@ namespace Cod3rsGrowth.Forms.Injecao
 
         public static void AdicionarDependenciasNoEscopo(ServiceCollection servico)
         {
-            servico.AddLinqToDBContext<DbCod3rsGrowth>((provider, options)
-                => options
-            .UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+            const string nomeVariavelAmbiente = "ConnectionString";
+            var stringConexao = Environment.GetEnvironmentVariable(nomeVariavelAmbiente)
+                ?? throw new Exception($"Variavel de ambiente [{nomeVariavelAmbiente}] nao encontrada");
+
+            servico
+                .AddLinqToDBContext<DbCod3rsGrowth>((provider, options) => options
+                .UseSqlServer(Configuration.GetConnectionString(stringConexao)));
         }
     }
 }
