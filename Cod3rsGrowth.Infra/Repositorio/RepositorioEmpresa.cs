@@ -41,17 +41,17 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
-            var listaEmpresa = _db.GetTable<Empresa>().ToList();
+            var listaEmpresa = _db.GetTable<Empresa>().AsQueryable();
 
             if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
             {
-                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+                listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial.StartsWith(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.Ramo != null)
             {
-                listaEmpresa = listaEmpresa.FindAll(x => x.Ramo == filtro?.Ramo);
+                listaEmpresa = listaEmpresa.Where(x => x.Ramo == filtro.Ramo);
             }
-            return listaEmpresa;
+            return listaEmpresa.ToList();
         }
 
         public bool verificarSeTemNomeRepetido(Empresa empresa)

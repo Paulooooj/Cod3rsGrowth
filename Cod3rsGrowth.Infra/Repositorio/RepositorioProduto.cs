@@ -40,22 +40,22 @@ namespace Cod3rsGrowth.Infra.Repositorio
         }
 
         public List<Produto> ObterTodos(FiltroProduto? filtro = null)
-        {
-            var listaProduto = _db.GetTable<Produto>().ToList();
+        {;
+            var listaProduto = _db.GetTable<Produto>().AsQueryable();
 
             if (!string.IsNullOrEmpty(filtro?.Nome))
             {
-                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome, StringComparison.OrdinalIgnoreCase));
+                listaProduto = listaProduto.Where(x => x.Nome.StartsWith(filtro.Nome, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.ValorDoProduto != null)
             {
-                listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro?.ValorDoProduto);
+                listaProduto = listaProduto.Where(x => x.ValorDoProduto == filtro.ValorDoProduto);
             }
             if (filtro?.DataCadastro != null)
             {
-                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataCadastro);
+                listaProduto = listaProduto.Where(x => x.DataCadastro == filtro.DataCadastro);
             }
-            return listaProduto;
+            return listaProduto.ToList();
         }
     }
 }
