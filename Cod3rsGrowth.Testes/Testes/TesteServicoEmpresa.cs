@@ -28,11 +28,18 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_retornar_o_objeto_esperado_no_metodo_obter_por_id()
         {
-            var listaEmpresa = CriarLista();
             int id = 2;
-            var indexLista = 1;
+            CriarLista();
+            var empresaEsperada = new Empresa
+            {
+                Id = 2,
+                RazaoSocial = "Heinz",
+                CNPJ = "83748362748959",
+                Ramo = EnumRamoDaEmpresa.Industria
+            };
             var retornoEmpresa = _repositorioEmpresa.ObterPorId(id);
-            Assert.Equivalent(listaEmpresa[indexLista], retornoEmpresa);
+
+            Assert.Equivalent(empresaEsperada, retornoEmpresa);
         }
 
         [Fact]
