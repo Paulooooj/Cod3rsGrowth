@@ -13,12 +13,12 @@ namespace Cod3rsGrowth.Servico.Validacao
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("O campo Nome é obrigatorio")
                 .MaximumLength(20).WithMessage("Número máximo de caracteres atingido");
-            
+
             RuleFor(x => x.ValorDoProduto)
                 .NotEmpty().WithMessage("O campo valor é obrigatorio")
                 .PrecisionScale(10, 2, false)
                 .WithMessage("Tamanho máximo atingido");
-            
+
             RuleFor(x => x.DataCadastro).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("É necessário informar a data de cadastro")
                 .Must(x => x == DateTime.Today)
