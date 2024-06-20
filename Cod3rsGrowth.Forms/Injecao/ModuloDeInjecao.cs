@@ -1,4 +1,6 @@
-﻿using Cod3rsGrowth.Infra;
+﻿using Cod3rsGrowth.Dominio.Migrations;
+using Cod3rsGrowth.Infra;
+using FluentMigrator.Runner;
 using LinqToDB;
 using LinqToDB.AspNet;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,15 @@ namespace Cod3rsGrowth.Forms.Injecao
             servico
                 .AddLinqToDBContext<DbCod3rsGrowth>((provider, options) => options
                 .UseSqlServer(Configuration.GetConnectionString(stringConexao)));
+
+            servico
+                .AddFluentMigratorCore()
+                .ConfigureRunner(rb => rb
+                .AddSqlServer()
+                .WithGlobalConnectionString(stringConexao)
+                .ScanIn(typeof(AdicionarTabelas).Assembly).For.Migrations())
+                .AddLogging(lb => lb.AddFluentMigratorConsole())
+            .BuildServiceProvider(false);
         }
     }
 }
