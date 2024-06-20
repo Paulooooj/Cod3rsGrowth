@@ -10,7 +10,7 @@ namespace Cod3rsGrowth.Forms.Injecao
 {
     public class ModuloDeInjecao
     {
-        public static IConfiguration Configuration { get;}
+        public static IConfiguration Configuration { get; }
 
         public static void AdicionarDependenciasNoEscopo(ServiceCollection servico)
         {
@@ -21,13 +21,12 @@ namespace Cod3rsGrowth.Forms.Injecao
             servico
                 .AddLinqToDBContext<DbCod3rsGrowth>((provider, options) => options
                 .UseSqlServer(Configuration.GetConnectionString(stringConexao)));
-
             servico
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                 .AddSqlServer()
                 .WithGlobalConnectionString(stringConexao)
-                .ScanIn(typeof(AdicionarTabelas).Assembly).For.Migrations())
+                .ScanIn(typeof(_20240620132500_migracao_da_tabela_empresa).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
             .BuildServiceProvider(false);
         }

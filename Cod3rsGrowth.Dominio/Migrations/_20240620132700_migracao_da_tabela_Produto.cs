@@ -1,19 +1,12 @@
-﻿
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace Cod3rsGrowth.Dominio.Migrations
 {
-    [Migration(2024062090000)]
-    public class AdicionarTabelas : Migration
+    [Migration(20240620132700)]
+    public class _2024062090000_migracao_da_tabela_Produto : Migration
     {
         public override void Up()
         {
-            Create.Table("Empresa")
-                .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-                .WithColumn("RazaoSocial").AsString().NotNullable()
-                .WithColumn("CNPJ").AsString().NotNullable()
-                .WithColumn("Ramo").AsString().NotNullable();
-
             Create.Table("Produto")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("Nome").AsString().NotNullable()
@@ -26,9 +19,7 @@ namespace Cod3rsGrowth.Dominio.Migrations
 
         public override void Down()
         {
-            Delete.Table("Empresa");
             Delete.Table("Produto");
         }
-
     }
 }

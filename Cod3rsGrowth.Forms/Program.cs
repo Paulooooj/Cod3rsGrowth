@@ -1,6 +1,4 @@
-using Cod3rsGrowth.Forms.Injecao;
-using FluentMigrator.Runner;
-using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Forms.ExecutarMigracoes;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -14,20 +12,10 @@ namespace Cod3rsGrowth.Forms
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+            var executarMigracoes = new Migracoes();
+            executarMigracoes.ExecutarMigracao();
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
-            var update = new UpdateDatabase();
-            update.Update();
-           
-        }
-
-        private class UpdateDatabase : FormsBase
-        {
-            public void Update()
-            {
-                var runner = ServiceProvider.GetRequiredService<IMigrationRunner>();
-                runner.MigrateUp();
-            }
         }
     }
 }
