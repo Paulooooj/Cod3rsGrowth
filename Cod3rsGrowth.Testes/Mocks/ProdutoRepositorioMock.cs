@@ -1,53 +1,59 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Singleton;
-using FluentValidation;
 
 namespace Cod3rsGrowth.Testes
 {
     public class ProdutoRepositorioMock : IRepositorioProduto
     {
         private readonly ProdutoSingleton _intanciaProdutoSingleton;
-        private readonly IValidator<Produto> _produtoValidacao;
 
-        public ProdutoRepositorioMock(IValidator<Produto> produtoValidacao)
+        public ProdutoRepositorioMock()
         {
             _intanciaProdutoSingleton = ProdutoSingleton.Instancia;
-            _produtoValidacao = produtoValidacao;
         }
 
         public void Adicionar(Produto produto)
         {
-            _produtoValidacao.ValidateAndThrow(produto);
             _intanciaProdutoSingleton.Add(produto);
         }
 
-        public void Atualizar(Produto produtoAtualizado)
+        public void Atualizar(Produto produto)
         {
-            _produtoValidacao.ValidateAndThrow(produtoAtualizado);
-            var verificacaoSeTemID = _intanciaProdutoSingleton.Find(x => x.Id == produtoAtualizado.Id)
-                ?? throw new Exception($"Produto com Id: {produtoAtualizado.Id} não encontrado");
-            var posicao = _intanciaProdutoSingleton.IndexOf(verificacaoSeTemID);
-            _intanciaProdutoSingleton[posicao] = produtoAtualizado;
+            var produtoASerAtualizado = _intanciaProdutoSingleton.Find(x => x.Id == produto.Id);
+            var posicao = _intanciaProdutoSingleton.IndexOf(produtoASerAtualizado);
+            _intanciaProdutoSingleton[posicao] = produto;
         }
 
         public void Deletar(int id)
         {
-            var objetoASerRemovido = _intanciaProdutoSingleton.Find(x => x.Id == id)
-                ?? throw new Exception($"Produto com Id: {id} não encontrado");
-            _intanciaProdutoSingleton.Remove(objetoASerRemovido);
+            var produtoASerRemovido = _intanciaProdutoSingleton.Find(x => x.Id == id);
+            _intanciaProdutoSingleton.Remove(produtoASerRemovido);
         }
 
         public Produto ObterPorId(int id)
         {
-            var produto = _intanciaProdutoSingleton.Find(x => x.Id == id)
-                ?? throw new Exception($"Produto com Id: {id} não encontrado");
-            return produto;
+            return _intanciaProdutoSingleton.Find(x => x.Id == id);
         }
 
-        public List<Produto> ObterTodos()
+        public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            return _intanciaProdutoSingleton;
+            var listaProduto = _intanciaProdutoSingleton.ToList();
+
+            if (!string.IsNullOrEmpty(filtro?.Nome))
+            {
+                listaProduto = listaProduto.FindAll(x => x.Nome.StartsWith(filtro?.Nome, StringComparison.OrdinalIgnoreCase));
+            }
+            if (filtro?.ValorDoProduto != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.ValorDoProduto == filtro?.ValorDoProduto);
+            }
+            if (filtro?.DataCadastro != null)
+            {
+                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataCadastro);
+            }
+            return listaProduto;
         }
     }
 }

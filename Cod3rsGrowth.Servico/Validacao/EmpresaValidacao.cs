@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
 using System.Linq;
 
@@ -6,8 +7,12 @@ namespace Cod3rsGrowth.Servico.Validacao
 {
     public class EmpresaValidacao : AbstractValidator<Empresa>
     {
-        public EmpresaValidacao()
+        private readonly IRepositorioEmpresa _repositorioEmpresa;
+
+        public EmpresaValidacao(IRepositorioEmpresa repositorioEmpresa)
         {
+            _repositorioEmpresa = repositorioEmpresa;
+
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(x => x.RazaoSocial)
@@ -15,6 +20,11 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .WithMessage("O campo Razão Social é obrigatorio")
                 .MaximumLength(20)
                 .WithMessage("Número máximo de caracteres atingido");
+                
+                
+            RuleFor(x => x)
+                .Must(x => _repositorioEmpresa.verificarSeTemNomeRepetido(x))
+                .WithMessage("Essa Razão Social já existe");
 
             RuleFor(x => x.CNPJ).Cascade(CascadeMode.Stop)
                 .NotEmpty()
@@ -35,7 +45,7 @@ namespace Cod3rsGrowth.Servico.Validacao
             return cnpj.All(char.IsDigit);
         }
 
-        public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa) 
+        public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa)
         {
             return !(enumRamoEmpresa == EnumRamoDaEmpresa.NaoDefinido);
         }
