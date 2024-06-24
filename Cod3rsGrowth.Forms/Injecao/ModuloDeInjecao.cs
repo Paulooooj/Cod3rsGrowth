@@ -24,6 +24,7 @@ namespace Cod3rsGrowth.Forms.Injecao
             const string nomeVariavelAmbiente = "ConnectionString";
             var stringConexao = Environment.GetEnvironmentVariable(nomeVariavelAmbiente)
                 ?? throw new Exception($"Variavel de ambiente [{nomeVariavelAmbiente}] nao encontrada");
+
             servico.AddScoped<ServicoEmpresa>();
             servico.AddScoped<ServicoProduto>();
             servico.AddScoped<IValidator<Empresa>, EmpresaValidacao>();
@@ -34,6 +35,7 @@ namespace Cod3rsGrowth.Forms.Injecao
             servico
                 .AddLinqToDBContext<DbCod3rsGrowth>((provider, options) => options
                 .UseSqlServer(Configuration.GetConnectionString(stringConexao)));
+
             servico
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
