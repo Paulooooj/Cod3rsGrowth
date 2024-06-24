@@ -54,16 +54,7 @@ namespace Cod3rsGrowth.Testes
 
         public bool verificarSeTemNomeRepetido(Empresa empresa)
         {
-            var empresaNomeRepetido = _instanciaEmpresaSingleton.Find(x => x.RazaoSocial == empresa.RazaoSocial);
-
-            if (empresaNomeRepetido != null)
-            {
-                if (empresaNomeRepetido.Id != empresa.Id)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return !_instanciaEmpresaSingleton.Any(x => x.RazaoSocial == empresa.RazaoSocial &&  x.Id != empresa.Id);
         }
     }
 }
