@@ -45,7 +45,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
             if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
             {
-                listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial.StartsWith(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+                listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial.Contains(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.Ramo != null)
             {

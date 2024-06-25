@@ -52,7 +52,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "teste",
                 ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = true,
+                TemDataValidade = true,
                 DataValidade = DateTime.Parse("10/11/2024"),
                 EmpresaId = 5
             };
@@ -68,7 +68,7 @@ namespace Cod3rsGrowth.Testes.Testes
             {
                 Nome = "teste",
                 DataCadastro = DateTime.Today,
-                TemDataValida = true,
+                TemDataValidade = true,
                 DataValidade = DateTime.Parse("12/10/2024"),
                 EmpresaId = 3
             };
@@ -83,7 +83,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Id = 2,
                 ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = true,
+                TemDataValidade = true,
                 DataValidade = DateTime.Parse("12/10/2024"),
                 EmpresaId = 3
             };
@@ -97,7 +97,7 @@ namespace Cod3rsGrowth.Testes.Testes
             {
                 Nome = "teste",
                 DataCadastro = DateTime.Today,
-                TemDataValida = true,
+                TemDataValidade = true,
                 DataValidade = DateTime.Parse("12/10/2024"),
                 EmpresaId = 3
             };
@@ -115,7 +115,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "teste11111",
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = true,
+                TemDataValidade = true,
                 DataValidade = DateTime.Parse("30/09/2024"),
                 EmpresaId = 1
             };
@@ -133,7 +133,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Id = 1,
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = false,
+                TemDataValidade = false,
                 DataValidade = DateTime.Parse("30/11/2024"),
                 EmpresaId = 1
             };
@@ -149,7 +149,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Id = 1,
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = false,
+                TemDataValidade = false,
                 DataValidade = null,
                 EmpresaId = 1
             };
@@ -167,7 +167,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "BankPlus",
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = false,
+                TemDataValidade = false,
                 DataValidade = null,
                 EmpresaId = 1
             };
@@ -187,7 +187,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     Nome = "BankPlus",
                     ValorDoProduto = 10500m,
                     DataCadastro = DateTime.Today,
-                    TemDataValida = false,
+                    TemDataValidade = false,
                     DataValidade = null,
                     EmpresaId = 1
                 }
@@ -219,7 +219,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "Teste",
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = false,
+                TemDataValidade = false,
                 DataValidade = DateTime.Parse("30/11/2024"),
                 EmpresaId = 1
             };
@@ -236,7 +236,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "EmpresaTeste",
                 ValorDoProduto = 1000m,
                 DataCadastro = DateTime.Today,
-                TemDataValida = false,
+                TemDataValidade = false,
                 DataValidade = null,
                 EmpresaId = 1
             };
@@ -255,7 +255,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     Nome = "BankPlus",
                     ValorDoProduto = 10500m,
                     DataCadastro = DateTime.Today,
-                    TemDataValida = false,
+                    TemDataValidade = false,
                     DataValidade = null,
                     EmpresaId = 1
                 },
@@ -265,7 +265,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     Nome = "Molho de Tomate",
                     ValorDoProduto = 5.50m,
                     DataCadastro = DateTime.Today,
-                    TemDataValida = true,
+                    TemDataValidade = true,
                     DataValidade = DateTime.Parse("30/06/2024"),
                     EmpresaId = 2
                 },
@@ -275,7 +275,7 @@ namespace Cod3rsGrowth.Testes.Testes
                     Nome = "Arroz",
                     ValorDoProduto = 24.50m,
                     DataCadastro = DateTime.Today,
-                    TemDataValida = true,
+                    TemDataValidade = true,
                     DataValidade = DateTime.Parse("10/09/2025"),
                     EmpresaId = 3
                 },

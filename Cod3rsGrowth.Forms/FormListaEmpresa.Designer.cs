@@ -29,35 +29,50 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            dataGridView1 = new DataGridView();
+            dataGridViewEmpresa = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             razaoSocialDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             cNPJDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ramoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             empresaBindingSource = new BindingSource(components);
-            menuStrip1 = new MenuStrip();
-            empresaToolStripMenuItem = new ToolStripMenuItem();
-            listaDeEmpresasToolStripMenuItem = new ToolStripMenuItem();
-            cadastrarEmpresaToolStripMenuItem = new ToolStripMenuItem();
-            produtoToolStripMenuItem = new ToolStripMenuItem();
-            listaDeProdutosToolStripMenuItem = new ToolStripMenuItem();
-            cadastrarProdutosToolStripMenuItem = new ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            textFiltrarNome = new TextBox();
+            comboBoxEnumRamo = new ComboBox();
+            tabControl1 = new TabControl();
+            tabPagEmpresa = new TabPage();
+            tabPageProduto = new TabPage();
+            dataGridViewProduto = new DataGridView();
+            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            valorDoProdutoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataCadastroDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataValidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            empresaIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            produtoBindingSource = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewEmpresa).BeginInit();
             ((System.ComponentModel.ISupportInitialize)empresaBindingSource).BeginInit();
-            menuStrip1.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPagEmpresa.SuspendLayout();
+            tabPageProduto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProduto).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewEmpresa
             // 
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.BackgroundColor = Color.White;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, razaoSocialDataGridViewTextBoxColumn, cNPJDataGridViewTextBoxColumn, ramoDataGridViewTextBoxColumn });
-            dataGridView1.DataSource = empresaBindingSource;
-            dataGridView1.Location = new Point(-2, 115);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(802, 323);
-            dataGridView1.TabIndex = 0;
+            dataGridViewEmpresa.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewEmpresa.AutoGenerateColumns = false;
+            dataGridViewEmpresa.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewEmpresa.BackgroundColor = Color.White;
+            dataGridViewEmpresa.BorderStyle = BorderStyle.None;
+            dataGridViewEmpresa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewEmpresa.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, razaoSocialDataGridViewTextBoxColumn, cNPJDataGridViewTextBoxColumn, ramoDataGridViewTextBoxColumn });
+            dataGridViewEmpresa.DataSource = empresaBindingSource;
+            dataGridViewEmpresa.Location = new Point(0, 67);
+            dataGridViewEmpresa.Name = "dataGridViewEmpresa";
+            dataGridViewEmpresa.RowHeadersVisible = false;
+            dataGridViewEmpresa.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            dataGridViewEmpresa.Size = new Size(656, 323);
+            dataGridViewEmpresa.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -87,86 +102,159 @@
             // 
             empresaBindingSource.DataSource = typeof(Dominio.Entidades.Empresa);
             // 
-            // menuStrip1
+            // textFiltrarNome
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { empresaToolStripMenuItem, produtoToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
+            textFiltrarNome.Location = new Point(8, 22);
+            textFiltrarNome.Name = "textFiltrarNome";
+            textFiltrarNome.PlaceholderText = "Razão Social";
+            textFiltrarNome.Size = new Size(178, 23);
+            textFiltrarNome.TabIndex = 2;
+            textFiltrarNome.TextChanged += textFiltrarNome_TextChanged;
             // 
-            // empresaToolStripMenuItem
+            // comboBoxEnumRamo
             // 
-            empresaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listaDeEmpresasToolStripMenuItem, cadastrarEmpresaToolStripMenuItem });
-            empresaToolStripMenuItem.Name = "empresaToolStripMenuItem";
-            empresaToolStripMenuItem.Size = new Size(64, 20);
-            empresaToolStripMenuItem.Text = "Empresa";
+            comboBoxEnumRamo.FormattingEnabled = true;
+            comboBoxEnumRamo.Items.AddRange(new object[] { "Todos", "Industria", "Comercio", "Servico" });
+            comboBoxEnumRamo.Location = new Point(212, 22);
+            comboBoxEnumRamo.Name = "comboBoxEnumRamo";
+            comboBoxEnumRamo.Size = new Size(113, 23);
+            comboBoxEnumRamo.TabIndex = 4;
+            comboBoxEnumRamo.SelectedIndexChanged += comboBoxEnumRamo_SelectedIndexChanged;
             // 
-            // listaDeEmpresasToolStripMenuItem
+            // tabControl1
             // 
-            listaDeEmpresasToolStripMenuItem.Name = "listaDeEmpresasToolStripMenuItem";
-            listaDeEmpresasToolStripMenuItem.Size = new Size(180, 22);
-            listaDeEmpresasToolStripMenuItem.Text = "Lista de Empresas";
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Controls.Add(tabPagEmpresa);
+            tabControl1.Controls.Add(tabPageProduto);
+            tabControl1.Location = new Point(0, 1);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(664, 424);
+            tabControl1.TabIndex = 5;
             // 
-            // cadastrarEmpresaToolStripMenuItem
+            // tabPagEmpresa
             // 
-            cadastrarEmpresaToolStripMenuItem.Name = "cadastrarEmpresaToolStripMenuItem";
-            cadastrarEmpresaToolStripMenuItem.Size = new Size(180, 22);
-            cadastrarEmpresaToolStripMenuItem.Text = "Cadastrar Empresa";
+            tabPagEmpresa.Controls.Add(dataGridViewEmpresa);
+            tabPagEmpresa.Controls.Add(comboBoxEnumRamo);
+            tabPagEmpresa.Controls.Add(textFiltrarNome);
+            tabPagEmpresa.Location = new Point(4, 24);
+            tabPagEmpresa.Name = "tabPagEmpresa";
+            tabPagEmpresa.Padding = new Padding(3);
+            tabPagEmpresa.Size = new Size(656, 396);
+            tabPagEmpresa.TabIndex = 0;
+            tabPagEmpresa.Text = "Empresa";
+            tabPagEmpresa.UseVisualStyleBackColor = true;
             // 
-            // produtoToolStripMenuItem
+            // tabPageProduto
             // 
-            produtoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listaDeProdutosToolStripMenuItem, cadastrarProdutosToolStripMenuItem });
-            produtoToolStripMenuItem.Name = "produtoToolStripMenuItem";
-            produtoToolStripMenuItem.Size = new Size(62, 20);
-            produtoToolStripMenuItem.Text = "Produto";
+            tabPageProduto.Controls.Add(dataGridViewProduto);
+            tabPageProduto.Location = new Point(4, 24);
+            tabPageProduto.Name = "tabPageProduto";
+            tabPageProduto.Padding = new Padding(3);
+            tabPageProduto.Size = new Size(656, 396);
+            tabPageProduto.TabIndex = 1;
+            tabPageProduto.Text = "Produto";
+            tabPageProduto.UseVisualStyleBackColor = true;
             // 
-            // listaDeProdutosToolStripMenuItem
+            // dataGridViewProduto
             // 
-            listaDeProdutosToolStripMenuItem.Name = "listaDeProdutosToolStripMenuItem";
-            listaDeProdutosToolStripMenuItem.Size = new Size(180, 22);
-            listaDeProdutosToolStripMenuItem.Text = "Lista de Produtos";
+            dataGridViewProduto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewProduto.AutoGenerateColumns = false;
+            dataGridViewProduto.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProduto.BackgroundColor = Color.White;
+            dataGridViewProduto.BorderStyle = BorderStyle.None;
+            dataGridViewProduto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewProduto.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn, valorDoProdutoDataGridViewTextBoxColumn, dataCadastroDataGridViewTextBoxColumn, dataValidadeDataGridViewTextBoxColumn, empresaIdDataGridViewTextBoxColumn });
+            dataGridViewProduto.DataSource = produtoBindingSource;
+            dataGridViewProduto.Location = new Point(0, 106);
+            dataGridViewProduto.Name = "dataGridViewProduto";
+            dataGridViewProduto.RowHeadersVisible = false;
+            dataGridViewProduto.RowTemplate.Height = 25;
+            dataGridViewProduto.Size = new Size(656, 278);
+            dataGridViewProduto.TabIndex = 0;
             // 
-            // cadastrarProdutosToolStripMenuItem
+            // idDataGridViewTextBoxColumn1
             // 
-            cadastrarProdutosToolStripMenuItem.Name = "cadastrarProdutosToolStripMenuItem";
-            cadastrarProdutosToolStripMenuItem.Size = new Size(180, 22);
-            cadastrarProdutosToolStripMenuItem.Text = "Cadastrar Produto";
+            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
+            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            // 
+            // valorDoProdutoDataGridViewTextBoxColumn
+            // 
+            valorDoProdutoDataGridViewTextBoxColumn.DataPropertyName = "ValorDoProduto";
+            valorDoProdutoDataGridViewTextBoxColumn.HeaderText = "ValorDoProduto";
+            valorDoProdutoDataGridViewTextBoxColumn.Name = "valorDoProdutoDataGridViewTextBoxColumn";
+            // 
+            // dataCadastroDataGridViewTextBoxColumn
+            // 
+            dataCadastroDataGridViewTextBoxColumn.DataPropertyName = "DataCadastro";
+            dataCadastroDataGridViewTextBoxColumn.HeaderText = "DataCadastro";
+            dataCadastroDataGridViewTextBoxColumn.Name = "dataCadastroDataGridViewTextBoxColumn";
+            // 
+            // dataValidadeDataGridViewTextBoxColumn
+            // 
+            dataValidadeDataGridViewTextBoxColumn.DataPropertyName = "DataValidade";
+            dataValidadeDataGridViewTextBoxColumn.HeaderText = "DataValidade";
+            dataValidadeDataGridViewTextBoxColumn.Name = "dataValidadeDataGridViewTextBoxColumn";
+            // 
+            // empresaIdDataGridViewTextBoxColumn
+            // 
+            empresaIdDataGridViewTextBoxColumn.DataPropertyName = "EmpresaId";
+            empresaIdDataGridViewTextBoxColumn.HeaderText = "EmpresaId";
+            empresaIdDataGridViewTextBoxColumn.Name = "empresaIdDataGridViewTextBoxColumn";
+            // 
+            // produtoBindingSource
+            // 
+            produtoBindingSource.DataSource = typeof(Dominio.Entidades.Produto);
             // 
             // FormListaEmpresa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
-            Controls.Add(dataGridView1);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            ClientSize = new Size(668, 421);
+            Controls.Add(tabControl1);
             Name = "FormListaEmpresa";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormListaEmpresa";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewEmpresa).EndInit();
             ((System.ComponentModel.ISupportInitialize)empresaBindingSource).EndInit();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            tabControl1.ResumeLayout(false);
+            tabPagEmpresa.ResumeLayout(false);
+            tabPagEmpresa.PerformLayout();
+            tabPageProduto.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProduto).EndInit();
+            ((System.ComponentModel.ISupportInitialize)produtoBindingSource).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewEmpresa;
+        private BindingSource empresaBindingSource;
+        private TextBox textFiltrarNome;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn razaoSocialDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cNPJDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn ramoDataGridViewTextBoxColumn;
-        private BindingSource empresaBindingSource;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem empresaToolStripMenuItem;
-        private ToolStripMenuItem listaDeEmpresasToolStripMenuItem;
-        private ToolStripMenuItem cadastrarEmpresaToolStripMenuItem;
-        private ToolStripMenuItem produtoToolStripMenuItem;
-        private ToolStripMenuItem listaDeProdutosToolStripMenuItem;
-        private ToolStripMenuItem cadastrarProdutosToolStripMenuItem;
+        private ComboBox comboBoxEnumRamo;
+        private TabControl tabControl1;
+        private TabPage tabPagEmpresa;
+        private TabPage tabPageProduto;
+        private DataGridView dataGridViewProduto;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn valorDoProdutoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataCadastroDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn temDataValidaDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn dataValidadeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn empresaIdDataGridViewTextBoxColumn;
+        private BindingSource produtoBindingSource;
     }
 }

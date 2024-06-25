@@ -1,4 +1,3 @@
-using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Forms.Injecao;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +13,6 @@ namespace Cod3rsGrowth.Forms
             ApplicationConfiguration.Initialize();
             ServiceProvider = ExecutarInjecao();
             Application.Run(ServiceProvider.GetRequiredService<FormListaEmpresa>());
-
         }
 
         public static IServiceProvider ServiceProvider { get; private set; }
@@ -23,17 +21,18 @@ namespace Cod3rsGrowth.Forms
         {
             var servicos = new ServiceCollection();
             servicos.AdicionarDependenciasNoEscopo();
-            ServiceProvider = servicos.BuildServiceProvider();
-            var runner = ServiceProvider.GetRequiredService<IMigrationRunner>();
-            runner.MigrateUp();
+            using (var serviceProvider = servicos.BuildServiceProvider())
+            {
+                var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+                runner.MigrateUp();
+            }
         }
 
         public static IServiceProvider ExecutarInjecao()
         {
             var servicos = new ServiceCollection();
             servicos.ModuloInjecaoServico();
-            var teste = servicos.BuildServiceProvider();
-            return teste;        
+            return servicos.BuildServiceProvider();
         }
 
     }
