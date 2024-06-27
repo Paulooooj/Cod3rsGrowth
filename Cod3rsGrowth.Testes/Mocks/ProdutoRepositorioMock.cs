@@ -51,9 +51,9 @@ namespace Cod3rsGrowth.Testes
                 listaProduto = listaProduto.FindAll(x => x.ValorDoProduto >= filtro?.ValorMinimo);
             }
 
-            if (filtro?.DataCadastro != null)
+            if (filtro?.DataMinima != null)
             {
-                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataCadastro);
+                listaProduto = listaProduto.FindAll(x => x.DataCadastro == filtro?.DataMinima);
             }
 
             return listaProduto;

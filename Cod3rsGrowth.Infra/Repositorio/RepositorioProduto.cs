@@ -1,7 +1,9 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Infra.Interfaces;
+using FluentMigrator.Runner.Generators;
 using LinqToDB;
+using LinqToDB.SqlQuery;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,8 +54,11 @@ namespace Cod3rsGrowth.Infra.Repositorio
             if (filtro?.ValorMaximo != null && filtro?.ValorMaximo > 0)
                 listaProduto = listaProduto.Where(x => x.ValorDoProduto <= filtro.ValorMaximo);
 
-            if (filtro?.DataCadastro != null)
-                listaProduto = listaProduto.Where(x => x.DataCadastro >= filtro.DataCadastro);
+            if (filtro?.DataMinima != null)
+                listaProduto = listaProduto.Where(x => x.DataCadastro >= filtro.DataMinima);
+
+            if (filtro?.DataMaxima != null)
+                listaProduto = listaProduto.Where(x => x.DataCadastro <= filtro.DataMaxima);
 
             return listaProduto.ToList();
         }

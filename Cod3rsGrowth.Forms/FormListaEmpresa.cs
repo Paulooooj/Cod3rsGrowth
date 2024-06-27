@@ -2,7 +2,6 @@ using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
-using Microsoft.Extensions.Logging;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -10,59 +9,66 @@ namespace Cod3rsGrowth.Forms
     {
         private readonly ServicoEmpresa _servicoEmpresa;
         private readonly ServicoProduto _servicoProduto;
-
+        private FiltroProduto filtroProduto;
+        private FiltroEmpresa filtroEmpresa;
 
         public FormListaEmpresa(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto)
         {
+            InitializeComponent();
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
-
-            InitializeComponent();
+            filtroProduto = new FiltroProduto();
+            filtroEmpresa = new FiltroEmpresa();
+            comboBoxEnumRamo.SelectedIndex = 0;
             dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
-            comboBoxEnumRamo.SelectedIndex = 0;
         }
 
         private void textFiltrarRazaoSocial_TextChanged(object sender, EventArgs e)
         {
-            var filtros = new FiltroEmpresa { RazaoSocial = textFiltrarRazaoSocial.Text, Ramo = (EnumRamoDaEmpresa)comboBoxEnumRamo.SelectedIndex };
-            dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos(filtros);
+            filtroEmpresa.RazaoSocial = textFiltrarRazaoSocial.Text;
+            dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos(filtroEmpresa);
         }
 
         private void comboBoxEnumRamo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var filtros = new FiltroEmpresa { RazaoSocial = textFiltrarRazaoSocial.Text, Ramo = (EnumRamoDaEmpresa)comboBoxEnumRamo.SelectedIndex };
-            dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos(filtros);
+            filtroEmpresa.Ramo = (EnumRamoDaEmpresa)comboBoxEnumRamo.SelectedIndex;
+            dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos(filtroEmpresa);
         }
 
         private void textFiltrarNomeProduto_TextChanged(object sender, EventArgs e)
         {
-            var filtros = new FiltroProduto { Nome = textFiltrarNomeProduto.Text, ValorMinimo = filtrarValorMinimoProduto.Value, ValorMaximo = filtrarValorMaximoProduto.Value, DataCadastro = filtrarPorDataProduto.Value };
-            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtros);
+            filtroProduto.Nome = textFiltrarNomeProduto.Text;
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
         }
 
         private void filtrarValorMinimoProduto_ValueChanged(object sender, EventArgs e)
         {
-            var filtros = new FiltroProduto { Nome = textFiltrarNomeProduto.Text, ValorMinimo = filtrarValorMinimoProduto.Value, ValorMaximo = filtrarValorMaximoProduto.Value, DataCadastro = filtrarPorDataProduto.Value};
-            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtros);
+            filtroProduto.ValorMinimo = filtrarValorMinimoProduto.Value;
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
         }
 
         private void filtrarValorMaximoProduto_ValueChanged(object sender, EventArgs e)
         {
-            var filtros = new FiltroProduto { Nome = textFiltrarNomeProduto.Text, ValorMinimo = filtrarValorMinimoProduto.Value, ValorMaximo = filtrarValorMaximoProduto.Value, DataCadastro = filtrarPorDataProduto.Value };
-            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtros);
+            filtroProduto.ValorMaximo = filtrarValorMaximoProduto.Value;
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
         }
 
-        private void filtrarPorDataProduto_ValueChanged(object sender, EventArgs e)
+        private void filtrarPorDataMinimaProduto_ValueChanged(object sender, EventArgs e)
         {
-            var filtros = new FiltroProduto { Nome = textFiltrarNomeProduto.Text, ValorMinimo = filtrarValorMinimoProduto.Value, ValorMaximo = filtrarValorMaximoProduto.Value, DataCadastro = filtrarPorDataProduto.Value };
-            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtros);
+            filtroProduto.DataMinima = filtrarPorDataMinimaProduto.Value;
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
+        }
+       
+        private void filtrarPorDataMaximaProduto_ValueChanged(object sender, EventArgs e)
+        {
+            filtroProduto.DataMaxima = filtrarPorDataMaximaProduto.Value;
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
         }
 
         private void aoClicarEmAdicionar(object sender, EventArgs e)
         {
 
         }
-
     }
 }

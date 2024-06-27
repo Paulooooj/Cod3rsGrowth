@@ -41,13 +41,17 @@
             tabPagEmpresa = new TabPage();
             Adicionar = new Button();
             tabPageProduto = new TabPage();
+            label4 = new Label();
+            label3 = new Label();
+            filtrarPorDataMaximaProduto = new DateTimePicker();
             label2 = new Label();
             label1 = new Label();
             filtrarValorMaximoProduto = new NumericUpDown();
             filtrarValorMinimoProduto = new NumericUpDown();
-            filtrarPorDataProduto = new DateTimePicker();
+            filtrarPorDataMinimaProduto = new DateTimePicker();
             textFiltrarNomeProduto = new TextBox();
             dataGridViewProduto = new DataGridView();
+            produtoBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             valorDoProdutoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -55,7 +59,6 @@
             TemDataValidade = new DataGridViewCheckBoxColumn();
             dataValidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             empresaIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            produtoBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dataGridViewEmpresa).BeginInit();
             ((System.ComponentModel.ISupportInitialize)empresaBindingSource).BeginInit();
             tabControl1.SuspendLayout();
@@ -77,11 +80,11 @@
             dataGridViewEmpresa.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewEmpresa.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, razaoSocialDataGridViewTextBoxColumn, cNPJDataGridViewTextBoxColumn, ramoDataGridViewTextBoxColumn });
             dataGridViewEmpresa.DataSource = empresaBindingSource;
-            dataGridViewEmpresa.Location = new Point(8, 67);
+            dataGridViewEmpresa.Location = new Point(3, 64);
             dataGridViewEmpresa.Name = "dataGridViewEmpresa";
             dataGridViewEmpresa.RowHeadersVisible = false;
             dataGridViewEmpresa.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewEmpresa.Size = new Size(868, 284);
+            dataGridViewEmpresa.Size = new Size(876, 281);
             dataGridViewEmpresa.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -116,8 +119,8 @@
             // 
             textFiltrarRazaoSocial.Location = new Point(8, 22);
             textFiltrarRazaoSocial.Name = "textFiltrarRazaoSocial";
-            textFiltrarRazaoSocial.PlaceholderText = "Razão Social";
-            textFiltrarRazaoSocial.Size = new Size(178, 23);
+            textFiltrarRazaoSocial.PlaceholderText = "Pesquisar Razão Social";
+            textFiltrarRazaoSocial.Size = new Size(333, 23);
             textFiltrarRazaoSocial.TabIndex = 2;
             textFiltrarRazaoSocial.TextChanged += textFiltrarRazaoSocial_TextChanged;
             // 
@@ -125,7 +128,7 @@
             // 
             comboBoxEnumRamo.FormattingEnabled = true;
             comboBoxEnumRamo.Items.AddRange(new object[] { "Todos", "Industria", "Comercio", "Servico" });
-            comboBoxEnumRamo.Location = new Point(212, 22);
+            comboBoxEnumRamo.Location = new Point(374, 22);
             comboBoxEnumRamo.Name = "comboBoxEnumRamo";
             comboBoxEnumRamo.Size = new Size(113, 23);
             comboBoxEnumRamo.TabIndex = 4;
@@ -139,7 +142,7 @@
             tabControl1.Location = new Point(0, 1);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(890, 424);
+            tabControl1.Size = new Size(890, 408);
             tabControl1.TabIndex = 5;
             // 
             // tabPagEmpresa
@@ -151,14 +154,15 @@
             tabPagEmpresa.Location = new Point(4, 24);
             tabPagEmpresa.Name = "tabPagEmpresa";
             tabPagEmpresa.Padding = new Padding(3);
-            tabPagEmpresa.Size = new Size(882, 396);
+            tabPagEmpresa.Size = new Size(882, 380);
             tabPagEmpresa.TabIndex = 0;
             tabPagEmpresa.Text = "Empresa";
             tabPagEmpresa.UseVisualStyleBackColor = true;
             // 
             // Adicionar
             // 
-            Adicionar.Location = new Point(801, 361);
+            Adicionar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Adicionar.Location = new Point(801, 351);
             Adicionar.Name = "Adicionar";
             Adicionar.Size = new Size(75, 23);
             Adicionar.TabIndex = 5;
@@ -168,25 +172,54 @@
             // 
             // tabPageProduto
             // 
+            tabPageProduto.Controls.Add(label4);
+            tabPageProduto.Controls.Add(label3);
+            tabPageProduto.Controls.Add(filtrarPorDataMaximaProduto);
             tabPageProduto.Controls.Add(label2);
             tabPageProduto.Controls.Add(label1);
             tabPageProduto.Controls.Add(filtrarValorMaximoProduto);
             tabPageProduto.Controls.Add(filtrarValorMinimoProduto);
-            tabPageProduto.Controls.Add(filtrarPorDataProduto);
+            tabPageProduto.Controls.Add(filtrarPorDataMinimaProduto);
             tabPageProduto.Controls.Add(textFiltrarNomeProduto);
             tabPageProduto.Controls.Add(dataGridViewProduto);
             tabPageProduto.Location = new Point(4, 24);
             tabPageProduto.Name = "tabPageProduto";
             tabPageProduto.Padding = new Padding(3);
-            tabPageProduto.Size = new Size(882, 396);
+            tabPageProduto.Size = new Size(882, 380);
             tabPageProduto.TabIndex = 1;
             tabPageProduto.Text = "Produto";
             tabPageProduto.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(628, 58);
+            label4.Name = "label4";
+            label4.Size = new Size(62, 15);
+            label4.TabIndex = 9;
+            label4.Text = "Data Final:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(622, 6);
+            label3.Name = "label3";
+            label3.Size = new Size(68, 15);
+            label3.TabIndex = 8;
+            label3.Text = "Data Inicial:";
+            // 
+            // filtrarPorDataMaximaProduto
+            // 
+            filtrarPorDataMaximaProduto.Location = new Point(545, 76);
+            filtrarPorDataMaximaProduto.Name = "filtrarPorDataMaximaProduto";
+            filtrarPorDataMaximaProduto.Size = new Size(228, 23);
+            filtrarPorDataMaximaProduto.TabIndex = 7;
+            filtrarPorDataMaximaProduto.ValueChanged += filtrarPorDataMaximaProduto_ValueChanged;
+            // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(239, 58);
+            label2.Location = new Point(398, 58);
             label2.Name = "label2";
             label2.Size = new Size(62, 15);
             label2.TabIndex = 6;
@@ -195,7 +228,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(241, 6);
+            label1.Location = new Point(400, 6);
             label1.Name = "label1";
             label1.Size = new Size(60, 15);
             label1.TabIndex = 5;
@@ -204,7 +237,7 @@
             // filtrarValorMaximoProduto
             // 
             filtrarValorMaximoProduto.DecimalPlaces = 2;
-            filtrarValorMaximoProduto.Location = new Point(213, 76);
+            filtrarValorMaximoProduto.Location = new Point(372, 76);
             filtrarValorMaximoProduto.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             filtrarValorMaximoProduto.Name = "filtrarValorMaximoProduto";
             filtrarValorMaximoProduto.Size = new Size(120, 23);
@@ -214,27 +247,27 @@
             // filtrarValorMinimoProduto
             // 
             filtrarValorMinimoProduto.DecimalPlaces = 2;
-            filtrarValorMinimoProduto.Location = new Point(213, 24);
+            filtrarValorMinimoProduto.Location = new Point(372, 22);
             filtrarValorMinimoProduto.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             filtrarValorMinimoProduto.Name = "filtrarValorMinimoProduto";
             filtrarValorMinimoProduto.Size = new Size(120, 23);
             filtrarValorMinimoProduto.TabIndex = 3;
             filtrarValorMinimoProduto.ValueChanged += filtrarValorMinimoProduto_ValueChanged;
             // 
-            // filtrarPorDataProduto
+            // filtrarPorDataMinimaProduto
             // 
-            filtrarPorDataProduto.Location = new Point(386, 24);
-            filtrarPorDataProduto.Name = "filtrarPorDataProduto";
-            filtrarPorDataProduto.Size = new Size(199, 23);
-            filtrarPorDataProduto.TabIndex = 2;
-            filtrarPorDataProduto.ValueChanged += filtrarPorDataProduto_ValueChanged;
+            filtrarPorDataMinimaProduto.Location = new Point(545, 22);
+            filtrarPorDataMinimaProduto.Name = "filtrarPorDataMinimaProduto";
+            filtrarPorDataMinimaProduto.Size = new Size(228, 23);
+            filtrarPorDataMinimaProduto.TabIndex = 2;
+            filtrarPorDataMinimaProduto.ValueChanged += filtrarPorDataMinimaProduto_ValueChanged;
             // 
             // textFiltrarNomeProduto
             // 
             textFiltrarNomeProduto.Location = new Point(8, 22);
             textFiltrarNomeProduto.Name = "textFiltrarNomeProduto";
-            textFiltrarNomeProduto.PlaceholderText = "Nome";
-            textFiltrarNomeProduto.Size = new Size(178, 23);
+            textFiltrarNomeProduto.PlaceholderText = "Pesquisar Nome";
+            textFiltrarNomeProduto.Size = new Size(333, 23);
             textFiltrarNomeProduto.TabIndex = 1;
             textFiltrarNomeProduto.TextChanged += textFiltrarNomeProduto_TextChanged;
             // 
@@ -248,12 +281,16 @@
             dataGridViewProduto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewProduto.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn, valorDoProdutoDataGridViewTextBoxColumn, dataCadastroDataGridViewTextBoxColumn, TemDataValidade, dataValidadeDataGridViewTextBoxColumn, empresaIdDataGridViewTextBoxColumn });
             dataGridViewProduto.DataSource = produtoBindingSource;
-            dataGridViewProduto.Location = new Point(0, 119);
+            dataGridViewProduto.Location = new Point(3, 125);
             dataGridViewProduto.Name = "dataGridViewProduto";
             dataGridViewProduto.RowHeadersVisible = false;
             dataGridViewProduto.RowTemplate.Height = 25;
-            dataGridViewProduto.Size = new Size(882, 226);
+            dataGridViewProduto.Size = new Size(876, 210);
             dataGridViewProduto.TabIndex = 0;
+            // 
+            // produtoBindingSource
+            // 
+            produtoBindingSource.DataSource = typeof(Dominio.Entidades.Produto);
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -294,12 +331,8 @@
             // empresaIdDataGridViewTextBoxColumn
             // 
             empresaIdDataGridViewTextBoxColumn.DataPropertyName = "EmpresaId";
-            empresaIdDataGridViewTextBoxColumn.HeaderText = "Id Empresa";
+            empresaIdDataGridViewTextBoxColumn.HeaderText = "Empresa";
             empresaIdDataGridViewTextBoxColumn.Name = "empresaIdDataGridViewTextBoxColumn";
-            // 
-            // produtoBindingSource
-            // 
-            produtoBindingSource.DataSource = typeof(Dominio.Entidades.Produto);
             // 
             // FormListaEmpresa
             // 
@@ -338,7 +371,7 @@
         private DataGridViewCheckBoxColumn temDataValidaDataGridViewCheckBoxColumn;
         private BindingSource produtoBindingSource;
         private TextBox textFiltrarNomeProduto;
-        private DateTimePicker filtrarPorDataProduto;
+        private DateTimePicker filtrarPorDataMinimaProduto;
         private NumericUpDown filtrarValorMinimoProduto;
         private NumericUpDown filtrarValorMaximoProduto;
         private Button Adicionar;
@@ -348,6 +381,9 @@
         private DataGridViewTextBoxColumn ramoDataGridViewTextBoxColumn;
         private Label label2;
         private Label label1;
+        private DateTimePicker filtrarPorDataMaximaProduto;
+        private Label label4;
+        private Label label3;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn valorDoProdutoDataGridViewTextBoxColumn;
