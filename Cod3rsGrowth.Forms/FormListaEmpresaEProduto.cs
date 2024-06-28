@@ -66,10 +66,6 @@ namespace Cod3rsGrowth.Forms
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
         }
 
-        private void aoClicarEmAdicionar(object sender, EventArgs e)
-        {
-
-        }
 
         private void GerarColunaChaveEstrangeira()
         {
@@ -79,7 +75,8 @@ namespace Cod3rsGrowth.Forms
 
         private void dataGridViewProduto_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataGridViewProduto.Columns[e.ColumnIndex].HeaderText == "Empresa")
+            const string nomeColuna = "Empresa";
+            if (dataGridViewProduto.Columns[e.ColumnIndex].HeaderText == nomeColuna)
             {
                 var produto = dataGridViewProduto.Rows[e.RowIndex].DataBoundItem as Produto;
                 if (produto != null)
@@ -98,6 +95,18 @@ namespace Cod3rsGrowth.Forms
             filtroProduto.DataMinima = null;
             filtroProduto.DataMaxima = null;
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
+        }
+
+        private void aoClicarAdicionarEmpresa_Click(object sender, EventArgs e)
+        {
+            var cadastrarEmpresa = new CadastroEmpresa();
+            cadastrarEmpresa.Show();
+        }
+
+        private void aoClicarAdicionarProduto_Click(object sender, EventArgs e)
+        {
+            var cadastrarProduto = new CadastroProduto(_servicoEmpresa);
+            cadastrarProduto.Show();
         }
     }
 }

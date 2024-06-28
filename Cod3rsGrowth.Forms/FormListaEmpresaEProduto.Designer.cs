@@ -39,7 +39,9 @@
             comboBoxEnumRamo = new ComboBox();
             tabControl1 = new TabControl();
             tabPagEmpresa = new TabPage();
+            aoClicarAdicionarEmpresa = new Button();
             tabPageProduto = new TabPage();
+            aoClicarAdicionarProduto = new Button();
             resetarFiltroData = new Button();
             label4 = new Label();
             label3 = new Label();
@@ -84,7 +86,7 @@
             dataGridViewEmpresa.Name = "dataGridViewEmpresa";
             dataGridViewEmpresa.RowHeadersVisible = false;
             dataGridViewEmpresa.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewEmpresa.Size = new Size(952, 273);
+            dataGridViewEmpresa.Size = new Size(952, 266);
             dataGridViewEmpresa.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -147,6 +149,7 @@
             // 
             // tabPagEmpresa
             // 
+            tabPagEmpresa.Controls.Add(aoClicarAdicionarEmpresa);
             tabPagEmpresa.Controls.Add(dataGridViewEmpresa);
             tabPagEmpresa.Controls.Add(comboBoxEnumRamo);
             tabPagEmpresa.Controls.Add(textFiltrarRazaoSocial);
@@ -158,8 +161,19 @@
             tabPagEmpresa.Text = "Empresa";
             tabPagEmpresa.UseVisualStyleBackColor = true;
             // 
+            // aoClicarAdicionarEmpresa
+            // 
+            aoClicarAdicionarEmpresa.Location = new Point(700, 336);
+            aoClicarAdicionarEmpresa.Name = "aoClicarAdicionarEmpresa";
+            aoClicarAdicionarEmpresa.Size = new Size(75, 23);
+            aoClicarAdicionarEmpresa.TabIndex = 5;
+            aoClicarAdicionarEmpresa.Text = "Adicionar";
+            aoClicarAdicionarEmpresa.UseVisualStyleBackColor = true;
+            aoClicarAdicionarEmpresa.Click += aoClicarAdicionarEmpresa_Click;
+            // 
             // tabPageProduto
             // 
+            tabPageProduto.Controls.Add(aoClicarAdicionarProduto);
             tabPageProduto.Controls.Add(resetarFiltroData);
             tabPageProduto.Controls.Add(label4);
             tabPageProduto.Controls.Add(label3);
@@ -178,6 +192,16 @@
             tabPageProduto.TabIndex = 1;
             tabPageProduto.Text = "Produto";
             tabPageProduto.UseVisualStyleBackColor = true;
+            // 
+            // aoClicarAdicionarProduto
+            // 
+            aoClicarAdicionarProduto.Location = new Point(700, 336);
+            aoClicarAdicionarProduto.Name = "aoClicarAdicionarProduto";
+            aoClicarAdicionarProduto.Size = new Size(75, 23);
+            aoClicarAdicionarProduto.TabIndex = 11;
+            aoClicarAdicionarProduto.Text = "Adicionar";
+            aoClicarAdicionarProduto.UseVisualStyleBackColor = true;
+            aoClicarAdicionarProduto.Click += aoClicarAdicionarProduto_Click;
             // 
             // resetarFiltroData
             // 
@@ -335,14 +359,14 @@
             // 
             produtoBindingSource.DataSource = typeof(Dominio.Entidades.Produto);
             // 
-            // FormListaEmpresa
+            // FormListaEmpresaEProduto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(970, 421);
             Controls.Add(tabControl1);
-            Name = "FormListaEmpresa";
+            Name = "FormListaEmpresaEProduto";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormListaEmpresa";
             ((System.ComponentModel.ISupportInitialize)dataGridViewEmpresa).EndInit();
@@ -392,5 +416,7 @@
         private DataGridViewTextBoxColumn dataValidadeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn empresaIdDataGridViewTextBoxColumn;
         private Button resetarFiltroData;
+        private Button aoClicarAdicionarEmpresa;
+        private Button aoClicarAdicionarProduto;
     }
 }
