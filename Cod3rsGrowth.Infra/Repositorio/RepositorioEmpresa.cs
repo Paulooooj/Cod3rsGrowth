@@ -44,13 +44,12 @@ namespace Cod3rsGrowth.Infra.Repositorio
             var listaEmpresa = _db.GetTable<Empresa>().AsQueryable();
 
             if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
-            {
-                listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial.StartsWith(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
-            }
-            if (filtro?.Ramo != null)
-            {
+                listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial.Contains(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+
+            const int valorPadrao = 0;
+            if (filtro?.Ramo != null && filtro.Ramo > valorPadrao)
                 listaEmpresa = listaEmpresa.Where(x => x.Ramo == filtro.Ramo);
-            }
+
             return listaEmpresa.ToList();
         }
 
