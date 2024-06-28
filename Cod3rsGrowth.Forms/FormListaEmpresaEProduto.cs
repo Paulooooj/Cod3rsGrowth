@@ -9,17 +9,16 @@ namespace Cod3rsGrowth.Forms
     {
         private readonly ServicoEmpresa _servicoEmpresa;
         private readonly ServicoProduto _servicoProduto;
-        private FiltroProduto filtroProduto;
-        private FiltroEmpresa filtroEmpresa;
+        private FiltroProduto filtroProduto = new FiltroProduto();
+        private FiltroEmpresa filtroEmpresa = new FiltroEmpresa();
 
         public FormListaEmpresaEProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto)
         {
             InitializeComponent();
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
-            filtroProduto = new FiltroProduto();
-            filtroEmpresa = new FiltroEmpresa();
-            comboBoxEnumRamo.SelectedIndex = 0;
+            var valorTodosComboBox = 0;
+            comboBoxEnumRamo.SelectedIndex = valorTodosComboBox;
             dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
             GerarColunaChaveEstrangeira();
