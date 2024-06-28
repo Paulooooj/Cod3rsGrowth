@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Forms.Injecao
             servico.AddScoped<IValidator<Produto>, ProdutoValidacao>();
             servico.AddScoped<IRepositorioEmpresa, RepositorioEmpresa>();
             servico.AddScoped<IRepositorioProduto, RepositorioProduto>();
-            servico.AddScoped<FormListaEmpresa>();
+            servico.AddScoped<FormListaEmpresaEProduto>();
         }
     }
 }

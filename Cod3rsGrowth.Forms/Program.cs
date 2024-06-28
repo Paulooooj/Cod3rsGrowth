@@ -12,7 +12,7 @@ namespace Cod3rsGrowth.Forms
             ExecutarMigracoes();
             ApplicationConfiguration.Initialize();
             ServiceProvider = ExecutarInjecao();
-            Application.Run(ServiceProvider.GetRequiredService<FormListaEmpresa>());
+            Application.Run(ServiceProvider.GetRequiredService<FormListaEmpresaEProduto>());
         }
 
         public static IServiceProvider ServiceProvider { get; private set; }

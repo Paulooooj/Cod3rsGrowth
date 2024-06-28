@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms
 {
-    partial class FormListaEmpresa
+    partial class FormListaEmpresaEProduto
     {
         /// <summary>
         ///  Required designer variable.
@@ -39,8 +39,8 @@
             comboBoxEnumRamo = new ComboBox();
             tabControl1 = new TabControl();
             tabPagEmpresa = new TabPage();
-            Adicionar = new Button();
             tabPageProduto = new TabPage();
+            resetarFiltroData = new Button();
             label4 = new Label();
             label3 = new Label();
             filtrarPorDataMaximaProduto = new DateTimePicker();
@@ -51,7 +51,6 @@
             filtrarPorDataMinimaProduto = new DateTimePicker();
             textFiltrarNomeProduto = new TextBox();
             dataGridViewProduto = new DataGridView();
-            produtoBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             valorDoProdutoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -59,6 +58,7 @@
             TemDataValidade = new DataGridViewCheckBoxColumn();
             dataValidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             empresaIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            produtoBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dataGridViewEmpresa).BeginInit();
             ((System.ComponentModel.ISupportInitialize)empresaBindingSource).BeginInit();
             tabControl1.SuspendLayout();
@@ -84,7 +84,7 @@
             dataGridViewEmpresa.Name = "dataGridViewEmpresa";
             dataGridViewEmpresa.RowHeadersVisible = false;
             dataGridViewEmpresa.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewEmpresa.Size = new Size(876, 281);
+            dataGridViewEmpresa.Size = new Size(952, 273);
             dataGridViewEmpresa.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -142,36 +142,25 @@
             tabControl1.Location = new Point(0, 1);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(890, 408);
+            tabControl1.Size = new Size(966, 408);
             tabControl1.TabIndex = 5;
             // 
             // tabPagEmpresa
             // 
-            tabPagEmpresa.Controls.Add(Adicionar);
             tabPagEmpresa.Controls.Add(dataGridViewEmpresa);
             tabPagEmpresa.Controls.Add(comboBoxEnumRamo);
             tabPagEmpresa.Controls.Add(textFiltrarRazaoSocial);
             tabPagEmpresa.Location = new Point(4, 24);
             tabPagEmpresa.Name = "tabPagEmpresa";
             tabPagEmpresa.Padding = new Padding(3);
-            tabPagEmpresa.Size = new Size(882, 380);
+            tabPagEmpresa.Size = new Size(958, 380);
             tabPagEmpresa.TabIndex = 0;
             tabPagEmpresa.Text = "Empresa";
             tabPagEmpresa.UseVisualStyleBackColor = true;
             // 
-            // Adicionar
-            // 
-            Adicionar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            Adicionar.Location = new Point(801, 351);
-            Adicionar.Name = "Adicionar";
-            Adicionar.Size = new Size(75, 23);
-            Adicionar.TabIndex = 5;
-            Adicionar.Text = "Adicionar";
-            Adicionar.UseVisualStyleBackColor = true;
-            Adicionar.Click += aoClicarEmAdicionar;
-            // 
             // tabPageProduto
             // 
+            tabPageProduto.Controls.Add(resetarFiltroData);
             tabPageProduto.Controls.Add(label4);
             tabPageProduto.Controls.Add(label3);
             tabPageProduto.Controls.Add(filtrarPorDataMaximaProduto);
@@ -185,10 +174,21 @@
             tabPageProduto.Location = new Point(4, 24);
             tabPageProduto.Name = "tabPageProduto";
             tabPageProduto.Padding = new Padding(3);
-            tabPageProduto.Size = new Size(882, 380);
+            tabPageProduto.Size = new Size(958, 380);
             tabPageProduto.TabIndex = 1;
             tabPageProduto.Text = "Produto";
             tabPageProduto.UseVisualStyleBackColor = true;
+            // 
+            // resetarFiltroData
+            // 
+            resetarFiltroData.BackColor = Color.White;
+            resetarFiltroData.Location = new Point(592, 105);
+            resetarFiltroData.Name = "resetarFiltroData";
+            resetarFiltroData.Size = new Size(130, 23);
+            resetarFiltroData.TabIndex = 10;
+            resetarFiltroData.Text = "Resetar Filtro Data";
+            resetarFiltroData.UseVisualStyleBackColor = false;
+            resetarFiltroData.Click += resetarFiltroData_Click;
             // 
             // label4
             // 
@@ -281,16 +281,13 @@
             dataGridViewProduto.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewProduto.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn, valorDoProdutoDataGridViewTextBoxColumn, dataCadastroDataGridViewTextBoxColumn, TemDataValidade, dataValidadeDataGridViewTextBoxColumn, empresaIdDataGridViewTextBoxColumn });
             dataGridViewProduto.DataSource = produtoBindingSource;
-            dataGridViewProduto.Location = new Point(3, 125);
+            dataGridViewProduto.Location = new Point(3, 148);
             dataGridViewProduto.Name = "dataGridViewProduto";
             dataGridViewProduto.RowHeadersVisible = false;
             dataGridViewProduto.RowTemplate.Height = 25;
-            dataGridViewProduto.Size = new Size(876, 210);
+            dataGridViewProduto.Size = new Size(952, 187);
             dataGridViewProduto.TabIndex = 0;
-            // 
-            // produtoBindingSource
-            // 
-            produtoBindingSource.DataSource = typeof(Dominio.Entidades.Produto);
+            dataGridViewProduto.CellFormatting += dataGridViewProduto_CellFormatting;
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -334,12 +331,16 @@
             empresaIdDataGridViewTextBoxColumn.HeaderText = "Empresa";
             empresaIdDataGridViewTextBoxColumn.Name = "empresaIdDataGridViewTextBoxColumn";
             // 
+            // produtoBindingSource
+            // 
+            produtoBindingSource.DataSource = typeof(Dominio.Entidades.Produto);
+            // 
             // FormListaEmpresa
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(894, 421);
+            ClientSize = new Size(970, 421);
             Controls.Add(tabControl1);
             Name = "FormListaEmpresa";
             StartPosition = FormStartPosition.CenterScreen;
@@ -374,7 +375,6 @@
         private DateTimePicker filtrarPorDataMinimaProduto;
         private NumericUpDown filtrarValorMinimoProduto;
         private NumericUpDown filtrarValorMaximoProduto;
-        private Button Adicionar;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn razaoSocialDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cNPJDataGridViewTextBoxColumn;
@@ -391,5 +391,6 @@
         private DataGridViewCheckBoxColumn TemDataValidade;
         private DataGridViewTextBoxColumn dataValidadeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn empresaIdDataGridViewTextBoxColumn;
+        private Button resetarFiltroData;
     }
 }
