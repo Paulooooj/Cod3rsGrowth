@@ -118,11 +118,10 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
-                var linhaSelecionada = dataGridViewEmpresa.CurrentRow.Index;
-                var idEmpresaSerRemovida = (int)dataGridViewEmpresa.Rows[linhaSelecionada].Cells[colunaId].Value;
-                var nomeEmpresaSerRemovida = dataGridViewEmpresa.Rows[linhaSelecionada].Cells[colunaRazaoSocial].Value;
+                var idEmpresaSerRemovida = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
+                var nomeEmpresaSerRemovida = dataGridViewEmpresa.CurrentRow.Cells[colunaRazaoSocial].Value;
 
-                if (MessageBox.Show("Deseja mesmo Remover " + nomeEmpresaSerRemovida, "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Deseja mesmo Remover " + nomeEmpresaSerRemovida + "?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     _servicoEmpresa.Deletar(idEmpresaSerRemovida);
 
                 dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
@@ -140,11 +139,10 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
-                var linhaSelecionada = dataGridViewProduto.CurrentRow.Index;
-                var idProdutoSerRemovido = (int)dataGridViewProduto.Rows[linhaSelecionada].Cells[colunaId].Value;
-                var nomeProdutoSerRemovido = dataGridViewProduto.Rows[linhaSelecionada].Cells[colunaNome].Value;
+                var idProdutoSerRemovido = (int)dataGridViewProduto.CurrentRow.Cells[colunaId].Value;
+                var nomeProdutoSerRemovido = dataGridViewProduto.CurrentRow.Cells[colunaNome].Value;
 
-                if (MessageBox.Show("Deseja mesmo Remover " + nomeProdutoSerRemovido, "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Deseja mesmo Remover " + nomeProdutoSerRemovido + "?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     _servicoProduto.Deletar(idProdutoSerRemovido);
 
                 dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
