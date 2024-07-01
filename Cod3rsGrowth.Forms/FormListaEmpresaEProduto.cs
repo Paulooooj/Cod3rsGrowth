@@ -110,5 +110,49 @@ namespace Cod3rsGrowth.Forms
             cadastrarProduto.ShowDialog();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
         }
+
+        private void aoClicarRemoverEmpresa_Click(object sender, EventArgs e)
+        {
+            const int colunaId = 0;
+            const int colunaRazaoSocial = 1;
+
+            try
+            {
+                var linhaSelecionada = dataGridViewEmpresa.CurrentRow.Index;
+                var idEmpresaSerRemovida = (int)dataGridViewEmpresa.Rows[linhaSelecionada].Cells[colunaId].Value;
+                var nomeEmpresaSerRemovida = dataGridViewEmpresa.Rows[linhaSelecionada].Cells[colunaRazaoSocial].Value;
+
+                if (MessageBox.Show("Deseja mesmo Remover " + nomeEmpresaSerRemovida, "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    _servicoEmpresa.Deletar(idEmpresaSerRemovida);
+
+                dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void aoClicarDeveRemoverProduto_Click(object sender, EventArgs e)
+        {
+            const int colunaId = 0;
+            const int colunaNome = 1;
+
+            try
+            {
+                var linhaSelecionada = dataGridViewProduto.CurrentRow.Index;
+                var idProdutoSerRemovido = (int)dataGridViewProduto.Rows[linhaSelecionada].Cells[colunaId].Value;
+                var nomeProdutoSerRemovido = dataGridViewProduto.Rows[linhaSelecionada].Cells[colunaNome].Value;
+
+                if (MessageBox.Show("Deseja mesmo Remover " + nomeProdutoSerRemovido, "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    _servicoProduto.Deletar(idProdutoSerRemovido);
+
+                dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

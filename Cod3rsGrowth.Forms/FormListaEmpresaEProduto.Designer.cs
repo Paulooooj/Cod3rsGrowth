@@ -39,8 +39,10 @@
             comboBoxEnumRamo = new ComboBox();
             tabControl1 = new TabControl();
             tabPagEmpresa = new TabPage();
+            aoClicarRemoverEmpresa = new Button();
             aoClicarAdicionarEmpresa = new Button();
             tabPageProduto = new TabPage();
+            aoClicarDeveRemoverProduto = new Button();
             aoClicarAdicionarProduto = new Button();
             resetarFiltroData = new Button();
             label4 = new Label();
@@ -86,6 +88,7 @@
             dataGridViewEmpresa.Name = "dataGridViewEmpresa";
             dataGridViewEmpresa.RowHeadersVisible = false;
             dataGridViewEmpresa.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            dataGridViewEmpresa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewEmpresa.Size = new Size(952, 248);
             dataGridViewEmpresa.TabIndex = 0;
             // 
@@ -149,6 +152,7 @@
             // 
             // tabPagEmpresa
             // 
+            tabPagEmpresa.Controls.Add(aoClicarRemoverEmpresa);
             tabPagEmpresa.Controls.Add(aoClicarAdicionarEmpresa);
             tabPagEmpresa.Controls.Add(dataGridViewEmpresa);
             tabPagEmpresa.Controls.Add(comboBoxEnumRamo);
@@ -160,6 +164,17 @@
             tabPagEmpresa.TabIndex = 0;
             tabPagEmpresa.Text = "Empresa";
             tabPagEmpresa.UseVisualStyleBackColor = true;
+            // 
+            // aoClicarRemoverEmpresa
+            // 
+            aoClicarRemoverEmpresa.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            aoClicarRemoverEmpresa.Location = new Point(778, 318);
+            aoClicarRemoverEmpresa.Name = "aoClicarRemoverEmpresa";
+            aoClicarRemoverEmpresa.Size = new Size(75, 23);
+            aoClicarRemoverEmpresa.TabIndex = 6;
+            aoClicarRemoverEmpresa.Text = "Remover";
+            aoClicarRemoverEmpresa.UseVisualStyleBackColor = true;
+            aoClicarRemoverEmpresa.Click += aoClicarRemoverEmpresa_Click;
             // 
             // aoClicarAdicionarEmpresa
             // 
@@ -174,6 +189,7 @@
             // 
             // tabPageProduto
             // 
+            tabPageProduto.Controls.Add(aoClicarDeveRemoverProduto);
             tabPageProduto.Controls.Add(aoClicarAdicionarProduto);
             tabPageProduto.Controls.Add(resetarFiltroData);
             tabPageProduto.Controls.Add(label4);
@@ -193,6 +209,17 @@
             tabPageProduto.TabIndex = 1;
             tabPageProduto.Text = "Produto";
             tabPageProduto.UseVisualStyleBackColor = true;
+            // 
+            // aoClicarDeveRemoverProduto
+            // 
+            aoClicarDeveRemoverProduto.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            aoClicarDeveRemoverProduto.Location = new Point(778, 318);
+            aoClicarDeveRemoverProduto.Name = "aoClicarDeveRemoverProduto";
+            aoClicarDeveRemoverProduto.Size = new Size(75, 23);
+            aoClicarDeveRemoverProduto.TabIndex = 12;
+            aoClicarDeveRemoverProduto.Text = "Remover";
+            aoClicarDeveRemoverProduto.UseVisualStyleBackColor = true;
+            aoClicarDeveRemoverProduto.Click += aoClicarDeveRemoverProduto_Click;
             // 
             // aoClicarAdicionarProduto
             // 
@@ -311,6 +338,7 @@
             dataGridViewProduto.Name = "dataGridViewProduto";
             dataGridViewProduto.RowHeadersVisible = false;
             dataGridViewProduto.RowTemplate.Height = 25;
+            dataGridViewProduto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewProduto.Size = new Size(952, 150);
             dataGridViewProduto.TabIndex = 0;
             dataGridViewProduto.CellFormatting += dataGridViewProduto_CellFormatting;
@@ -420,5 +448,7 @@
         private Button resetarFiltroData;
         private Button aoClicarAdicionarEmpresa;
         private Button aoClicarAdicionarProduto;
+        private Button aoClicarRemoverEmpresa;
+        private Button aoClicarDeveRemoverProduto;
     }
 }
