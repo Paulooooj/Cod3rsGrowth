@@ -20,16 +20,15 @@ namespace Cod3rsGrowth.Forms
 
         private void temDataDeValidadeVerdadeiro_CheckedChanged(object sender, EventArgs e)
         {
-            if (temDataDeValidade.Checked == true)
+            if (temDataDeValidade.Checked)
             {
                 dataDeValidade.Visible = true;
                 labelTemDataValidade.Visible = true;
+                return;
             }
-            else
-            {
-                dataDeValidade.Visible = false;
-                labelTemDataValidade.Visible = false;
-            }
+            dataDeValidade.Visible = false;
+            labelTemDataValidade.Visible = false;
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -46,7 +45,7 @@ namespace Cod3rsGrowth.Forms
                 produto.ValorDoProduto = valorProduto.Value;
                 produto.DataCadastro = dataCadastroProduto.Value.Date;
                 produto.TemDataValidade = temDataDeValidade.Checked;
-                if (temDataDeValidade.Checked == true)
+                if (temDataDeValidade.Checked)
                     produto.DataValidade = dataDeValidade.Value;
                 var pegarOIdEmpresa = _servicoEmpresa.ObterTodos()
                     .Where(x => x.RazaoSocial == mostrarTodasAsEmpresas.SelectedItem.ToString())
@@ -55,7 +54,7 @@ namespace Cod3rsGrowth.Forms
                 _servicoProduto.Adicionar(produto);
                 this.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

@@ -113,9 +113,9 @@
             label6.AutoSize = true;
             label6.Location = new Point(6, 273);
             label6.Name = "label6";
-            label6.Size = new Size(65, 15);
+            label6.Size = new Size(52, 15);
             label6.TabIndex = 12;
-            label6.Text = "Id Empresa";
+            label6.Text = "Empresa";
             // 
             // labelTemDataValidade
             // 
