@@ -152,5 +152,24 @@ namespace Cod3rsGrowth.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void aoClicarDeveAtualizarProduto_Click(object sender, EventArgs e)
+        {
+            const int colunaId = 0;
+
+            var idProdutoSerEditado = (int)dataGridViewProduto.CurrentRow.Cells[colunaId].Value;
+            var cadastroProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, idProdutoSerEditado);
+            cadastroProduto.ShowDialog();
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
+        }
+
+        private void aoClicarDeveAtualizarEmpresa_Click(object sender, EventArgs e)
+        {
+            const int colunaId = 0;
+
+            var idEmpresaSerEditado = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
+            var cadastroEmpresa = new CadastroEmpresa(_servicoEmpresa, idEmpresaSerEditado);
+            cadastroEmpresa.ShowDialog();
+        }
     }
 }

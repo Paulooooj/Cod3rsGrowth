@@ -13,6 +13,24 @@ namespace Cod3rsGrowth.Forms
             _servicoEmpresa = servicoEmpresa;
         }
 
+        public CadastroEmpresa(ServicoEmpresa servicoEmpresa, int id)
+        {
+            InitializeComponent();
+            _servicoEmpresa = servicoEmpresa;
+            MostrarInformacoesAoAtualizar(id);
+        }
+
+        private void MostrarInformacoesAoAtualizar(int id)
+        {
+            if(id > 0)
+            {
+                var empresa = _servicoEmpresa.ObterPorId(id);
+                razaoSocialCadastroEmpresa.Text = empresa.RazaoSocial;
+                cnpjEmpresa.Text = empresa.CNPJ;
+                ramoDaEmpresa.SelectedIndex = (int)empresa.Ramo;
+            }
+        }
+
         private void aoClicarDeveCancelarAdicionar_Click(object sender, EventArgs e)
         {
             this.Close();

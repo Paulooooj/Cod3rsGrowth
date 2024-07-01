@@ -39,9 +39,11 @@
             comboBoxEnumRamo = new ComboBox();
             tabControl1 = new TabControl();
             tabPagEmpresa = new TabPage();
+            aoClicarDeveAtualizarEmpresa = new Button();
             aoClicarRemoverEmpresa = new Button();
             aoClicarAdicionarEmpresa = new Button();
             tabPageProduto = new TabPage();
+            aoClicarDeveAtualizarProduto = new Button();
             aoClicarDeveRemoverProduto = new Button();
             aoClicarAdicionarProduto = new Button();
             resetarFiltroData = new Button();
@@ -152,6 +154,7 @@
             // 
             // tabPagEmpresa
             // 
+            tabPagEmpresa.Controls.Add(aoClicarDeveAtualizarEmpresa);
             tabPagEmpresa.Controls.Add(aoClicarRemoverEmpresa);
             tabPagEmpresa.Controls.Add(aoClicarAdicionarEmpresa);
             tabPagEmpresa.Controls.Add(dataGridViewEmpresa);
@@ -165,10 +168,20 @@
             tabPagEmpresa.Text = "Empresa";
             tabPagEmpresa.UseVisualStyleBackColor = true;
             // 
+            // aoClicarDeveAtualizarEmpresa
+            // 
+            aoClicarDeveAtualizarEmpresa.Location = new Point(778, 318);
+            aoClicarDeveAtualizarEmpresa.Name = "aoClicarDeveAtualizarEmpresa";
+            aoClicarDeveAtualizarEmpresa.Size = new Size(75, 23);
+            aoClicarDeveAtualizarEmpresa.TabIndex = 7;
+            aoClicarDeveAtualizarEmpresa.Text = "Editar";
+            aoClicarDeveAtualizarEmpresa.UseVisualStyleBackColor = true;
+            aoClicarDeveAtualizarEmpresa.Click += aoClicarDeveAtualizarEmpresa_Click;
+            // 
             // aoClicarRemoverEmpresa
             // 
             aoClicarRemoverEmpresa.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            aoClicarRemoverEmpresa.Location = new Point(778, 318);
+            aoClicarRemoverEmpresa.Location = new Point(859, 318);
             aoClicarRemoverEmpresa.Name = "aoClicarRemoverEmpresa";
             aoClicarRemoverEmpresa.Size = new Size(75, 23);
             aoClicarRemoverEmpresa.TabIndex = 6;
@@ -189,6 +202,7 @@
             // 
             // tabPageProduto
             // 
+            tabPageProduto.Controls.Add(aoClicarDeveAtualizarProduto);
             tabPageProduto.Controls.Add(aoClicarDeveRemoverProduto);
             tabPageProduto.Controls.Add(aoClicarAdicionarProduto);
             tabPageProduto.Controls.Add(resetarFiltroData);
@@ -210,10 +224,20 @@
             tabPageProduto.Text = "Produto";
             tabPageProduto.UseVisualStyleBackColor = true;
             // 
+            // aoClicarDeveAtualizarProduto
+            // 
+            aoClicarDeveAtualizarProduto.Location = new Point(778, 318);
+            aoClicarDeveAtualizarProduto.Name = "aoClicarDeveAtualizarProduto";
+            aoClicarDeveAtualizarProduto.Size = new Size(75, 23);
+            aoClicarDeveAtualizarProduto.TabIndex = 13;
+            aoClicarDeveAtualizarProduto.Text = "Editar";
+            aoClicarDeveAtualizarProduto.UseVisualStyleBackColor = true;
+            aoClicarDeveAtualizarProduto.Click += aoClicarDeveAtualizarProduto_Click;
+            // 
             // aoClicarDeveRemoverProduto
             // 
             aoClicarDeveRemoverProduto.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            aoClicarDeveRemoverProduto.Location = new Point(778, 318);
+            aoClicarDeveRemoverProduto.Location = new Point(859, 318);
             aoClicarDeveRemoverProduto.Name = "aoClicarDeveRemoverProduto";
             aoClicarDeveRemoverProduto.Size = new Size(75, 23);
             aoClicarDeveRemoverProduto.TabIndex = 12;
@@ -450,5 +474,7 @@
         private Button aoClicarAdicionarProduto;
         private Button aoClicarRemoverEmpresa;
         private Button aoClicarDeveRemoverProduto;
+        private Button aoClicarDeveAtualizarEmpresa;
+        private Button aoClicarDeveAtualizarProduto;
     }
 }

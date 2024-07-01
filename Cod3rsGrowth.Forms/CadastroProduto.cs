@@ -9,6 +9,8 @@ namespace Cod3rsGrowth.Forms
     {
         private readonly ServicoEmpresa _servicoEmpresa;
         private readonly ServicoProduto _servicoProduto;
+        private readonly int _id;
+
         public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto)
         {
             InitializeComponent();
@@ -16,6 +18,31 @@ namespace Cod3rsGrowth.Forms
             _servicoProduto = servicoProduto;
             var filtro = _servicoEmpresa.ObterTodos().Select(x => x.RazaoSocial);
             mostrarTodasAsEmpresas.DataSource = filtro.ToList();
+        }
+
+        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto, int id)
+        {
+            InitializeComponent();
+            _servicoEmpresa = servicoEmpresa;
+            _servicoProduto = servicoProduto;
+            _id = id;
+            var filtro = _servicoEmpresa.ObterTodos().Select(x => x.RazaoSocial);
+            mostrarTodasAsEmpresas.DataSource = filtro.ToList();
+            MostrarInformacoesAoAtualizar(_id);
+        }
+
+        private void MostrarInformacoesAoAtualizar(int id)
+        {
+            if (id > 0)
+            {
+                var produto = _servicoProduto.ObterPorId(id);
+                nomeProduto.Text = produto.Nome;
+                valorProduto.Value = produto.ValorDoProduto;
+                dataCadastroProduto.Value = produto.DataCadastro;
+                if (produto.TemDataValidade)
+                    dataDeValidade.Value = (DateTime)produto.DataValidade;
+                mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(produto.EmpresaId).RazaoSocial;
+            }
         }
 
         private void temDataDeValidadeVerdadeiro_CheckedChanged(object sender, EventArgs e)
@@ -31,12 +58,12 @@ namespace Cod3rsGrowth.Forms
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void aoClicarDeveCancelarAdicionarProduto_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void aoClicarDeveAdicionar_Click(object sender, EventArgs e)
+        private void aoClicarDeveSalvar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -51,7 +78,14 @@ namespace Cod3rsGrowth.Forms
                     .Where(x => x.RazaoSocial == mostrarTodasAsEmpresas.SelectedItem.ToString())
                     .Select(x => x.Id).FirstOrDefault();
                 produto.EmpresaId = pegarOIdEmpresa;
+
+                if(_id > 0)
+                 _servicoProduto.Atualizar(produto);
+                else
+                {
                 _servicoProduto.Adicionar(produto);
+                }
+
                 this.Close();
             }
             catch (Exception ex)

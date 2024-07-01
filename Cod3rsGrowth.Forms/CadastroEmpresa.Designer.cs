@@ -93,7 +93,7 @@
             // cnpjEmpresa
             // 
             cnpjEmpresa.Location = new Point(7, 105);
-            cnpjEmpresa.Mask = "99.999.999/9999-99";
+            cnpjEmpresa.Mask = "99,999,999/9999-99";
             cnpjEmpresa.Name = "cnpjEmpresa";
             cnpjEmpresa.Size = new Size(332, 23);
             cnpjEmpresa.TabIndex = 2;
