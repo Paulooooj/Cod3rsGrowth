@@ -99,14 +99,16 @@ namespace Cod3rsGrowth.Forms
 
         private void aoClicarAdicionarEmpresa_Click(object sender, EventArgs e)
         {
-            var cadastrarEmpresa = new CadastroEmpresa();
-            cadastrarEmpresa.Show();
+            var cadastroEmpresa = new CadastroEmpresa(_servicoEmpresa);
+            cadastroEmpresa.ShowDialog();
+            dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
         }
 
         private void aoClicarAdicionarProduto_Click(object sender, EventArgs e)
         {
-            var cadastrarProduto = new CadastroProduto(_servicoEmpresa);
-            cadastrarProduto.Show();
+            var cadastrarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto);
+            cadastrarProduto.ShowDialog();
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
         }
     }
 }

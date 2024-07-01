@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            button2 = new Button();
-            button1 = new Button();
+            aoClicarDeveCancelarAdicionar = new Button();
+            aoClicarDeveAdicionar = new Button();
             label3 = new Label();
-            maskedTextBox1 = new MaskedTextBox();
-            comboBox1 = new ComboBox();
+            cnpjEmpresa = new MaskedTextBox();
+            ramoDaEmpresa = new ComboBox();
             label2 = new Label();
             label1 = new Label();
             razaoSocialCadastroEmpresa = new TextBox();
@@ -44,11 +44,11 @@
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = Color.White;
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(aoClicarDeveCancelarAdicionar);
+            groupBox1.Controls.Add(aoClicarDeveAdicionar);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(maskedTextBox1);
-            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(cnpjEmpresa);
+            groupBox1.Controls.Add(ramoDaEmpresa);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(razaoSocialCadastroEmpresa);
@@ -59,25 +59,27 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Cadastro Empresa";
             // 
-            // button2
+            // aoClicarDeveCancelarAdicionar
             // 
-            button2.BackColor = Color.White;
-            button2.Location = new Point(264, 223);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 6;
-            button2.Text = "Cancelar";
-            button2.UseVisualStyleBackColor = false;
+            aoClicarDeveCancelarAdicionar.BackColor = Color.White;
+            aoClicarDeveCancelarAdicionar.Location = new Point(264, 223);
+            aoClicarDeveCancelarAdicionar.Name = "aoClicarDeveCancelarAdicionar";
+            aoClicarDeveCancelarAdicionar.Size = new Size(75, 23);
+            aoClicarDeveCancelarAdicionar.TabIndex = 6;
+            aoClicarDeveCancelarAdicionar.Text = "Cancelar";
+            aoClicarDeveCancelarAdicionar.UseVisualStyleBackColor = false;
+            aoClicarDeveCancelarAdicionar.Click += aoClicarDeveCancelarAdicionar_Click;
             // 
-            // button1
+            // aoClicarDeveAdicionar
             // 
-            button1.BackColor = Color.White;
-            button1.Location = new Point(7, 223);
-            button1.Name = "button1";
-            button1.Size = new Size(115, 23);
-            button1.TabIndex = 5;
-            button1.Text = "Adicionar Empresa";
-            button1.UseVisualStyleBackColor = false;
+            aoClicarDeveAdicionar.BackColor = Color.White;
+            aoClicarDeveAdicionar.Location = new Point(7, 223);
+            aoClicarDeveAdicionar.Name = "aoClicarDeveAdicionar";
+            aoClicarDeveAdicionar.Size = new Size(115, 23);
+            aoClicarDeveAdicionar.TabIndex = 5;
+            aoClicarDeveAdicionar.Text = "Adicionar Empresa";
+            aoClicarDeveAdicionar.UseVisualStyleBackColor = false;
+            aoClicarDeveAdicionar.Click += aoClicarDeveAdicionar_Click;
             // 
             // label3
             // 
@@ -87,24 +89,23 @@
             label3.Size = new Size(38, 15);
             label3.TabIndex = 4;
             label3.Text = "Ramo";
-            label3.Click += label3_Click;
             // 
-            // maskedTextBox1
+            // cnpjEmpresa
             // 
-            maskedTextBox1.Location = new Point(7, 105);
-            maskedTextBox1.Mask = "99.999.999/9999-99";
-            maskedTextBox1.Name = "maskedTextBox1";
-            maskedTextBox1.Size = new Size(332, 23);
-            maskedTextBox1.TabIndex = 2;
+            cnpjEmpresa.Location = new Point(7, 105);
+            cnpjEmpresa.Mask = "99.999.999/9999-99";
+            cnpjEmpresa.Name = "cnpjEmpresa";
+            cnpjEmpresa.Size = new Size(332, 23);
+            cnpjEmpresa.TabIndex = 2;
             // 
-            // comboBox1
+            // ramoDaEmpresa
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Ramo", "Industria", "Comercio", "Servico" });
-            comboBox1.Location = new Point(6, 161);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(332, 23);
-            comboBox1.TabIndex = 1;
+            ramoDaEmpresa.FormattingEnabled = true;
+            ramoDaEmpresa.Items.AddRange(new object[] { "Ramo", "Industria", "Comercio", "Servico" });
+            ramoDaEmpresa.Location = new Point(6, 161);
+            ramoDaEmpresa.Name = "ramoDaEmpresa";
+            ramoDaEmpresa.Size = new Size(332, 23);
+            ramoDaEmpresa.TabIndex = 1;
             // 
             // label2
             // 
@@ -154,11 +155,11 @@
         private GroupBox groupBox1;
         private Label label1;
         private TextBox razaoSocialCadastroEmpresa;
-        private MaskedTextBox maskedTextBox1;
-        private ComboBox comboBox1;
+        private MaskedTextBox cnpjEmpresa;
+        private ComboBox ramoDaEmpresa;
         private Label label2;
         private Label label3;
-        private Button button2;
-        private Button button1;
+        private Button aoClicarDeveCancelarAdicionar;
+        private Button aoClicarDeveAdicionar;
     }
 }

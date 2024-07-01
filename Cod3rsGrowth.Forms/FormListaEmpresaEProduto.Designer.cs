@@ -86,7 +86,7 @@
             dataGridViewEmpresa.Name = "dataGridViewEmpresa";
             dataGridViewEmpresa.RowHeadersVisible = false;
             dataGridViewEmpresa.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dataGridViewEmpresa.Size = new Size(952, 266);
+            dataGridViewEmpresa.Size = new Size(952, 222);
             dataGridViewEmpresa.TabIndex = 0;
             // 
             // idDataGridViewTextBoxColumn
@@ -163,7 +163,8 @@
             // 
             // aoClicarAdicionarEmpresa
             // 
-            aoClicarAdicionarEmpresa.Location = new Point(700, 336);
+            aoClicarAdicionarEmpresa.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            aoClicarAdicionarEmpresa.Location = new Point(697, 292);
             aoClicarAdicionarEmpresa.Name = "aoClicarAdicionarEmpresa";
             aoClicarAdicionarEmpresa.Size = new Size(75, 23);
             aoClicarAdicionarEmpresa.TabIndex = 5;
@@ -195,7 +196,8 @@
             // 
             // aoClicarAdicionarProduto
             // 
-            aoClicarAdicionarProduto.Location = new Point(700, 336);
+            aoClicarAdicionarProduto.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            aoClicarAdicionarProduto.Location = new Point(697, 292);
             aoClicarAdicionarProduto.Name = "aoClicarAdicionarProduto";
             aoClicarAdicionarProduto.Size = new Size(75, 23);
             aoClicarAdicionarProduto.TabIndex = 11;
@@ -309,7 +311,7 @@
             dataGridViewProduto.Name = "dataGridViewProduto";
             dataGridViewProduto.RowHeadersVisible = false;
             dataGridViewProduto.RowTemplate.Height = 25;
-            dataGridViewProduto.Size = new Size(952, 187);
+            dataGridViewProduto.Size = new Size(952, 138);
             dataGridViewProduto.TabIndex = 0;
             dataGridViewProduto.CellFormatting += dataGridViewProduto_CellFormatting;
             // 
