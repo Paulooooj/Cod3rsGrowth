@@ -33,7 +33,12 @@ namespace Cod3rsGrowth.Forms
             valorProduto.Value = produto.ValorDoProduto;
             dataCadastroProduto.Value = produto.DataCadastro;
             if (produto.TemDataValidade)
+            {
+                temDataDeValidade.CheckState = CheckState.Checked;
                 dataDeValidade.Value = (DateTime)produto.DataValidade;
+                dataDeValidade.Visible = true;
+                labelTemDataValidade.Visible = true;
+            }
             mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(produto.EmpresaId).RazaoSocial;
         }
 
