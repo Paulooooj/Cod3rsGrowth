@@ -9,15 +9,11 @@ namespace Cod3rsGrowth.Forms
         private readonly ServicoEmpresa _servicoEmpresa;
         private readonly int _id;
 
-        public CadastroEmpresa(ServicoEmpresa servicoEmpresa)
+        public CadastroEmpresa(ServicoEmpresa servicoEmpresa, int? id = 0)
         {
             InitializeComponent();
             _servicoEmpresa = servicoEmpresa;
-        }
-
-        public CadastroEmpresa(ServicoEmpresa servicoEmpresa, int id) : this(servicoEmpresa)
-        {
-            _id = id;
+            _id = (int)id;
             MostrarInformacoesAoAtualizar();
         }
 
@@ -43,8 +39,9 @@ namespace Cod3rsGrowth.Forms
                 cnpjEmpresa.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
                 empresa.CNPJ = cnpjEmpresa.Text;
                 empresa.Ramo = (EnumRamoDaEmpresa)ramoDaEmpresa.SelectedIndex;
+                const int quantoNaoTemId = 0;
 
-                if (_id > 0)
+                if (_id > quantoNaoTemId)
                 {
                     empresa.Id = _id;
                     _servicoEmpresa.Atualizar(empresa);

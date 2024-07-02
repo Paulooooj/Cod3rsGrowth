@@ -11,18 +11,14 @@ namespace Cod3rsGrowth.Forms
         private readonly ServicoProduto _servicoProduto;
         private readonly int _id;
 
-        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto)
+        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto, int? id = 0)
         {
             InitializeComponent();
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
+            _id = (int)id;
             var filtro = _servicoEmpresa.ObterTodos().Select(x => x.RazaoSocial);
             mostrarTodasAsEmpresas.DataSource = filtro.ToList();
-        }
-
-        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto, int id) : this(servicoEmpresa, servicoProduto)
-        {
-            _id = id;
             MostrarInformacoesAoAtualizar();
         }
 
@@ -75,8 +71,9 @@ namespace Cod3rsGrowth.Forms
                     .Where(x => x.RazaoSocial == mostrarTodasAsEmpresas.SelectedItem.ToString())
                     .Select(x => x.Id).FirstOrDefault();
                 produto.EmpresaId = pegarOIdEmpresa;
+                const int quantoNaoTemId = 0;
 
-                if (_id > 0)
+                if (_id > quantoNaoTemId)
                 {
                     produto.Id = _id;
                     _servicoProduto.Atualizar(produto);

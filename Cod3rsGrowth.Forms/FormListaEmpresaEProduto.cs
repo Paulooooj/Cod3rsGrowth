@@ -18,10 +18,10 @@ namespace Cod3rsGrowth.Forms
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
             var valorTodosComboBox = 0;
-            comboBoxEnumRamo.SelectedIndex = valorTodosComboBox;
             dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
             GerarColunaChaveEstrangeira();
+            FormatarCNPJ();
         }
 
         private void textFiltrarRazaoSocial_TextChanged(object sender, EventArgs e)
@@ -156,7 +156,7 @@ namespace Cod3rsGrowth.Forms
         private void aoClicarDeveAtualizarProduto_Click(object sender, EventArgs e)
         {
             const int colunaId = 0;
-            if(dataGridViewProduto.SelectedRows.Count > 1)
+            if (dataGridViewProduto.SelectedRows.Count > 1)
             {
                 MessageBox.Show("Erro: Selecione só uma linha.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -181,6 +181,31 @@ namespace Cod3rsGrowth.Forms
             var atualizarEmpresa = new CadastroEmpresa(_servicoEmpresa, idEmpresaSerEditado);
             atualizarEmpresa.ShowDialog();
             dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
+        }
+
+        private void FormatarCNPJ()
+        {
+            dataGridViewEmpresa.AutoGenerateColumns = false;
+            dataGridViewEmpresa.CellFormatting += formatarCelulas;
+        }
+
+        private void formatarCelulas(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            const string nomeColuna = "CNPJ";
+            if (dataGridViewEmpresa.Columns[e.ColumnIndex].HeaderText == nomeColuna)
+            {
+                var empresa = dataGridViewEmpresa.Rows[e.RowIndex].DataBoundItem as Empresa;
+                if (empresa != null)
+                {
+                    var empresaId = _servicoEmpresa.ObterPorId(empresa.Id);
+                    if (empresaId != null)
+                    {
+                        var cnpj = Convert.ToUInt64(empresa.CNPJ);
+                        var cnpjFormatado = String.Format(@"{0:00\.000\.000\/0000\-00}", cnpj);
+                        e.Value = cnpjFormatado; 
+                    }
+                }
+            }
         }
     }
 }

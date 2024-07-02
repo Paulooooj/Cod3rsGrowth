@@ -78,6 +78,7 @@
             // 
             // dataGridViewEmpresa
             // 
+            dataGridViewEmpresa.AllowUserToDeleteRows = false;
             dataGridViewEmpresa.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewEmpresa.AutoGenerateColumns = false;
             dataGridViewEmpresa.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -88,35 +89,41 @@
             dataGridViewEmpresa.DataSource = empresaBindingSource;
             dataGridViewEmpresa.Location = new Point(3, 64);
             dataGridViewEmpresa.Name = "dataGridViewEmpresa";
+            dataGridViewEmpresa.ReadOnly = true;
             dataGridViewEmpresa.RowHeadersVisible = false;
             dataGridViewEmpresa.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dataGridViewEmpresa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewEmpresa.Size = new Size(952, 248);
             dataGridViewEmpresa.TabIndex = 0;
+            dataGridViewEmpresa.CellFormatting += formatarCelulas;
             // 
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // razaoSocialDataGridViewTextBoxColumn
             // 
             razaoSocialDataGridViewTextBoxColumn.DataPropertyName = "RazaoSocial";
             razaoSocialDataGridViewTextBoxColumn.HeaderText = "Razao Social";
             razaoSocialDataGridViewTextBoxColumn.Name = "razaoSocialDataGridViewTextBoxColumn";
+            razaoSocialDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // cNPJDataGridViewTextBoxColumn
             // 
             cNPJDataGridViewTextBoxColumn.DataPropertyName = "CNPJ";
             cNPJDataGridViewTextBoxColumn.HeaderText = "CNPJ";
             cNPJDataGridViewTextBoxColumn.Name = "cNPJDataGridViewTextBoxColumn";
+            cNPJDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ramoDataGridViewTextBoxColumn
             // 
             ramoDataGridViewTextBoxColumn.DataPropertyName = "Ramo";
             ramoDataGridViewTextBoxColumn.HeaderText = "Ramo";
             ramoDataGridViewTextBoxColumn.Name = "ramoDataGridViewTextBoxColumn";
+            ramoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // empresaBindingSource
             // 
