@@ -1,30 +1,28 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
-using System.Drawing.Printing;
 
 namespace Cod3rsGrowth.Forms
 {
     public partial class CadastroEmpresa : Form
     {
         private readonly ServicoEmpresa _servicoEmpresa;
-        private readonly int _id;
+        private readonly Empresa? _empresa;
 
-        public CadastroEmpresa(ServicoEmpresa servicoEmpresa, int? id = 0)
+        public CadastroEmpresa(ServicoEmpresa servicoEmpresa, Empresa? empresa = null)
         {
             InitializeComponent();
             _servicoEmpresa = servicoEmpresa;
-            _id = (int)id;
+            _empresa = empresa;
             MostrarInformacoesAoAtualizar();
         }
 
         private void MostrarInformacoesAoAtualizar()
         {
-            if (_id > 0)
+            if (_empresa != null)
             {
-                var empresa = _servicoEmpresa.ObterPorId(_id);
-                razaoSocialCadastroEmpresa.Text = empresa.RazaoSocial;
-                cnpjEmpresa.Text = empresa.CNPJ;
-                ramoDaEmpresa.SelectedIndex = (int)empresa.Ramo;
+                razaoSocialCadastroEmpresa.Text = _empresa.RazaoSocial;
+                cnpjEmpresa.Text = _empresa.CNPJ;
+                ramoDaEmpresa.SelectedIndex = (int)_empresa.Ramo;
             }
         }
 
@@ -42,22 +40,24 @@ namespace Cod3rsGrowth.Forms
                 cnpjEmpresa.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
                 empresa.CNPJ = cnpjEmpresa.Text;
                 empresa.Ramo = (EnumRamoDaEmpresa)ramoDaEmpresa.SelectedIndex;
-                const int quantoNaoTemId = 0;
-
-                if (_id > quantoNaoTemId)
-                {
-                    empresa.Id = _id;
-                    _servicoEmpresa.Atualizar(empresa);
-                }
-                else
-                    _servicoEmpresa.Adicionar(empresa);
-
+                SalvarDados(empresa);   
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void SalvarDados(Empresa empresa)
+        {
+            if (_empresa != null)
+            {
+                empresa.Id = _empresa.Id;
+                _servicoEmpresa.Atualizar(empresa);
+                return;
+            }
+            _servicoEmpresa.Adicionar(empresa);
         }
     }
 }

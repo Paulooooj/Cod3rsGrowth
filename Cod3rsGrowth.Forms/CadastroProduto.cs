@@ -9,14 +9,14 @@ namespace Cod3rsGrowth.Forms
     {
         private readonly ServicoEmpresa _servicoEmpresa;
         private readonly ServicoProduto _servicoProduto;
-        private readonly int _id;
+        private readonly Produto? _produto;
 
-        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto, int? id = 0)
+        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto, Produto? produto = null)
         {
             InitializeComponent();
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
-            _id = (int)id;
+            _produto = produto;
             var filtro = _servicoEmpresa.ObterTodos().Select(x => x.RazaoSocial);
             mostrarTodasAsEmpresas.DataSource = filtro.ToList();
             MostrarInformacoesAoAtualizar();
@@ -24,20 +24,20 @@ namespace Cod3rsGrowth.Forms
 
         private void MostrarInformacoesAoAtualizar()
         {
-            if (_id > 0)
+
+            if (_produto != null)
             {
-                var produto = _servicoProduto.ObterPorId(_id);
-                nomeProduto.Text = produto.Nome;
-                valorProduto.Value = produto.ValorDoProduto;
-                dataCadastroProduto.Value = produto.DataCadastro;
-                if (produto.TemDataValidade)
+                nomeProduto.Text = _produto.Nome;
+                valorProduto.Value = _produto.ValorDoProduto;
+                dataCadastroProduto.Value = _produto.DataCadastro;
+                if (_produto.TemDataValidade)
                 {
                     temDataDeValidade.CheckState = CheckState.Checked;
-                    dataDeValidade.Value = (DateTime)produto.DataValidade;
+                    dataDeValidade.Value = (DateTime)_produto.DataValidade;
                     dataDeValidade.Visible = true;
                     labelTemDataValidade.Visible = true;
                 }
-                mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(produto.EmpresaId).RazaoSocial;
+                mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(_produto.EmpresaId).RazaoSocial;
             }
         }
 
@@ -74,16 +74,7 @@ namespace Cod3rsGrowth.Forms
                     .Where(x => x.RazaoSocial == mostrarTodasAsEmpresas.SelectedItem.ToString())
                     .Select(x => x.Id).FirstOrDefault();
                 produto.EmpresaId = pegarOIdEmpresa;
-                const int quantoNaoTemId = 0;
-
-                if (_id > quantoNaoTemId)
-                {
-                    produto.Id = _id;
-                    _servicoProduto.Atualizar(produto);
-                }
-                else
-                    _servicoProduto.Adicionar(produto);
-
+                SalvarDados(produto);
                 this.Close();
             }
             catch (Exception ex)
@@ -91,5 +82,16 @@ namespace Cod3rsGrowth.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void SalvarDados(Produto produto)
+        {
+            if (_produto != null)
+            {
+                produto.Id = _produto.Id;
+                _servicoProduto.Atualizar(produto);
+                return;
+            }
+            _servicoProduto.Adicionar(produto);
+        }  
     }
 }

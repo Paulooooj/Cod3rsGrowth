@@ -15,6 +15,7 @@ namespace Cod3rsGrowth.Forms
         public FormListaEmpresaEProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto)
         {
             InitializeComponent();
+
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
             var valorTodosComboBox = 0;
@@ -156,14 +157,17 @@ namespace Cod3rsGrowth.Forms
         private void aoClicarDeveAtualizarProduto_Click(object sender, EventArgs e)
         {
             const int colunaId = 0;
-            if (dataGridViewProduto.SelectedRows.Count > 1)
+            const int numeroMaximoDeLinhaSelecionada = 1;
+            if (dataGridViewProduto.SelectedRows.Count > numeroMaximoDeLinhaSelecionada)
             {
                 MessageBox.Show("Erro: Selecione só uma linha.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var idProdutoSerEditado = (int)dataGridViewProduto.CurrentRow.Cells[colunaId].Value;
-            var atualizarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, idProdutoSerEditado);
+            var produto = _servicoProduto.ObterPorId(idProdutoSerEditado);
+            produto.Id = idProdutoSerEditado;
+            var atualizarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, produto);
             atualizarProduto.ShowDialog();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
         }
@@ -171,14 +175,17 @@ namespace Cod3rsGrowth.Forms
         private void aoClicarDeveAtualizarEmpresa_Click(object sender, EventArgs e)
         {
             const int colunaId = 0;
-            if (dataGridViewEmpresa.SelectedRows.Count > 1)
+            const int numeroMaximoDeLinhaSelecionada = 1;
+            if (dataGridViewEmpresa.SelectedRows.Count > numeroMaximoDeLinhaSelecionada)
             {
                 MessageBox.Show("Erro: Selecione só uma linha.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             var idEmpresaSerEditado = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
-            var atualizarEmpresa = new CadastroEmpresa(_servicoEmpresa, idEmpresaSerEditado);
+            var empresa = _servicoEmpresa.ObterPorId(idEmpresaSerEditado);
+            empresa.Id = idEmpresaSerEditado;
+            var atualizarEmpresa = new CadastroEmpresa(_servicoEmpresa, empresa);
             atualizarEmpresa.ShowDialog();
             dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
         }
@@ -197,12 +204,12 @@ namespace Cod3rsGrowth.Forms
                 var empresa = dataGridViewEmpresa.Rows[e.RowIndex].DataBoundItem as Empresa;
                 if (empresa != null)
                 {
-                    var empresaId = _servicoEmpresa.ObterPorId(empresa.Id);
-                    if (empresaId != null)
+                    var objetoEmpresaRetornado = _servicoEmpresa.ObterPorId(empresa.Id);
+                    if (objetoEmpresaRetornado != null)
                     {
-                        var cnpj = Convert.ToUInt64(empresa.CNPJ);
-                        var cnpjFormatado = String.Format(@"{0:00\.000\.000\/0000\-00}", cnpj);
-                        e.Value = cnpjFormatado; 
+                        var cnpj = Convert.ToInt64(empresa.CNPJ);
+                        var cnpjFormatado = String.Format(@"{0:00\.000\.000\/0000\-00}",cnpj);
+                        e.Value = cnpjFormatado;
                     }
                 }
             }
