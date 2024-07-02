@@ -20,29 +20,21 @@ namespace Cod3rsGrowth.Forms
             mostrarTodasAsEmpresas.DataSource = filtro.ToList();
         }
 
-        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto, int id)
+        public CadastroProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto, int id) : this(servicoEmpresa, servicoProduto)
         {
-            InitializeComponent();
-            _servicoEmpresa = servicoEmpresa;
-            _servicoProduto = servicoProduto;
             _id = id;
-            var filtro = _servicoEmpresa.ObterTodos().Select(x => x.RazaoSocial);
-            mostrarTodasAsEmpresas.DataSource = filtro.ToList();
-            MostrarInformacoesAoAtualizar(_id);
+            MostrarInformacoesAoAtualizar();
         }
 
-        private void MostrarInformacoesAoAtualizar(int id)
+        private void MostrarInformacoesAoAtualizar()
         {
-            if (id > 0)
-            {
-                var produto = _servicoProduto.ObterPorId(id);
-                nomeProduto.Text = produto.Nome;
-                valorProduto.Value = produto.ValorDoProduto;
-                dataCadastroProduto.Value = produto.DataCadastro;
-                if (produto.TemDataValidade)
-                    dataDeValidade.Value = (DateTime)produto.DataValidade;
-                mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(produto.EmpresaId).RazaoSocial;
-            }
+            var produto = _servicoProduto.ObterPorId(_id);
+            nomeProduto.Text = produto.Nome;
+            valorProduto.Value = produto.ValorDoProduto;
+            dataCadastroProduto.Value = produto.DataCadastro;
+            if (produto.TemDataValidade)
+                dataDeValidade.Value = (DateTime)produto.DataValidade;
+            mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(produto.EmpresaId).RazaoSocial;
         }
 
         private void temDataDeValidadeVerdadeiro_CheckedChanged(object sender, EventArgs e)
@@ -79,12 +71,13 @@ namespace Cod3rsGrowth.Forms
                     .Select(x => x.Id).FirstOrDefault();
                 produto.EmpresaId = pegarOIdEmpresa;
 
-                if(_id > 0)
-                 _servicoProduto.Atualizar(produto);
-                else
+                if (_id > 0)
                 {
-                _servicoProduto.Adicionar(produto);
+                    produto.Id = _id;
+                    _servicoProduto.Atualizar(produto);
                 }
+                else
+                    _servicoProduto.Adicionar(produto);
 
                 this.Close();
             }

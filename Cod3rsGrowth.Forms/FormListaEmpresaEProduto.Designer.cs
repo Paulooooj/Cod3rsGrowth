@@ -170,6 +170,7 @@
             // 
             // aoClicarDeveAtualizarEmpresa
             // 
+            aoClicarDeveAtualizarEmpresa.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             aoClicarDeveAtualizarEmpresa.Location = new Point(778, 318);
             aoClicarDeveAtualizarEmpresa.Name = "aoClicarDeveAtualizarEmpresa";
             aoClicarDeveAtualizarEmpresa.Size = new Size(75, 23);
@@ -226,6 +227,7 @@
             // 
             // aoClicarDeveAtualizarProduto
             // 
+            aoClicarDeveAtualizarProduto.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             aoClicarDeveAtualizarProduto.Location = new Point(778, 318);
             aoClicarDeveAtualizarProduto.Name = "aoClicarDeveAtualizarProduto";
             aoClicarDeveAtualizarProduto.Size = new Size(75, 23);

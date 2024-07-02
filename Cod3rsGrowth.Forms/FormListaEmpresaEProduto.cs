@@ -156,20 +156,31 @@ namespace Cod3rsGrowth.Forms
         private void aoClicarDeveAtualizarProduto_Click(object sender, EventArgs e)
         {
             const int colunaId = 0;
+            if(dataGridViewProduto.SelectedRows.Count > 1)
+            {
+                MessageBox.Show("Erro: Selecione só uma linha.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var idProdutoSerEditado = (int)dataGridViewProduto.CurrentRow.Cells[colunaId].Value;
-            var cadastroProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, idProdutoSerEditado);
-            cadastroProduto.ShowDialog();
+            var atualizarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, idProdutoSerEditado);
+            atualizarProduto.ShowDialog();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
         }
 
         private void aoClicarDeveAtualizarEmpresa_Click(object sender, EventArgs e)
         {
             const int colunaId = 0;
+            if (dataGridViewEmpresa.SelectedRows.Count > 1)
+            {
+                MessageBox.Show("Erro: Selecione só uma linha.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             var idEmpresaSerEditado = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
-            var cadastroEmpresa = new CadastroEmpresa(_servicoEmpresa, idEmpresaSerEditado);
-            cadastroEmpresa.ShowDialog();
+            var atualizarEmpresa = new CadastroEmpresa(_servicoEmpresa, idEmpresaSerEditado);
+            atualizarEmpresa.ShowDialog();
+            dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
         }
     }
 }
