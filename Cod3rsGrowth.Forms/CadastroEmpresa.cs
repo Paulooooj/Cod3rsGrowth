@@ -19,10 +19,13 @@ namespace Cod3rsGrowth.Forms
 
         private void MostrarInformacoesAoAtualizar()
         {
-            var empresa = _servicoEmpresa.ObterPorId(_id);
-            razaoSocialCadastroEmpresa.Text = empresa.RazaoSocial;
-            cnpjEmpresa.Text = empresa.CNPJ;
-            ramoDaEmpresa.SelectedIndex = (int)empresa.Ramo;
+            if (_id > 0)
+            {
+                var empresa = _servicoEmpresa.ObterPorId(_id);
+                razaoSocialCadastroEmpresa.Text = empresa.RazaoSocial;
+                cnpjEmpresa.Text = empresa.CNPJ;
+                ramoDaEmpresa.SelectedIndex = (int)empresa.Ramo;
+            }
         }
 
         private void aoClicarDeveCancelarAdicionar_Click(object sender, EventArgs e)

@@ -24,18 +24,21 @@ namespace Cod3rsGrowth.Forms
 
         private void MostrarInformacoesAoAtualizar()
         {
-            var produto = _servicoProduto.ObterPorId(_id);
-            nomeProduto.Text = produto.Nome;
-            valorProduto.Value = produto.ValorDoProduto;
-            dataCadastroProduto.Value = produto.DataCadastro;
-            if (produto.TemDataValidade)
+            if (_id > 0)
             {
-                temDataDeValidade.CheckState = CheckState.Checked;
-                dataDeValidade.Value = (DateTime)produto.DataValidade;
-                dataDeValidade.Visible = true;
-                labelTemDataValidade.Visible = true;
+                var produto = _servicoProduto.ObterPorId(_id);
+                nomeProduto.Text = produto.Nome;
+                valorProduto.Value = produto.ValorDoProduto;
+                dataCadastroProduto.Value = produto.DataCadastro;
+                if (produto.TemDataValidade)
+                {
+                    temDataDeValidade.CheckState = CheckState.Checked;
+                    dataDeValidade.Value = (DateTime)produto.DataValidade;
+                    dataDeValidade.Visible = true;
+                    labelTemDataValidade.Visible = true;
+                }
+                mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(produto.EmpresaId).RazaoSocial;
             }
-            mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(produto.EmpresaId).RazaoSocial;
         }
 
         private void temDataDeValidadeVerdadeiro_CheckedChanged(object sender, EventArgs e)
