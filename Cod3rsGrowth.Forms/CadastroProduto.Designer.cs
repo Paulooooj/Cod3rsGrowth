@@ -31,8 +31,8 @@
             groupBox1 = new GroupBox();
             mostrarTodasAsEmpresas = new ComboBox();
             valorProduto = new NumericUpDown();
-            aoClicarDeveCancelarAdicionar = new Button();
-            aoClicarDeveAdicionar = new Button();
+            aoClicarDeveCancelarAdicionarProduto = new Button();
+            aoClicarDeveSalvar = new Button();
             label6 = new Label();
             labelTemDataValidade = new Label();
             dataDeValidade = new DateTimePicker();
@@ -53,8 +53,8 @@
             groupBox1.BackColor = Color.White;
             groupBox1.Controls.Add(mostrarTodasAsEmpresas);
             groupBox1.Controls.Add(valorProduto);
-            groupBox1.Controls.Add(aoClicarDeveCancelarAdicionar);
-            groupBox1.Controls.Add(aoClicarDeveAdicionar);
+            groupBox1.Controls.Add(aoClicarDeveCancelarAdicionarProduto);
+            groupBox1.Controls.Add(aoClicarDeveSalvar);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(labelTemDataValidade);
             groupBox1.Controls.Add(dataDeValidade);
@@ -84,29 +84,30 @@
             // 
             valorProduto.DecimalPlaces = 2;
             valorProduto.Location = new Point(6, 94);
+            valorProduto.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             valorProduto.Name = "valorProduto";
             valorProduto.Size = new Size(332, 23);
             valorProduto.TabIndex = 15;
             // 
-            // aoClicarDeveCancelarAdicionar
+            // aoClicarDeveCancelarAdicionarProduto
             // 
-            aoClicarDeveCancelarAdicionar.Location = new Point(263, 351);
-            aoClicarDeveCancelarAdicionar.Name = "aoClicarDeveCancelarAdicionar";
-            aoClicarDeveCancelarAdicionar.Size = new Size(75, 23);
-            aoClicarDeveCancelarAdicionar.TabIndex = 14;
-            aoClicarDeveCancelarAdicionar.Text = "Cancelar";
-            aoClicarDeveCancelarAdicionar.UseVisualStyleBackColor = true;
-            aoClicarDeveCancelarAdicionar.Click += button2_Click;
+            aoClicarDeveCancelarAdicionarProduto.Location = new Point(263, 351);
+            aoClicarDeveCancelarAdicionarProduto.Name = "aoClicarDeveCancelarAdicionarProduto";
+            aoClicarDeveCancelarAdicionarProduto.Size = new Size(75, 23);
+            aoClicarDeveCancelarAdicionarProduto.TabIndex = 14;
+            aoClicarDeveCancelarAdicionarProduto.Text = "Cancelar";
+            aoClicarDeveCancelarAdicionarProduto.UseVisualStyleBackColor = true;
+            aoClicarDeveCancelarAdicionarProduto.Click += aoClicarDeveCancelarAdicionarProduto_Click;
             // 
-            // aoClicarDeveAdicionar
+            // aoClicarDeveSalvar
             // 
-            aoClicarDeveAdicionar.Location = new Point(6, 351);
-            aoClicarDeveAdicionar.Name = "aoClicarDeveAdicionar";
-            aoClicarDeveAdicionar.Size = new Size(124, 23);
-            aoClicarDeveAdicionar.TabIndex = 13;
-            aoClicarDeveAdicionar.Text = "Adicionar Produto";
-            aoClicarDeveAdicionar.UseVisualStyleBackColor = true;
-            aoClicarDeveAdicionar.Click += aoClicarDeveAdicionar_Click;
+            aoClicarDeveSalvar.Location = new Point(6, 351);
+            aoClicarDeveSalvar.Name = "aoClicarDeveSalvar";
+            aoClicarDeveSalvar.Size = new Size(124, 23);
+            aoClicarDeveSalvar.TabIndex = 13;
+            aoClicarDeveSalvar.Text = "Salvar";
+            aoClicarDeveSalvar.UseVisualStyleBackColor = true;
+            aoClicarDeveSalvar.Click += aoClicarDeveSalvar_Click;
             // 
             // label6
             // 
@@ -230,8 +231,8 @@
         private Label labelTemDataValidade;
         private DateTimePicker dataDeValidade;
         private Label label6;
-        private Button aoClicarDeveCancelarAdicionar;
-        private Button aoClicarDeveAdicionar;
+        private Button aoClicarDeveCancelarAdicionarProduto;
+        private Button aoClicarDeveSalvar;
         private NumericUpDown valorProduto;
         private ComboBox mostrarTodasAsEmpresas;
     }

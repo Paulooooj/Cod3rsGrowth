@@ -1,7 +1,10 @@
+using AutoMapper.Configuration.Conventions;
 using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -15,13 +18,14 @@ namespace Cod3rsGrowth.Forms
         public FormListaEmpresaEProduto(ServicoEmpresa servicoEmpresa, ServicoProduto servicoProduto)
         {
             InitializeComponent();
+
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
             var valorTodosComboBox = 0;
-            comboBoxEnumRamo.SelectedIndex = valorTodosComboBox;
             dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
             GerarColunaChaveEstrangeira();
+            FormatarCNPJ();
         }
 
         private void textFiltrarRazaoSocial_TextChanged(object sender, EventArgs e)
@@ -121,10 +125,11 @@ namespace Cod3rsGrowth.Forms
                 var idEmpresaSerRemovida = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
                 var nomeEmpresaSerRemovida = dataGridViewEmpresa.CurrentRow.Cells[colunaRazaoSocial].Value;
 
-                if (MessageBox.Show("Deseja mesmo Remover " + nomeEmpresaSerRemovida + "?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Ao remover " + nomeEmpresaSerRemovida + " vai ser removido todos os produtos relacionados, deseja remover?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     _servicoEmpresa.Deletar(idEmpresaSerRemovida);
 
                 dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
+                dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
             }
             catch (Exception ex)
             {
@@ -150,6 +155,63 @@ namespace Cod3rsGrowth.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void aoClicarDeveAtualizarProduto_Click(object sender, EventArgs e)
+        {
+            const int colunaId = 0;
+            const int numeroMaximoDeLinhaSelecionada = 1;
+            if (dataGridViewProduto.SelectedRows.Count > numeroMaximoDeLinhaSelecionada)
+            {
+                MessageBox.Show("Erro: Selecione só uma linha.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var idProdutoSerEditado = (int)dataGridViewProduto.CurrentRow.Cells[colunaId].Value;
+            var produto = _servicoProduto.ObterPorId(idProdutoSerEditado);
+            var atualizarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, produto);
+            atualizarProduto.ShowDialog();
+            dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
+        }
+
+        private void aoClicarDeveAtualizarEmpresa_Click(object sender, EventArgs e)
+        {
+            const int colunaId = 0;
+            const int numeroMaximoDeLinhaSelecionada = 1;
+            if (dataGridViewEmpresa.SelectedRows.Count > numeroMaximoDeLinhaSelecionada)
+            {
+                MessageBox.Show("Erro: Selecione só uma linha.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var idEmpresaSerEditado = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
+            var empresa = _servicoEmpresa.ObterPorId(idEmpresaSerEditado);
+            var atualizarEmpresa = new CadastroEmpresa(_servicoEmpresa, empresa);
+            atualizarEmpresa.ShowDialog();
+            dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
+        }
+
+        private void FormatarCNPJ()
+        {
+            dataGridViewEmpresa.AutoGenerateColumns = false;
+            dataGridViewEmpresa.CellFormatting += formatarCelulas;
+        }
+
+        private void formatarCelulas(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            const string nomeColuna = "CNPJ";
+            if (dataGridViewEmpresa.Columns[e.ColumnIndex].HeaderText == nomeColuna)
+            {
+                var empresa = dataGridViewEmpresa.Rows[e.RowIndex].DataBoundItem as Empresa;
+                if (empresa != null)
+                {
+                    var objetoEmpresaRetornado = _servicoEmpresa.ObterPorId(empresa.Id);
+                    if (objetoEmpresaRetornado != null)
+                    {
+                        e.Value = Regex.Replace(empresa.CNPJ, "(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
+                    }
+                }
             }
         }
     }

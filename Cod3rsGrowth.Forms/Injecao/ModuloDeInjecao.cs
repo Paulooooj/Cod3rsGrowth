@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Forms.Injecao
                 .ConfigureRunner(rb => rb
                 .AddSqlServer()
                 .WithGlobalConnectionString(stringConexao)
-                .ScanIn(typeof(_20240620132500_migracao_da_tabela_empresa).Assembly).For.Migrations())
+                .ScanIn(typeof(_20240703075800_migracao_da_tabela_empresa).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
             .BuildServiceProvider(false);
         }
