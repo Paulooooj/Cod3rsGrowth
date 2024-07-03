@@ -35,11 +35,15 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var empresa = new Empresa();
-                empresa.RazaoSocial = razaoSocialCadastroEmpresa.Text;
                 cnpjEmpresa.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-                empresa.CNPJ = cnpjEmpresa.Text;
-                empresa.Ramo = (EnumRamoDaEmpresa)ramoDaEmpresa.SelectedIndex;
+
+                var empresa = new Empresa
+                {
+                    RazaoSocial = razaoSocialCadastroEmpresa.Text,
+                    CNPJ = cnpjEmpresa.Text,
+                    Ramo = (EnumRamoDaEmpresa)ramoDaEmpresa.SelectedIndex
+                };
+
                 SalvarDados(empresa);   
                 this.Close();
             }

@@ -2,6 +2,8 @@ using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
+using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -122,10 +124,11 @@ namespace Cod3rsGrowth.Forms
                 var idEmpresaSerRemovida = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
                 var nomeEmpresaSerRemovida = dataGridViewEmpresa.CurrentRow.Cells[colunaRazaoSocial].Value;
 
-                if (MessageBox.Show("Deseja mesmo Remover " + nomeEmpresaSerRemovida + "?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Ao remover " + nomeEmpresaSerRemovida + " vai ser removido todos os produtos relacionados, deseja remover?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     _servicoEmpresa.Deletar(idEmpresaSerRemovida);
 
                 dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
+                dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
             }
             catch (Exception ex)
             {
@@ -166,7 +169,6 @@ namespace Cod3rsGrowth.Forms
 
             var idProdutoSerEditado = (int)dataGridViewProduto.CurrentRow.Cells[colunaId].Value;
             var produto = _servicoProduto.ObterPorId(idProdutoSerEditado);
-            produto.Id = idProdutoSerEditado;
             var atualizarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, produto);
             atualizarProduto.ShowDialog();
             dataGridViewProduto.DataSource = _servicoProduto.ObterTodos();
@@ -184,7 +186,6 @@ namespace Cod3rsGrowth.Forms
 
             var idEmpresaSerEditado = (int)dataGridViewEmpresa.CurrentRow.Cells[colunaId].Value;
             var empresa = _servicoEmpresa.ObterPorId(idEmpresaSerEditado);
-            empresa.Id = idEmpresaSerEditado;
             var atualizarEmpresa = new CadastroEmpresa(_servicoEmpresa, empresa);
             atualizarEmpresa.ShowDialog();
             dataGridViewEmpresa.DataSource = _servicoEmpresa.ObterTodos();
@@ -207,12 +208,15 @@ namespace Cod3rsGrowth.Forms
                     var objetoEmpresaRetornado = _servicoEmpresa.ObterPorId(empresa.Id);
                     if (objetoEmpresaRetornado != null)
                     {
-                        var cnpj = Convert.ToInt64(empresa.CNPJ);
-                        var cnpjFormatado = String.Format(@"{0:00\.000\.000\/0000\-00}",cnpj);
-                        e.Value = cnpjFormatado;
+                        e.Value = empresa.CNPJ.Insert(2, ".").Insert(6, ".").Insert(10, "/").Insert(15, "-");
                     }
                 }
             }
+        }
+
+        private void dataGridViewEmpresa_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

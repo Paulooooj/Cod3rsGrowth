@@ -30,7 +30,12 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dataGridViewEmpresa = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            razaoSocialDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            cNPJDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            ramoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             empresaBindingSource = new BindingSource(components);
             textFiltrarRazaoSocial = new TextBox();
             comboBoxEnumRamo = new ComboBox();
@@ -62,10 +67,6 @@
             dataValidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             empresaIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             produtoBindingSource = new BindingSource(components);
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            razaoSocialDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            cNPJDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            ramoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridViewEmpresa).BeginInit();
             ((System.ComponentModel.ISupportInitialize)empresaBindingSource).BeginInit();
             tabControl1.SuspendLayout();
@@ -96,6 +97,37 @@
             dataGridViewEmpresa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewEmpresa.Size = new Size(952, 248);
             dataGridViewEmpresa.TabIndex = 0;
+            dataGridViewEmpresa.CellContentClick += dataGridViewEmpresa_CellContentClick;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // razaoSocialDataGridViewTextBoxColumn
+            // 
+            razaoSocialDataGridViewTextBoxColumn.DataPropertyName = "RazaoSocial";
+            razaoSocialDataGridViewTextBoxColumn.HeaderText = "Razao Social";
+            razaoSocialDataGridViewTextBoxColumn.Name = "razaoSocialDataGridViewTextBoxColumn";
+            razaoSocialDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cNPJDataGridViewTextBoxColumn
+            // 
+            cNPJDataGridViewTextBoxColumn.DataPropertyName = "CNPJ";
+            dataGridViewCellStyle1.NullValue = null;
+            cNPJDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            cNPJDataGridViewTextBoxColumn.HeaderText = "CNPJ";
+            cNPJDataGridViewTextBoxColumn.Name = "cNPJDataGridViewTextBoxColumn";
+            cNPJDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ramoDataGridViewTextBoxColumn
+            // 
+            ramoDataGridViewTextBoxColumn.DataPropertyName = "Ramo";
+            ramoDataGridViewTextBoxColumn.HeaderText = "Ramo";
+            ramoDataGridViewTextBoxColumn.Name = "ramoDataGridViewTextBoxColumn";
+            ramoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // empresaBindingSource
             // 
@@ -363,6 +395,9 @@
             // valorDoProdutoDataGridViewTextBoxColumn
             // 
             valorDoProdutoDataGridViewTextBoxColumn.DataPropertyName = "ValorDoProduto";
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = "R$";
+            valorDoProdutoDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
             valorDoProdutoDataGridViewTextBoxColumn.HeaderText = "Valor Produto";
             valorDoProdutoDataGridViewTextBoxColumn.Name = "valorDoProdutoDataGridViewTextBoxColumn";
             // 
@@ -393,36 +428,6 @@
             // produtoBindingSource
             // 
             produtoBindingSource.DataSource = typeof(Dominio.Entidades.Produto);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // razaoSocialDataGridViewTextBoxColumn
-            // 
-            razaoSocialDataGridViewTextBoxColumn.DataPropertyName = "RazaoSocial";
-            razaoSocialDataGridViewTextBoxColumn.HeaderText = "Razao Social";
-            razaoSocialDataGridViewTextBoxColumn.Name = "razaoSocialDataGridViewTextBoxColumn";
-            razaoSocialDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cNPJDataGridViewTextBoxColumn
-            // 
-            cNPJDataGridViewTextBoxColumn.DataPropertyName = "CNPJ";
-            dataGridViewCellStyle1.NullValue = null;
-            cNPJDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            cNPJDataGridViewTextBoxColumn.HeaderText = "CNPJ";
-            cNPJDataGridViewTextBoxColumn.Name = "cNPJDataGridViewTextBoxColumn";
-            cNPJDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ramoDataGridViewTextBoxColumn
-            // 
-            ramoDataGridViewTextBoxColumn.DataPropertyName = "Ramo";
-            ramoDataGridViewTextBoxColumn.HeaderText = "Ramo";
-            ramoDataGridViewTextBoxColumn.Name = "ramoDataGridViewTextBoxColumn";
-            ramoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FormListaEmpresaEProduto
             // 
@@ -469,13 +474,6 @@
         private DateTimePicker filtrarPorDataMaximaProduto;
         private Label label4;
         private Label label3;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn valorDoProdutoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataCadastroDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn TemDataValidade;
-        private DataGridViewTextBoxColumn dataValidadeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn empresaIdDataGridViewTextBoxColumn;
         private Button resetarFiltroData;
         private Button aoClicarAdicionarEmpresa;
         private Button aoClicarAdicionarProduto;
@@ -487,5 +485,12 @@
         private DataGridViewTextBoxColumn razaoSocialDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn cNPJDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn ramoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn valorDoProdutoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dataCadastroDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn TemDataValidade;
+        private DataGridViewTextBoxColumn dataValidadeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn empresaIdDataGridViewTextBoxColumn;
     }
 }

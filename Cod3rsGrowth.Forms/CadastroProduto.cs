@@ -24,7 +24,6 @@ namespace Cod3rsGrowth.Forms
 
         private void MostrarInformacoesAoAtualizar()
         {
-
             if (_produto != null)
             {
                 nomeProduto.Text = _produto.Nome;
@@ -63,17 +62,22 @@ namespace Cod3rsGrowth.Forms
         {
             try
             {
-                var produto = new Produto();
-                produto.Nome = nomeProduto.Text;
-                produto.ValorDoProduto = valorProduto.Value;
-                produto.DataCadastro = dataCadastroProduto.Value.Date;
-                produto.TemDataValidade = temDataDeValidade.Checked;
-                if (temDataDeValidade.Checked)
-                    produto.DataValidade = dataDeValidade.Value;
                 var pegarOIdEmpresa = _servicoEmpresa.ObterTodos()
                     .Where(x => x.RazaoSocial == mostrarTodasAsEmpresas.SelectedItem.ToString())
                     .Select(x => x.Id).FirstOrDefault();
-                produto.EmpresaId = pegarOIdEmpresa;
+
+                var produto = new Produto
+                {
+                    Nome = nomeProduto.Text,
+                    ValorDoProduto = valorProduto.Value,
+                    DataCadastro = dataCadastroProduto.Value.Date,
+                    TemDataValidade = temDataDeValidade.Checked,
+                    DataValidade = temDataDeValidade.Checked
+                                    ? dataDeValidade.Value
+                                    : null,
+                    EmpresaId = pegarOIdEmpresa
+                };
+
                 SalvarDados(produto);
                 this.Close();
             }
@@ -92,6 +96,6 @@ namespace Cod3rsGrowth.Forms
                 return;
             }
             _servicoProduto.Adicionar(produto);
-        }  
+        }
     }
 }
