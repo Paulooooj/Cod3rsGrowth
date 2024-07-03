@@ -1,5 +1,4 @@
-﻿
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace Cod3rsGrowth.Dominio.Migrations
 {

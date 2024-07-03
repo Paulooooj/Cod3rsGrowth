@@ -97,7 +97,6 @@
             dataGridViewEmpresa.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewEmpresa.Size = new Size(952, 248);
             dataGridViewEmpresa.TabIndex = 0;
-            dataGridViewEmpresa.CellContentClick += dataGridViewEmpresa_CellContentClick;
             // 
             // idDataGridViewTextBoxColumn
             // 

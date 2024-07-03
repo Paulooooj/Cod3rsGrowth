@@ -1,3 +1,4 @@
+using AutoMapper.Configuration.Conventions;
 using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Filtros;
@@ -208,15 +209,10 @@ namespace Cod3rsGrowth.Forms
                     var objetoEmpresaRetornado = _servicoEmpresa.ObterPorId(empresa.Id);
                     if (objetoEmpresaRetornado != null)
                     {
-                        e.Value = empresa.CNPJ.Insert(2, ".").Insert(6, ".").Insert(10, "/").Insert(15, "-");
+                        e.Value = Regex.Replace(empresa.CNPJ, "(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
                     }
                 }
             }
-        }
-
-        private void dataGridViewEmpresa_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }
