@@ -53,10 +53,10 @@ namespace Cod3rsGrowth.Testes.Testes
         [Fact]
         public void deve_adicionar_um_nova_empresa_na_lista_singleton()
         {
-            var empresa = new Empresa { Id = 5, RazaoSocial = "InventSoftwar", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
-            _servicoEmpresa.Adicionar(empresa);
-            var retornoEmpresa = EmpresaSingleton.Instancia.Find(x=> x.Id == empresa.Id);
-            Assert.Equivalent(empresa, retornoEmpresa);
+            var empresaEsperada = new Empresa { Id = 5, RazaoSocial = "InventSoftwar", CNPJ = "12345678954366", Ramo = EnumRamoDaEmpresa.Servico };
+            _servicoEmpresa.Adicionar(empresaEsperada);
+            var empresaDoBanco = EmpresaSingleton.Instancia.Find(x=> x.Id == empresaEsperada.Id);
+            Assert.Equivalent(empresaEsperada, empresaDoBanco);
         }
 
         [Fact]

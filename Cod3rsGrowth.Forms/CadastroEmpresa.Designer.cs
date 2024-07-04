@@ -68,7 +68,7 @@
             aoClicarDeveCancelarAdicionar.TabIndex = 6;
             aoClicarDeveCancelarAdicionar.Text = "Cancelar";
             aoClicarDeveCancelarAdicionar.UseVisualStyleBackColor = false;
-            aoClicarDeveCancelarAdicionar.Click += aoClicarDeveCancelarAdicionar_Click;
+            aoClicarDeveCancelarAdicionar.Click += AoClicarDeveCancelarAdicionar;
             // 
             // aoClicarDeveSalvar
             // 
@@ -79,7 +79,7 @@
             aoClicarDeveSalvar.TabIndex = 5;
             aoClicarDeveSalvar.Text = "Salvar";
             aoClicarDeveSalvar.UseVisualStyleBackColor = false;
-            aoClicarDeveSalvar.Click += aoClicarDeveSalvar_Click;
+            aoClicarDeveSalvar.Click += AoClicarDeveSalvar;
             // 
             // label3
             // 

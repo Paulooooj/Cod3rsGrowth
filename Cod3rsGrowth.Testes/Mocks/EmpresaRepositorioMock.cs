@@ -52,7 +52,7 @@ namespace Cod3rsGrowth.Testes
             return listaEmpresa;
         }
 
-        public bool verificarSeTemNomeRepetido(Empresa empresa)
+        public bool EhNomeExistenteNoBanco(Empresa empresa)
         {
             return !_instanciaEmpresaSingleton.Any(x => x.RazaoSocial == empresa.RazaoSocial &&  x.Id != empresa.Id);
         }

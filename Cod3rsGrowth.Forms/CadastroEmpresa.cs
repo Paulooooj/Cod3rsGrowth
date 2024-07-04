@@ -1,5 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -26,12 +27,12 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void aoClicarDeveCancelarAdicionar_Click(object sender, EventArgs e)
+        private void AoClicarDeveCancelarAdicionar(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void aoClicarDeveSalvar_Click(object sender, EventArgs e)
+        private void AoClicarDeveSalvar(object sender, EventArgs e)
         {
             try
             {
@@ -44,12 +45,23 @@ namespace Cod3rsGrowth.Forms
                     Ramo = (EnumRamoDaEmpresa)ramoDaEmpresa.SelectedIndex
                 };
 
-                SalvarDados(empresa);   
+                SalvarDados(empresa);
                 this.Close();
             }
-            catch (Exception ex)
+            catch (ValidationException validationException)
             {
-                MessageBox.Show(ex.Message);
+                var listaDeErros = validationException.Errors.ToList();
+                var mensagemErro = "";
+
+                listaDeErros.ForEach(erro => mensagemErro += erro.ToString() + "\n");
+                const string tituloDoErro = "Erro de validação";
+
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
+            }
+            catch (Exception exception)
+            {
+                const string tituloDoErro = "Erro inesperado";
+                MessageBox.Show(exception.Message);
             }
         }
 
@@ -62,6 +74,11 @@ namespace Cod3rsGrowth.Forms
                 return;
             }
             _servicoEmpresa.Adicionar(empresa);
+        }
+
+        private static void MostrarMensagemErro(string tituloErro, string mensagemErro)
+        {
+            MessageBox.Show(mensagemErro, tituloErro, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

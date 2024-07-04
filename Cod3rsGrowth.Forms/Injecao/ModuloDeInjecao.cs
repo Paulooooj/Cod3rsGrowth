@@ -6,11 +6,11 @@ namespace Cod3rsGrowth.Forms.Injecao
 {
     public static class ModuloDeInjecao
     {
-        public static void AdicionarDependenciasNoEscopo(this IServiceCollection servico)
+        public static void AdicionarServicos(this IServiceCollection servico)
         {
-            const string nomeVariavelAmbiente = "ConnectionString";
-            var stringConexao = Environment.GetEnvironmentVariable(nomeVariavelAmbiente)
-                ?? throw new Exception($"Variavel de ambiente [{nomeVariavelAmbiente}] nao encontrada");
+            const string variavelAmbienteStringConexao = "ConnectionString";
+            var stringConexao = Environment.GetEnvironmentVariable(variavelAmbienteStringConexao)
+                ?? throw new Exception($"Variavel de ambiente [{variavelAmbienteStringConexao}] nao encontrada");
 
             servico
                 .AddFluentMigratorCore()

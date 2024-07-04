@@ -4,11 +4,11 @@ using System;
 
 namespace Cod3rsGrowth.Servico.Validacao
 {
-    public class ProdutoValidacao : AbstractValidator<Produto>
+    public class ValidadorProduto : AbstractValidator<Produto>
     {
-        public ProdutoValidacao()
+        public ValidadorProduto()
         {
-            ClassLevelCascadeMode = CascadeMode.Stop;
+            ClassLevelCascadeMode = CascadeMode.Continue;
 
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("O campo Nome é obrigatorio")
@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .PrecisionScale(10, 2, false)
                 .WithMessage("Tamanho máximo atingido");
 
-            RuleFor(x => x.DataCadastro).Cascade(CascadeMode.Stop)
+            RuleFor(x => x.DataCadastro)
                 .NotEmpty().WithMessage("É necessário informar a data de cadastro")
                 .Must(x => x == DateTime.Today)
                 .WithMessage("Data de cadastro tem que ser a atual");

@@ -43,24 +43,25 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public List<Produto> ObterTodos(FiltroProduto? filtro = null)
         {
-            var listaProduto = _db.GetTable<Produto>().AsQueryable();
+            const int valorMinimoComecarFiltrar = 0;
+            var tabelaProduto = _db.GetTable<Produto>().AsQueryable();
 
             if (!string.IsNullOrEmpty(filtro?.Nome))
-                listaProduto = listaProduto.Where(x => x.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+                tabelaProduto = tabelaProduto.Where(x => x.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
 
-            if (filtro?.ValorMinimo != null && filtro?.ValorMinimo > 0)
-                listaProduto = listaProduto.Where(x => x.ValorDoProduto >= filtro.ValorMinimo);
+            if (filtro?.ValorMinimo != null && filtro?.ValorMinimo > valorMinimoComecarFiltrar)
+                tabelaProduto = tabelaProduto.Where(x => x.ValorDoProduto >= filtro.ValorMinimo);
 
-            if (filtro?.ValorMaximo != null && filtro?.ValorMaximo > 0)
-                listaProduto = listaProduto.Where(x => x.ValorDoProduto <= filtro.ValorMaximo);
+            if (filtro?.ValorMaximo != null && filtro?.ValorMaximo > valorMinimoComecarFiltrar)
+                tabelaProduto = tabelaProduto.Where(x => x.ValorDoProduto <= filtro.ValorMaximo);
 
             if (filtro?.DataMinima != null)
-                listaProduto = listaProduto.Where(x => x.DataCadastro >= filtro.DataMinima);
+                tabelaProduto = tabelaProduto.Where(x => x.DataCadastro >= filtro.DataMinima);
 
             if (filtro?.DataMaxima != null)
-                listaProduto = listaProduto.Where(x => x.DataCadastro <= filtro.DataMaxima);
+                tabelaProduto = tabelaProduto.Where(x => x.DataCadastro <= filtro.DataMaxima);
 
-            return listaProduto.ToList();
+            return tabelaProduto.ToList();
         }
     }
 }

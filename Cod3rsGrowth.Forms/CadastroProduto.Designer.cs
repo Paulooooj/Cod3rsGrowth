@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            mostrarTodasAsEmpresas = new ComboBox();
+            tabelaEmpresas = new ComboBox();
             valorProduto = new NumericUpDown();
             aoClicarDeveCancelarAdicionarProduto = new Button();
             aoClicarDeveSalvar = new Button();
@@ -51,7 +51,7 @@
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = Color.White;
-            groupBox1.Controls.Add(mostrarTodasAsEmpresas);
+            groupBox1.Controls.Add(tabelaEmpresas);
             groupBox1.Controls.Add(valorProduto);
             groupBox1.Controls.Add(aoClicarDeveCancelarAdicionarProduto);
             groupBox1.Controls.Add(aoClicarDeveSalvar);
@@ -74,11 +74,11 @@
             // 
             // mostrarTodasAsEmpresas
             // 
-            mostrarTodasAsEmpresas.FormattingEnabled = true;
-            mostrarTodasAsEmpresas.Location = new Point(6, 293);
-            mostrarTodasAsEmpresas.Name = "mostrarTodasAsEmpresas";
-            mostrarTodasAsEmpresas.Size = new Size(332, 23);
-            mostrarTodasAsEmpresas.TabIndex = 16;
+            tabelaEmpresas.FormattingEnabled = true;
+            tabelaEmpresas.Location = new Point(6, 293);
+            tabelaEmpresas.Name = "mostrarTodasAsEmpresas";
+            tabelaEmpresas.Size = new Size(332, 23);
+            tabelaEmpresas.TabIndex = 16;
             // 
             // valorProduto
             // 
@@ -97,7 +97,7 @@
             aoClicarDeveCancelarAdicionarProduto.TabIndex = 14;
             aoClicarDeveCancelarAdicionarProduto.Text = "Cancelar";
             aoClicarDeveCancelarAdicionarProduto.UseVisualStyleBackColor = true;
-            aoClicarDeveCancelarAdicionarProduto.Click += aoClicarDeveCancelarAdicionarProduto_Click;
+            aoClicarDeveCancelarAdicionarProduto.Click += AoClicarDeveCancelarAdicionarProduto;
             // 
             // aoClicarDeveSalvar
             // 
@@ -107,7 +107,7 @@
             aoClicarDeveSalvar.TabIndex = 13;
             aoClicarDeveSalvar.Text = "Salvar";
             aoClicarDeveSalvar.UseVisualStyleBackColor = true;
-            aoClicarDeveSalvar.Click += aoClicarDeveSalvar_Click;
+            aoClicarDeveSalvar.Click += AoClicarDeveSalvar;
             // 
             // label6
             // 
@@ -173,7 +173,7 @@
             temDataDeValidade.TabIndex = 3;
             temDataDeValidade.Text = "Sim";
             temDataDeValidade.UseVisualStyleBackColor = true;
-            temDataDeValidade.CheckedChanged += temDataDeValidadeVerdadeiro_CheckedChanged;
+            temDataDeValidade.CheckedChanged += TemDataDeValidadeVerdadeiro;
             // 
             // dataCadastroProduto
             // 
@@ -234,6 +234,6 @@
         private Button aoClicarDeveCancelarAdicionarProduto;
         private Button aoClicarDeveSalvar;
         private NumericUpDown valorProduto;
-        private ComboBox mostrarTodasAsEmpresas;
+        private ComboBox tabelaEmpresas;
     }
 }

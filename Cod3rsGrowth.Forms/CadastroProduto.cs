@@ -1,6 +1,8 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
+using FluentValidation;
 using System.Data;
 
 namespace Cod3rsGrowth.Forms
@@ -17,8 +19,8 @@ namespace Cod3rsGrowth.Forms
             _servicoEmpresa = servicoEmpresa;
             _servicoProduto = servicoProduto;
             _produto = produto;
-            var filtro = _servicoEmpresa.ObterTodos().Select(x => x.RazaoSocial);
-            mostrarTodasAsEmpresas.DataSource = filtro.ToList();
+            var listaEmpresa = _servicoEmpresa.ObterTodos().Select(x => x.RazaoSocial);
+            tabelaEmpresas.DataSource = listaEmpresa.ToList();
             MostrarInformacoesAoAtualizar();
         }
 
@@ -36,34 +38,32 @@ namespace Cod3rsGrowth.Forms
                     dataDeValidade.Visible = true;
                     labelTemDataValidade.Visible = true;
                 }
-                mostrarTodasAsEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(_produto.EmpresaId).RazaoSocial;
+                tabelaEmpresas.SelectedItem = _servicoEmpresa.ObterPorId(_produto.EmpresaId).RazaoSocial;
             }
         }
 
-        private void temDataDeValidadeVerdadeiro_CheckedChanged(object sender, EventArgs e)
+        private void TemDataDeValidadeVerdadeiro(object sender, EventArgs e)
         {
             if (temDataDeValidade.Checked)
             {
-                dataDeValidade.Visible = true;
-                labelTemDataValidade.Visible = true;
+                dataDeValidade.Visible = temDataDeValidade.Checked;
+                labelTemDataValidade.Visible = temDataDeValidade.Checked;
                 return;
             }
-            dataDeValidade.Visible = false;
-            labelTemDataValidade.Visible = false;
-
+            dataDeValidade.Visible = temDataDeValidade.Checked;
+            labelTemDataValidade.Visible = temDataDeValidade.Checked;
         }
 
-        private void aoClicarDeveCancelarAdicionarProduto_Click(object sender, EventArgs e)
+        private void AoClicarDeveCancelarAdicionarProduto(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void aoClicarDeveSalvar_Click(object sender, EventArgs e)
+        private void AoClicarDeveSalvar(object sender, EventArgs e)
         {
             try
             {
-                var pegarOIdEmpresa = _servicoEmpresa.ObterTodos()
-                    .Where(x => x.RazaoSocial == mostrarTodasAsEmpresas.SelectedItem.ToString())
+                var idEmpresa = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = tabelaEmpresas.SelectedItem.ToString() })
                     .Select(x => x.Id).FirstOrDefault();
 
                 var produto = new Produto
@@ -75,15 +75,26 @@ namespace Cod3rsGrowth.Forms
                     DataValidade = temDataDeValidade.Checked
                                     ? dataDeValidade.Value
                                     : null,
-                    EmpresaId = pegarOIdEmpresa
+                    EmpresaId = idEmpresa
                 };
 
                 SalvarDados(produto);
                 this.Close();
             }
-            catch (Exception ex)
+            catch (ValidationException validationException)
             {
-                MessageBox.Show(ex.Message);
+                var listaDeErros = validationException.Errors.ToList();
+                var mensagemErro = "";
+
+                listaDeErros.ForEach(erro => mensagemErro += erro.ToString() + "\n");
+                const string tituloDoErro = "Erro de validação";
+
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
+            }
+            catch (Exception exception)
+            {
+                const string tituloDoErro = "Erro inesperado";
+                MessageBox.Show(exception.Message);
             }
         }
 
@@ -96,6 +107,11 @@ namespace Cod3rsGrowth.Forms
                 return;
             }
             _servicoProduto.Adicionar(produto);
+        }
+
+        private static void MostrarMensagemErro(string tituloErro, string mensagemErro)
+        {
+            MessageBox.Show(mensagemErro, tituloErro, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

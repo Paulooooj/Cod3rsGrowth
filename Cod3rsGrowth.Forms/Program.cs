@@ -9,18 +9,17 @@ namespace Cod3rsGrowth.Forms
         [STAThread]
         static void Main()
         {
+            
             ExecutarMigracoes();
             ApplicationConfiguration.Initialize();
-            ServiceProvider = ExecutarInjecao();
+            var ServiceProvider = ExecutarInjecao();
             Application.Run(ServiceProvider.GetRequiredService<FormListaEmpresaEProduto>());
         }
-
-        public static IServiceProvider ServiceProvider { get; private set; }
 
         public static void ExecutarMigracoes()
         {
             var servicos = new ServiceCollection();
-            servicos.AdicionarDependenciasNoEscopo();
+            ModuloDeInjecao.AdicionarServicos(servicos);
             using (var serviceProvider = servicos.BuildServiceProvider())
             {
                 var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
@@ -31,7 +30,7 @@ namespace Cod3rsGrowth.Forms
         public static IServiceProvider ExecutarInjecao()
         {
             var servicos = new ServiceCollection();
-            servicos.ModuloInjecaoServico();
+            ModuloInjecaoServicos.AdicionarServicos(servicos);
             return servicos.BuildServiceProvider();
         }
 
