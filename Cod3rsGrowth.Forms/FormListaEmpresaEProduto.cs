@@ -36,7 +36,7 @@ namespace Cod3rsGrowth.Forms
         private void ComboBoxEnumRamo(object sender, EventArgs e)
         {
             _filtroEmpresa.Ramo = (EnumRamoDaEmpresa)comboBoxEnumRamo.SelectedIndex;
-            ObterTodosEmpresa(_filtroEmpresa);        
+            ObterTodosEmpresa(_filtroEmpresa);
         }
 
         private void FiltrarNomeProduto(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace Cod3rsGrowth.Forms
         private void FiltrarPorDataMinimaProduto(object sender, EventArgs e)
         {
             _filtroProduto.DataMinima = filtrarPorDataMinimaProduto.Value;
-            ObterTodosProduto (_filtroProduto);
+            ObterTodosProduto(_filtroProduto);
         }
 
         private void FiltrarPorDataMaximaProduto(object sender, EventArgs e)
@@ -104,6 +104,16 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarAdicionarEmpresa(object sender, EventArgs e)
         {
+            const int limiteLinhasSelecionadas = 1;
+
+            if (gridListaEmpresas.SelectedRows.Count != limiteLinhasSelecionadas)
+            {
+                const string tituloDoErro = "Erro ao Adicionar";
+                const string mensagemErro = "Erro ao selecionar linhas.";
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
+                return;
+            }
+
             var FormCadastroEmpresa = new CadastroEmpresa(_servicoEmpresa);
             FormCadastroEmpresa.ShowDialog();
             ObterTodosEmpresa();
@@ -111,6 +121,16 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarAdicionarProduto(object sender, EventArgs e)
         {
+            const int limiteLinhasSelecionadas = 1;
+
+            if (gridListaEmpresas.SelectedRows.Count != limiteLinhasSelecionadas)
+            {
+                const string tituloDoErro = "Erro ao Adicionar";
+                const string mensagemErro = "Erro ao selecionar linhas.";
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
+                return;
+            }
+
             var FormCadastrarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto);
             FormCadastrarProduto.ShowDialog();
             ObterTodosProduto();
@@ -124,7 +144,9 @@ namespace Cod3rsGrowth.Forms
 
             if (gridListaEmpresas.SelectedRows.Count != limiteLinhasSelecionadas)
             {
-                MessageBox.Show("Erro ao selecionar linhas.", "Erro ao Remover", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                const string tituloDoErro = "Erro ao Remover";
+                const string mensagemErro = "Erro ao selecionar linhas.";
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
                 return;
             }
 
@@ -154,7 +176,10 @@ namespace Cod3rsGrowth.Forms
 
             if (gridListaProduto.SelectedRows.Count != limiteLinhasSelecionadas)
             {
-                MessageBox.Show("Erro ao selecionar linhas.", "Erro ao Remover", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                const string tituloDoErro = "Erro ao Remover";
+                const string mensagemErro = "Erro ao selecionar linhas.";
+
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
                 return;
             }
 
@@ -182,7 +207,9 @@ namespace Cod3rsGrowth.Forms
 
             if (gridListaProduto.SelectedRows.Count != limiteLinhasSelecionadas)
             {
-                MessageBox.Show("Erro ao selecionar linhas.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                const string tituloDoErro = "Erro ao Editar";
+                const string mensagemErro = "Erro ao selecionar linhas.";
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
                 return;
             }
 
@@ -199,7 +226,9 @@ namespace Cod3rsGrowth.Forms
             const int limiteLinhasSelecionadas = 1;
             if (gridListaEmpresas.SelectedRows.Count != limiteLinhasSelecionadas)
             {
-                MessageBox.Show("Erro ao selecionar linhas.", "Erro ao Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                const string tituloDoErro = "Erro ao Editar";
+                const string mensagemErro = "Erro ao selecionar linhas.";
+                MostrarMensagemErro(tituloDoErro, mensagemErro);
                 return;
             }
 
