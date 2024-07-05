@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
-using System.Linq;
 
 namespace Cod3rsGrowth.Servico.Validacao
 {

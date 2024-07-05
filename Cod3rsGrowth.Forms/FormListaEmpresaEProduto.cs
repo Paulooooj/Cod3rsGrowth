@@ -23,8 +23,8 @@ namespace Cod3rsGrowth.Forms
             _servicoProduto = servicoProduto;
             const int valorTodosComboBox = 0;
             comboBoxEnumRamo.SelectedIndex = valorTodosComboBox;
-            gridListaEmpresas.DataSource = _servicoEmpresa.ObterTodos();
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos();
+            ObterTodosEmpresa();
+            ObterTodosProduto();
             SubstituirEmpresaIdPorRazaoSocial();
             FormatarCNPJ();
         }
@@ -32,43 +32,43 @@ namespace Cod3rsGrowth.Forms
         private void FiltrarRazaoSocial(object sender, EventArgs e)
         {
             _filtroEmpresa.RazaoSocial = textFiltrarRazaoSocial.Text;
-            gridListaEmpresas.DataSource = _servicoEmpresa.ObterTodos(_filtroEmpresa);
+            ObterTodosEmpresa(_filtroEmpresa);
         }
 
         private void ComboBoxEnumRamo(object sender, EventArgs e)
         {
             _filtroEmpresa.Ramo = (EnumRamoDaEmpresa)comboBoxEnumRamo.SelectedIndex;
-            gridListaEmpresas.DataSource = _servicoEmpresa.ObterTodos(_filtroEmpresa);
+            ObterTodosEmpresa(_filtroEmpresa);        
         }
 
         private void FiltrarNomeProduto(object sender, EventArgs e)
         {
             _filtroProduto.Nome = textFiltrarNomeProduto.Text;
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos(_filtroProduto);
+            ObterTodosProduto(_filtroProduto);
         }
 
         private void FiltrarValorMinimoProduto(object sender, EventArgs e)
         {
             _filtroProduto.ValorMinimo = filtrarValorMinimoProduto.Value;
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos(_filtroProduto);
+            ObterTodosProduto(_filtroProduto);
         }
 
         private void FiltrarValorMaximoProduto(object sender, EventArgs e)
         {
             _filtroProduto.ValorMaximo = filtrarValorMaximoProduto.Value;
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos(_filtroProduto);
+            ObterTodosProduto(_filtroProduto);
         }
 
         private void FiltrarPorDataMinimaProduto(object sender, EventArgs e)
         {
             _filtroProduto.DataMinima = filtrarPorDataMinimaProduto.Value;
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos(_filtroProduto);
+            ObterTodosProduto (_filtroProduto);
         }
 
         private void FiltrarPorDataMaximaProduto(object sender, EventArgs e)
         {
             _filtroProduto.DataMaxima = filtrarPorDataMaximaProduto.Value;
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos(_filtroProduto);
+            ObterTodosProduto(_filtroProduto);
         }
 
 
@@ -101,21 +101,21 @@ namespace Cod3rsGrowth.Forms
             filtrarPorDataMaximaProduto.Value = DateTime.Now;
             _filtroProduto.DataMinima = null;
             _filtroProduto.DataMaxima = null;
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos(_filtroProduto);
+            ObterTodosProduto(_filtroProduto);
         }
 
         private void AoClicarAdicionarEmpresa(object sender, EventArgs e)
         {
             var FormCadastroEmpresa = new CadastroEmpresa(_servicoEmpresa);
             FormCadastroEmpresa.ShowDialog();
-            gridListaEmpresas.DataSource = _servicoEmpresa.ObterTodos();
+            ObterTodosEmpresa();
         }
 
         private void AoClicarAdicionarProduto(object sender, EventArgs e)
         {
             var FormCadastrarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto);
             FormCadastrarProduto.ShowDialog();
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos();
+            ObterTodosProduto();
         }
 
         private void AoClicarRemoverEmpresa(object sender, EventArgs e)
@@ -138,8 +138,8 @@ namespace Cod3rsGrowth.Forms
                 if (MessageBox.Show("Ao remover " + nomeEmpresaSerRemovida + " vai ser removido todos os produtos relacionados, deseja remover?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     _servicoEmpresa.Deletar(idEmpresaSerRemovida);
 
-                gridListaEmpresas.DataSource = _servicoEmpresa.ObterTodos();
-                gridListaProduto.DataSource = _servicoProduto.ObterTodos();
+                ObterTodosEmpresa();
+                ObterTodosProduto();
             }
             catch (Exception exception)
             {
@@ -168,7 +168,7 @@ namespace Cod3rsGrowth.Forms
                 if (MessageBox.Show("Deseja mesmo Remover " + nomeProdutoSerRemovido + "?", "Cadastro de Cliente", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     _servicoProduto.Deletar(idProdutoSerRemovido);
 
-                gridListaProduto.DataSource = _servicoProduto.ObterTodos();
+                ObterTodosProduto();
             }
             catch (Exception exception)
             {
@@ -192,7 +192,7 @@ namespace Cod3rsGrowth.Forms
             var produto = _servicoProduto.ObterPorId(idProdutoSerEditado);
             var FormsCadastrarProduto = new CadastroProduto(_servicoEmpresa, _servicoProduto, produto);
             FormsCadastrarProduto.ShowDialog();
-            gridListaProduto.DataSource = _servicoProduto.ObterTodos();
+            ObterTodosProduto();
         }
 
         private void AoClicarDeveAtualizarEmpresa(object sender, EventArgs e)
@@ -207,9 +207,9 @@ namespace Cod3rsGrowth.Forms
 
             var idEmpresaSerEditado = (int)gridListaEmpresas.CurrentRow.Cells[colunaId].Value;
             var empresa = _servicoEmpresa.ObterPorId(idEmpresaSerEditado);
-            var FormCadastrarProduto = new CadastroEmpresa(_servicoEmpresa, empresa);
-            FormCadastrarProduto.ShowDialog();
-            gridListaEmpresas.DataSource = _servicoEmpresa.ObterTodos();
+            var FormCadastrarEmpresa = new CadastroEmpresa(_servicoEmpresa, empresa);
+            FormCadastrarEmpresa.ShowDialog();
+            ObterTodosEmpresa();
         }
 
         private void FormatarCNPJ()
@@ -235,6 +235,17 @@ namespace Cod3rsGrowth.Forms
                 }
             }
         }
+
+        private void ObterTodosEmpresa(FiltroEmpresa? filtroEmpresa = null)
+        {
+            gridListaEmpresas.DataSource = _servicoEmpresa.ObterTodos(filtroEmpresa);
+        }
+
+        private void ObterTodosProduto(FiltroProduto? filtroProduto = null)
+        {
+            gridListaProduto.DataSource = _servicoProduto.ObterTodos(filtroProduto);
+        }
+
         private static void MostrarMensagemErro(string tituloErro, string mensagemErro)
         {
             MessageBox.Show(mensagemErro, tituloErro, MessageBoxButtons.OK, MessageBoxIcon.Error);

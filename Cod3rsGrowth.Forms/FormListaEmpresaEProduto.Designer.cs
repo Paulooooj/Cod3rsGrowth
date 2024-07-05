@@ -78,7 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)produtoBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // dataGridViewEmpresa
+            // gridListaEmpresas
             // 
             gridListaEmpresas.AllowUserToDeleteRows = false;
             gridListaEmpresas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -90,7 +90,7 @@
             gridListaEmpresas.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, razaoSocialDataGridViewTextBoxColumn, cNPJDataGridViewTextBoxColumn, ramoDataGridViewTextBoxColumn });
             gridListaEmpresas.DataSource = empresaBindingSource;
             gridListaEmpresas.Location = new Point(3, 64);
-            gridListaEmpresas.Name = "dataGridViewEmpresa";
+            gridListaEmpresas.Name = "gridListaEmpresas";
             gridListaEmpresas.ReadOnly = true;
             gridListaEmpresas.RowHeadersVisible = false;
             gridListaEmpresas.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
@@ -313,7 +313,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(146, 62);
+            label2.Location = new Point(134, 62);
             label2.Name = "label2";
             label2.Size = new Size(62, 15);
             label2.TabIndex = 6;
@@ -366,7 +366,7 @@
             textFiltrarNomeProduto.TabIndex = 1;
             textFiltrarNomeProduto.TextChanged += FiltrarNomeProduto;
             // 
-            // dataGridViewProduto
+            // gridListaProduto
             // 
             gridListaProduto.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             gridListaProduto.AutoGenerateColumns = false;
@@ -377,7 +377,7 @@
             gridListaProduto.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn, valorDoProdutoDataGridViewTextBoxColumn, dataCadastroDataGridViewTextBoxColumn, TemDataValidade, dataValidadeDataGridViewTextBoxColumn, empresaIdDataGridViewTextBoxColumn });
             gridListaProduto.DataSource = produtoBindingSource;
             gridListaProduto.Location = new Point(3, 111);
-            gridListaProduto.Name = "dataGridViewProduto";
+            gridListaProduto.Name = "gridListaProduto";
             gridListaProduto.RowHeadersVisible = false;
             gridListaProduto.RowTemplate.Height = 25;
             gridListaProduto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
