@@ -2,8 +2,6 @@ using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
-using FluentValidation;
-using System;
 using System.Text.RegularExpressions;
 
 namespace Cod3rsGrowth.Forms
@@ -144,7 +142,7 @@ namespace Cod3rsGrowth.Forms
             catch (Exception exception)
             {
                 const string tituloDoErro = "Erro inesperado";
-                MessageBox.Show(exception.Message);
+                MostrarMensagemErro(tituloDoErro, exception.Message);
             }
         }
 
@@ -173,7 +171,7 @@ namespace Cod3rsGrowth.Forms
             catch (Exception exception)
             {
                 const string tituloDoErro = "Erro inesperado";
-                MessageBox.Show(exception.Message);
+                MostrarMensagemErro(tituloDoErro, exception.Message);
             }
         }
 

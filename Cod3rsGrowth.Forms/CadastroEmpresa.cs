@@ -61,7 +61,7 @@ namespace Cod3rsGrowth.Forms
             catch (Exception exception)
             {
                 const string tituloDoErro = "Erro inesperado";
-                MessageBox.Show(exception.Message);
+                MostrarMensagemErro(tituloDoErro, exception.Message);
             }
         }
 
