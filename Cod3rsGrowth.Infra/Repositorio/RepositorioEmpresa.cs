@@ -15,6 +15,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
         public RepositorioEmpresa(DbCod3rsGrowth dbCod3Rs)
         {
             _db = dbCod3Rs;
+
         }
 
         public void Adicionar(Empresa empresa)
@@ -41,31 +42,21 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
         {
-            var listaEmpresa = _db.GetTable<Empresa>().AsQueryable();
+            var tabelaEmpresa = _db.GetTable<Empresa>().AsQueryable();
 
             if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
-            {
-                listaEmpresa = listaEmpresa.Where(x => x.RazaoSocial.StartsWith(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
-            }
-            if (filtro?.Ramo != null)
-            {
-                listaEmpresa = listaEmpresa.Where(x => x.Ramo == filtro.Ramo);
-            }
-            return listaEmpresa.ToList();
+                tabelaEmpresa = tabelaEmpresa.Where(x => x.RazaoSocial.Contains(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+
+            const int valorPadrao = 0;
+            if (filtro?.Ramo != null && filtro.Ramo > valorPadrao)
+                tabelaEmpresa = tabelaEmpresa.Where(x => x.Ramo == filtro.Ramo);
+
+            return tabelaEmpresa.ToList();
         }
 
-        public bool verificarSeTemNomeRepetido(Empresa empresa)
+        public bool EhNomeExistenteNoBanco(Empresa empresa)
         {
-            var empresaNomeRepetido = _db.GetTable<Empresa>().ToList().Find(x => x.RazaoSocial == empresa.RazaoSocial);
-
-            if (empresaNomeRepetido != null)
-            {
-                if (empresaNomeRepetido.Id != empresa.Id)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return !_db.GetTable<Empresa>().Any(x => x.RazaoSocial == empresa.RazaoSocial &&  x.Id != empresa.Id);
         }
     }
 }
