@@ -61,40 +61,52 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarDeveSalvar(object sender, EventArgs e)
         {
-            try
-            {
-                var idEmpresa = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = tabelaEmpresas.SelectedItem.ToString() })
-                    .Select(x => x.Id).FirstOrDefault();
+            const int naoTemValor = 0;
 
-                var produto = new Produto
+            if (nomeProduto.Text == null || valorProduto.Value == naoTemValor || dataCadastroProduto.Value != DateTime.Now)
+            {
+                const string tituloErro = "Erro";
+                const string mensagemErro = "Atribuir todos os valores!!";
+
+                MostrarMensagemErro(tituloErro, mensagemErro);
+            }
+            else
+            {
+                try
                 {
-                    Nome = nomeProduto.Text,
-                    ValorDoProduto = valorProduto.Value,
-                    DataCadastro = dataCadastroProduto.Value.Date,
-                    TemDataValidade = temDataDeValidade.Checked,
-                    DataValidade = temDataDeValidade.Checked
-                                    ? dataDeValidade.Value
-                                    : null,
-                    EmpresaId = idEmpresa
-                };
+                    var idEmpresa = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = tabelaEmpresas.SelectedItem.ToString() })
+                        .Select(x => x.Id).FirstOrDefault();
 
-                SalvarDados(produto);
-                this.Close();
-            }
-            catch (ValidationException validationException)
-            {
-                var listaDeErros = validationException.Errors.ToList();
-                var mensagemErro = "";
+                    var produto = new Produto
+                    {
+                        Nome = nomeProduto.Text,
+                        ValorDoProduto = valorProduto.Value,
+                        DataCadastro = dataCadastroProduto.Value.Date,
+                        TemDataValidade = temDataDeValidade.Checked,
+                        DataValidade = temDataDeValidade.Checked
+                                        ? dataDeValidade.Value
+                                        : null,
+                        EmpresaId = idEmpresa
+                    };
 
-                listaDeErros.ForEach(erro => mensagemErro += erro.ToString() + "\n");
-                const string tituloDoErro = "Erro de validação";
+                    SalvarDados(produto);
+                    this.Close();
+                }
+                catch (ValidationException validationException)
+                {
+                    var listaDeErros = validationException.Errors.ToList();
+                    var mensagemErro = "";
 
-                MostrarMensagemErro(tituloDoErro, mensagemErro);
-            }
-            catch (Exception exception)
-            {
-                const string tituloDoErro = "Erro inesperado";
-                MostrarMensagemErro(tituloDoErro, exception.Message);
+                    listaDeErros.ForEach(erro => mensagemErro += erro.ToString() + "\n");
+                    const string tituloDoErro = "Erro de validação";
+
+                    MostrarMensagemErro(tituloDoErro, mensagemErro);
+                }
+                catch (Exception exception)
+                {
+                    const string tituloDoErro = "Erro inesperado";
+                    MostrarMensagemErro(tituloDoErro, exception.Message);
+                }
             }
         }
 

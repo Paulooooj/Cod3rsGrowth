@@ -15,6 +15,8 @@ namespace Cod3rsGrowth.Forms
             _servicoEmpresa = servicoEmpresa;
             _empresa = empresa;
             MostrarInformacoesAoAtualizar();
+            const int valorRamo = 0;
+            ramoDaEmpresa.SelectedIndex = valorRamo;
         }
 
         private void MostrarInformacoesAoAtualizar()
@@ -34,35 +36,48 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarDeveSalvar(object sender, EventArgs e)
         {
-            try
-            {
-                cnpjEmpresa.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            const int valorRamo = 0;
 
-                var empresa = new Empresa
+            if (razaoSocialCadastroEmpresa == null || cnpjEmpresa.Text == null || ramoDaEmpresa.SelectedIndex == valorRamo)
+            {
+                const string tituloErro = "Erro";
+                const string mensagemErro = "Atribuir todos os valores!!";
+
+                MostrarMensagemErro(tituloErro, mensagemErro); ;
+            }
+            else
+            {
+                try
                 {
-                    RazaoSocial = razaoSocialCadastroEmpresa.Text,
-                    CNPJ = cnpjEmpresa.Text,
-                    Ramo = (EnumRamoDaEmpresa)ramoDaEmpresa.SelectedIndex
-                };
+                    cnpjEmpresa.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 
-                SalvarDados(empresa);
-                this.Close();
-            }
-            catch (ValidationException validationException)
-            {
-                var listaDeErros = validationException.Errors.ToList();
-                var mensagemErro = "";
+                    var empresa = new Empresa
+                    {
+                        RazaoSocial = razaoSocialCadastroEmpresa.Text,
+                        CNPJ = cnpjEmpresa.Text,
+                        Ramo = (EnumRamoDaEmpresa)ramoDaEmpresa.SelectedIndex
+                    };
 
-                listaDeErros.ForEach(erro => mensagemErro += erro.ToString() + "\n");
-                const string tituloDoErro = "Erro de validação";
+                    SalvarDados(empresa);
+                    this.Close();
+                }
+                catch (ValidationException validationException)
+                {
+                    var listaDeErros = validationException.Errors.ToList();
+                    var mensagemErro = "";
 
-                MostrarMensagemErro(tituloDoErro, mensagemErro);
+                    listaDeErros.ForEach(erro => mensagemErro += erro.ToString() + "\n");
+                    const string tituloDoErro = "Erro de validação";
+
+                    MostrarMensagemErro(tituloDoErro, mensagemErro);
+                }
+                catch (Exception exception)
+                {
+                    const string tituloDoErro = "Erro inesperado";
+                    MostrarMensagemErro(tituloDoErro, exception.Message);
+                }
             }
-            catch (Exception exception)
-            {
-                const string tituloDoErro = "Erro inesperado";
-                MostrarMensagemErro(tituloDoErro, exception.Message);
-            }
+
         }
 
         private void SalvarDados(Empresa empresa)
