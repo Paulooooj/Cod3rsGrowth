@@ -12,7 +12,7 @@ namespace Cod3rsGrowth.Servico.Servicos
         private readonly IValidator<Produto> _produtoValidacao;
         private readonly IRepositorioProduto _repositorioProduto;
 
-        public ServicoProduto( IRepositorioProduto repositorioProduto)
+        public ServicoProduto(IValidator<Produto> produtoValidacao, IRepositorioProduto repositorioProduto)
         {
             _produtoValidacao = produtoValidacao;
             _repositorioProduto = repositorioProduto;
