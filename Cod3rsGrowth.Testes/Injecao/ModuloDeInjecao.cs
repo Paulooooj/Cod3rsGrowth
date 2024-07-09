@@ -14,8 +14,8 @@ namespace Cod3rsGrowth.Testes
         {
             servico.AddScoped<ServicoEmpresa>();
             servico.AddScoped<ServicoProduto>();
-            servico.AddScoped<IValidator<Empresa>, EmpresaValidacao>();
-            servico.AddScoped<IValidator<Produto>, ProdutoValidacao>();
+            servico.AddScoped<IValidator<Empresa>, ValidadorEmpresa>();
+            servico.AddScoped<IValidator<Produto>, ValidadorProduto>();
             servico.AddScoped<IRepositorioEmpresa, EmpresaRepositorioMock>();
             servico.AddScoped<IRepositorioProduto, ProdutoRepositorioMock>();
         }

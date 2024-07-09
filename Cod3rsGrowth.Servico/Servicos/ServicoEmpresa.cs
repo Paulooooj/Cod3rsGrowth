@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Dominio.Servicos
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"{ex.Message}. + {ex.StackTrace}.");
             }
         }
 
@@ -53,15 +53,15 @@ namespace Cod3rsGrowth.Dominio.Servicos
             }
         }
 
-        public Empresa ObterPorId(int id)
-        {
-            return _repositorioEmpresa.ObterPorId(id)
-                    ?? throw new Exception($"Empresa com Id: {id} não encontrado");
-        }
+            public Empresa ObterPorId(int id)
+            {
+                return _repositorioEmpresa.ObterPorId(id)
+                        ?? throw new Exception($"Empresa com Id: {id} não encontrado");
+            }
 
-        public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
-        {
-            return _repositorioEmpresa.ObterTodos(filtro);
+            public List<Empresa> ObterTodos(FiltroEmpresa? filtro = null)
+            {
+                return _repositorioEmpresa.ObterTodos(filtro);
+            }
         }
     }
-}

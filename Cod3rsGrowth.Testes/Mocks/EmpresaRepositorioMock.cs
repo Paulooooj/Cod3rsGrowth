@@ -41,9 +41,9 @@ namespace Cod3rsGrowth.Testes
         {
             var listaEmpresa = _instanciaEmpresaSingleton.ToList();
 
-            if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
+            if (!string.IsNullOrEmpty(filtro?.RazaoSocialECnpj))
             {
-                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocialECnpj, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.Ramo != null)
             {
@@ -52,18 +52,9 @@ namespace Cod3rsGrowth.Testes
             return listaEmpresa;
         }
 
-        public bool verificarSeTemNomeRepetido(Empresa empresa)
+        public bool EhNomeExistenteNoBanco(Empresa empresa)
         {
-            var empresaNomeRepetido = _instanciaEmpresaSingleton.Find(x => x.RazaoSocial == empresa.RazaoSocial);
-
-            if (empresaNomeRepetido != null)
-            {
-                if (empresaNomeRepetido.Id != empresa.Id)
-                {
-                    return false;
-                }
-            }
-            return true;
+            return !_instanciaEmpresaSingleton.Any(x => x.RazaoSocial == empresa.RazaoSocial &&  x.Id != empresa.Id);
         }
     }
 }

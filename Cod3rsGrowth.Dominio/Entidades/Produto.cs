@@ -15,7 +15,7 @@ namespace Cod3rsGrowth.Dominio.Entidades
         [Column]
         public DateTime DataCadastro { get; set; }
         [Column]
-        public bool TemDataValida { get; set; }
+        public bool TemDataValidade { get; set; }
         [Column]
         public DateTime? DataValidade { get; set; }
         [Column]
