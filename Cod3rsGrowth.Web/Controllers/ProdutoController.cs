@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cod3rsGrowth.Web.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProdutoController : Controller
     {
         private readonly ServicoProduto _servicoProduto;
