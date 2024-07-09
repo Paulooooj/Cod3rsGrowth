@@ -3,6 +3,7 @@ using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
 using FluentValidation;
+using Microsoft.IdentityModel.Tokens;
 using System.Data;
 
 namespace Cod3rsGrowth.Forms
@@ -61,20 +62,13 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarDeveSalvar(object sender, EventArgs e)
         {
-            const int naoTemValor = 0;
+            var validacaoDeTela = ValidacaoDeTela();
 
-            if (nomeProduto.Text == null || valorProduto.Value == naoTemValor || dataCadastroProduto.Value != DateTime.Now)
-            {
-                const string tituloErro = "Erro";
-                const string mensagemErro = "Atribuir todos os valores!!";
-
-                MostrarMensagemErro(tituloErro, mensagemErro);
-            }
-            else
+            if (validacaoDeTela)
             {
                 try
                 {
-                    var idEmpresa = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = tabelaEmpresas.SelectedItem.ToString() })
+                    var idEmpresa = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocialECnpj = tabelaEmpresas.SelectedItem.ToString() })
                         .Select(x => x.Id).FirstOrDefault();
 
                     var produto = new Produto
@@ -124,6 +118,28 @@ namespace Cod3rsGrowth.Forms
         private static void MostrarMensagemErro(string tituloErro, string mensagemErro)
         {
             MessageBox.Show(mensagemErro, tituloErro, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private bool ValidacaoDeTela()
+        {
+            const int naoTemValor = 0;
+            const string tituloErro = "Erro";
+            var mensagemErro = "";
+
+            if (nomeProduto.Text.IsNullOrEmpty())
+            {
+                mensagemErro += "Nome não informado!\n";
+            }
+
+            if (valorProduto.Value == naoTemValor)
+            {
+                mensagemErro += "Valor do Produto não informado!";
+            }
+
+            if (mensagemErro.IsNullOrEmpty())
+                return true;
+            MostrarMensagemErro(tituloErro, mensagemErro);
+            return false;
         }
     }
 }

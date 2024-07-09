@@ -28,8 +28,6 @@ namespace Cod3rsGrowth.Servico.Validacao
             RuleFor(x => x.CNPJ)
                 .NotEmpty()
                 .WithMessage("O campo CNPJ é obrigatorio")
-                .Length(14)
-                .WithMessage("O CNPJ tem que ter 14 caracteres")
                 .Must((x, _) => ValidarSeECNPJ(x.CNPJ))
                 .WithMessage("CNPJ inválido");
 

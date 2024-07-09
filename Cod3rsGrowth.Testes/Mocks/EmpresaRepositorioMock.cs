@@ -41,9 +41,9 @@ namespace Cod3rsGrowth.Testes
         {
             var listaEmpresa = _instanciaEmpresaSingleton.ToList();
 
-            if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
+            if (!string.IsNullOrEmpty(filtro?.RazaoSocialECnpj))
             {
-                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+                listaEmpresa = listaEmpresa.FindAll(x => x.RazaoSocial.StartsWith(filtro?.RazaoSocialECnpj, StringComparison.OrdinalIgnoreCase));
             }
             if (filtro?.Ramo != null)
             {

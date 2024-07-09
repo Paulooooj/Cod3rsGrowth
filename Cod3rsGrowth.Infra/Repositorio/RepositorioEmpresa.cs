@@ -44,8 +44,9 @@ namespace Cod3rsGrowth.Infra.Repositorio
         {
             var tabelaEmpresa = _db.GetTable<Empresa>().AsQueryable();
 
-            if (!string.IsNullOrEmpty(filtro?.RazaoSocial))
-                tabelaEmpresa = tabelaEmpresa.Where(x => x.RazaoSocial.Contains(filtro.RazaoSocial, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(filtro?.RazaoSocialECnpj))
+                tabelaEmpresa = tabelaEmpresa.Where(x => x.RazaoSocial.
+                Contains(filtro.RazaoSocialECnpj, StringComparison.OrdinalIgnoreCase) || x.CNPJ.Contains(filtro.RazaoSocialECnpj, StringComparison.OrdinalIgnoreCase));
 
             const int valorPadrao = 0;
             if (filtro?.Ramo != null && filtro.Ramo > valorPadrao)

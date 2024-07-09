@@ -149,7 +149,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 }
             };
             var filtro = "inv";
-            var objetoEmpresaRetornado = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = filtro });
+            var objetoEmpresaRetornado = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocialECnpj = filtro });
             Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
         }
 
@@ -160,7 +160,7 @@ namespace Cod3rsGrowth.Testes.Testes
             var listaEmpresa = new List<Empresa> { };
             var filtro = "Teste";
             var tamanhoLista = 0;
-            var objetoEmpresaRetornado = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocial = filtro });
+            var objetoEmpresaRetornado = _servicoEmpresa.ObterTodos(new FiltroEmpresa { RazaoSocialECnpj = filtro });
             Assert.Equivalent(listaEmpresa, objetoEmpresaRetornado);
             Assert.Equal(tamanhoLista, objetoEmpresaRetornado.Count);
         }

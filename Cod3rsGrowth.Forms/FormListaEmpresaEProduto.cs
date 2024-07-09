@@ -29,7 +29,7 @@ namespace Cod3rsGrowth.Forms
 
         private void FiltrarRazaoSocial(object sender, EventArgs e)
         {
-            _filtroEmpresa.RazaoSocial = textFiltrarRazaoSocial.Text;
+            _filtroEmpresa.RazaoSocialECnpj = textFiltrarRazaoSocial.Text;
             ObterTodosEmpresa(_filtroEmpresa);
         }
 
