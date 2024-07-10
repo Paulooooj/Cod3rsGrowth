@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using LinqToDB.Mapping;
+using LinqToDB.SqlQuery;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Net.Http;
 
 
 namespace Cod3rsGrowth.Web
@@ -23,11 +24,21 @@ namespace Cod3rsGrowth.Web
                         {
                             Instance = context.Request.HttpContext.Request.Path
                         };
-                        if (exception is BadHttpRequestException badHttpRequestException)
+                        if (exception is FluentValidation.ValidationException validationException)
                         {
-                            problemDetails.Title = "The request is invalid";
+                            problemDetails.Title = "Erro de Validação!";
                             problemDetails.Status = StatusCodes.Status400BadRequest;
-                            problemDetails.Detail = badHttpRequestException.Message;
+                            problemDetails.Detail = validationException.StackTrace;
+                            problemDetails.Extensions["Erro de validação"] = validationException.Errors
+                            .GroupBy(x => x.PropertyName, x => x.ErrorMessage)
+                            .ToDictionary(y => y.Key, y => y.ToList());
+                        }
+                        else if (exception is SqlException sqlException)
+                        {
+                            problemDetails.Title = "Erro no Banco de Dados!";
+                            problemDetails.Status = StatusCodes.Status500InternalServerError;
+                            problemDetails.Detail = sqlException.StackTrace;
+                            problemDetails.Extensions["Erro Banco de Dadosgi"] = sqlException.Message;
                         }
                         else
                         {
@@ -39,7 +50,7 @@ namespace Cod3rsGrowth.Web
                         }
                         context.Response.StatusCode = problemDetails.Status.Value;
                         context.Response.ContentType = "application/problem+json";
-                        var json = JsonConvert.SerializeObject(problemDetails, SerializerSettings.JsonSerializerSettings);
+                        var json = JsonConvert.SerializeObject(problemDetails);
                         await context.Response.WriteAsync(json);
                     }
                 });

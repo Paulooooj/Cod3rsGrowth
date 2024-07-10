@@ -11,7 +11,10 @@ using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
-using Microsoft.Extensions.Logging;
+
+
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,12 +43,14 @@ builder.Services.AddScoped<IRepositorioProduto, RepositorioProduto>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
+
 using (var scope = app.Services.CreateScope())
 {
     var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
@@ -56,7 +61,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseProblemDetailsExceptionHandler(loggerFactory);
 
 app.Run();
