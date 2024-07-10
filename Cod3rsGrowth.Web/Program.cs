@@ -6,10 +6,12 @@ using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Repositorio;
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Servico.Validacao;
+using Cod3rsGrowth.Web;
 using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
+using Microsoft.Extensions.Logging;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,9 +53,10 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseProblemDetailsExceptionHandler(loggerFactory);
 
 app.Run();
