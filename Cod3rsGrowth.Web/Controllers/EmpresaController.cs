@@ -1,7 +1,6 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra.Filtros;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cod3rsGrowth.Web.Controllers
@@ -16,7 +15,7 @@ namespace Cod3rsGrowth.Web.Controllers
             _servicoEmpresa = servicoEmpresa;
         }
 
-        [HttpGet("FiltroEmpresa")]
+        [HttpGet]
         public IActionResult ObterTodos([FromQuery]FiltroEmpresa filtro) 
         {
             var listaDeEmpresas =_servicoEmpresa.ObterTodos(filtro);
