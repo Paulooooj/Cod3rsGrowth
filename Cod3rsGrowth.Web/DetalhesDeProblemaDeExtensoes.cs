@@ -18,12 +18,12 @@ namespace Cod3rsGrowth.Web
                     var manipuladorDeExcecao = context.Features.Get<IExceptionHandlerFeature>();
                     if (manipuladorDeExcecao != null)
                     {
-                        var exception = manipuladorDeExcecao.Error;
+                        var erroDoManipuladorDaExcecao = manipuladorDeExcecao.Error;
                         var detalhesDeProblemas = new ProblemDetails
                         {
                             Instance = context.Request.HttpContext.Request.Path
                         };
-                        if (exception is FluentValidation.ValidationException validationException)
+                        if (erroDoManipuladorDaExcecao is FluentValidation.ValidationException validationException)
                         {
                             detalhesDeProblemas.Title = "Erro de Validação!";
                             detalhesDeProblemas.Status = StatusCodes.Status400BadRequest;
@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Web
                             .GroupBy(x => x.PropertyName, x => x.ErrorMessage)
                             .ToDictionary(y => y.Key, y => y.ToList());
                         }
-                        else if (exception is SqlException sqlException)
+                        else if (erroDoManipuladorDaExcecao is SqlException sqlException)
                         {
                             detalhesDeProblemas.Title = "Erro no Banco de Dados!";
                             detalhesDeProblemas.Status = StatusCodes.Status500InternalServerError;
@@ -43,9 +43,9 @@ namespace Cod3rsGrowth.Web
                         {
                             var logger = loggerFactory.CreateLogger("GlobalExceptionHandler");
                             logger.LogError($"Unexpected error: {manipuladorDeExcecao.Error}");
-                            detalhesDeProblemas.Title = exception.Message;
+                            detalhesDeProblemas.Title = erroDoManipuladorDaExcecao.Message;
                             detalhesDeProblemas.Status = StatusCodes.Status500InternalServerError;
-                            detalhesDeProblemas.Detail = exception.Demystify().ToString();
+                            detalhesDeProblemas.Detail = erroDoManipuladorDaExcecao.Demystify().ToString();
                         }
                         context.Response.StatusCode = detalhesDeProblemas.Status.Value;
                         context.Response.ContentType = "application/problem+json";
