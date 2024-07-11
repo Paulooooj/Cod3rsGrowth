@@ -6,10 +6,15 @@ using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Repositorio;
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Servico.Validacao;
+using Cod3rsGrowth.Web;
 using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
+
+
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,12 +43,14 @@ builder.Services.AddScoped<IRepositorioProduto, RepositorioProduto>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.manipuladorDeExcecoesEDetalhesDoProblema(app.Services.GetRequiredService<ILoggerFactory>());
+
 using (var scope = app.Services.CreateScope())
 {
     var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
@@ -51,7 +58,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();
