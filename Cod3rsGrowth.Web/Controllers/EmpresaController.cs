@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos([FromQuery]FiltroEmpresa filtro) 
+        public IActionResult ObterTodos([FromQuery] FiltroEmpresa filtro) 
         {
             var listaDeEmpresas =_servicoEmpresa.ObterTodos(filtro);
             return Ok(listaDeEmpresas);
