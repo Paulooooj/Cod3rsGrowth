@@ -23,7 +23,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult ObterPorId(int id) { throw new NotImplementedException();}
+        public IActionResult ObterPorId(int id) 
+        {
+            var empresa = _servicoEmpresa.ObterPorId(id);
+            return Ok(empresa);
+        }
 
         [HttpPost]
         public IActionResult Adicionar(Empresa empresa) { throw new NotImplementedException();}
