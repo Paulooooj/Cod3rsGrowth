@@ -49,7 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
+app.manipuladorDeExcecoesEDetalhesDoProblema(app.Services.GetRequiredService<ILoggerFactory>());
 
 using (var scope = app.Services.CreateScope())
 {
