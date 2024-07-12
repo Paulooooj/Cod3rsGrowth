@@ -1,4 +1,5 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
+using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObterTodos() { throw new NotImplementedException(); }
+        public IActionResult ObterTodos([FromQuery] FiltroProduto produto) 
+        {
+            var listaProduto = _servicoProduto.ObterTodos(produto);
+            return Ok(listaProduto);
+        }
 
         [HttpGet("{id}")]
         public IActionResult ObterPorId(int id) { throw new NotImplementedException(); }
