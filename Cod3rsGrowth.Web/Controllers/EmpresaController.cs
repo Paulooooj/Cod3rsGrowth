@@ -37,7 +37,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Deletar(int id) { throw new NotImplementedException();}
+        public IActionResult Deletar(int id) 
+        {
+            _servicoEmpresa.Deletar(id);
+            return NoContent();
+        }
 
         [HttpPatch]
         public IActionResult Atualizar([FromBody] Empresa empresa) 
