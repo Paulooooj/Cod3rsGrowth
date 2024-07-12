@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Filtros;
 using Cod3rsGrowth.Servico.Servicos;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cod3rsGrowth.Web.Controllers
@@ -24,7 +25,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult ObterPorId(int id) { throw new NotImplementedException(); }
+        public IActionResult ObterPorId(int id) 
+        {
+            var produto = _servicoProduto.ObterPorId(id);
+            return Ok(produto);
+        }
 
         [HttpPost]
         public IActionResult Adicionar(Empresa empresa) { throw new NotImplementedException(); }
