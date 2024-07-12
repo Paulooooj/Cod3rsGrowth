@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Web.Controllers
         public IActionResult Atualizar([FromBody] Empresa empresa) 
         {
             _servicoEmpresa.Atualizar(empresa);
-            return Ok();
+            return NoContent();
         }
 
     }
