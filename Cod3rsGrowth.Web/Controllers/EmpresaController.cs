@@ -30,7 +30,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Adicionar(Empresa empresa) { throw new NotImplementedException();}
+        public IActionResult Adicionar([FromBody] Empresa empresa) 
+        { 
+            _servicoEmpresa.Adicionar(empresa);
+            return Ok();
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Deletar(int id) { throw new NotImplementedException();}
