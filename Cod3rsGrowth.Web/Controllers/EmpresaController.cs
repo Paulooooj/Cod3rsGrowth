@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Deletar(int id) 
+        public IActionResult Remover(int id) 
         {
             _servicoEmpresa.Deletar(id);
             return NoContent();
