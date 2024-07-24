@@ -4,7 +4,7 @@ sap.ui.define([
 ], (UIComponent, JSONModel) => {
 	"use strict";
 
-	return UIComponent.extend("ui5.Cod3rsGrowth.Component", {
+	return UIComponent.extend("ui5.cod3rsgrowth.Component", {
 
 		metadata: {
 			interfaces: ["sap.ui.core.IAsyncContentCreation"],

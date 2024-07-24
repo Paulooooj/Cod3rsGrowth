@@ -1,7 +1,7 @@
 {
     "_version": "1.58.0",
     "sap.app": {
-      "id": "ui5.Cod3rsGrowth",
+      "id": "ui5.cod3rsgrowth",
       "i18n": "i18n/i18n.properties",
       "title": "{{appTitle}}",
       "description": "{{appDescription}}",
@@ -30,14 +30,14 @@
         "i18n": {
           "type": "sap.ui.model.resource.ResourceModel",
           "settings": {
-            "bundleName": "ui5.Cod3rsGrowth.i18n.i18n",
+            "bundleName": "ui5.cod3rsgrowth.i18n.i18n",
             "supportedLocales": [""],
             "fallbackLocale": ""
           }
         }
       },
       "rootView": {
-          "viewName": "ui5.Cod3rsGrowth.view.App",
+          "viewName": "ui5.cod3rsgrowth.view.App",
           "type": "XML",
           "id": "app"
       }

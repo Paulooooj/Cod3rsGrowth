@@ -1,7 +1,7 @@
 {
-    "name": "ui5.Cod3rsGrowth",
+    "name": "ui5.cod3rsgrowth",
     "version": "1.0.0",
-    "description": "The UI5 walkthrough application",
+    "description": "Aplicação UI5 para sistema de Empresa/Produto",
     "scripts": {
         "start": "ui5 serve -o index.html"
     }

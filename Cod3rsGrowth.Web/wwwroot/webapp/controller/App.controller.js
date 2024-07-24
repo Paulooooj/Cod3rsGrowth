@@ -3,10 +3,10 @@ sap.ui.define([
  ], (Controller) => {
     "use strict";
  
-    return Controller.extend("ui5.Cod3rsGrowth.controller.App", {
+    return Controller.extend("ui5.cod3rsgrowth.controller.App", {
        onShowHello() {
           // show a native JavaScript alert
-          alert("Hello World");
+          alert("Olá, mundo!");
        }
     });
  });
