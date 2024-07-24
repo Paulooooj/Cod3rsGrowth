@@ -4,5 +4,5 @@
    xmlns:mvc="sap.ui.core.mvc">
    <Button
       text="{i18n>mostrarBotaoOla}"
-      press=".onShowHello"/>
+      press=".mostrarOla"/>
 </mvc:View>

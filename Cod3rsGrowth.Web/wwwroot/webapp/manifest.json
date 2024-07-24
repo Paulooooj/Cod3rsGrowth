@@ -3,8 +3,6 @@
     "sap.app": {
       "id": "ui5.cod3rsgrowth",
       "i18n": "i18n/i18n.properties",
-      "title": "{{appTitle}}",
-      "description": "{{appDescription}}",
       "type": "application",
       "applicationVersion": {
         "version": "1.0.0"
