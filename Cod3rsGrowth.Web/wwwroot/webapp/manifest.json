@@ -37,7 +37,41 @@
       "rootView": {
           "viewName": "ui5.cod3rsgrowth.view.App",
           "type": "XML",
+          "async": true,
           "id": "app"
+      },
+      "routing": {
+         "config": {
+            "routerClass": "sap.m.routing.Router",
+            "type": "View",
+            "viewType": "XML",
+            "path": "ui5.cod3rsgrowth.view",
+            "controlId": "app",
+            "controlAggregation": "pages",
+            "transition": "slide",
+            "bypassed": {
+              "target" : "notFound"
+            },
+            "async": true
+         },
+         "routes": [{
+            "pattern": "",
+            "name": "appEmpresa",
+            "target": "empresa"
+         }],
+         "targets": {
+            "empresa": {
+               "id": "empresa",
+               "name": "Empresa",
+               "level" : 1
+            },
+            "notFound" : {
+              "id": "notFound",
+              "name": "NotFound",
+              "transition" : "show"
+            }
+         }
       }
+      
     }
   }
