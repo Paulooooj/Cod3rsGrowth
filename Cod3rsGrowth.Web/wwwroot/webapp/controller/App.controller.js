@@ -4,12 +4,7 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("ui5.cod3rsgrowth.controller.App", {
-
 		onInit: function () {
-
 		}
-
 	});
-
 });
-
