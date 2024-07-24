@@ -3,6 +3,6 @@
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc">
    <Button
-      text="{i18n>showHelloButtonText}"
+      text="{i18n>mostrarBotaoOla}"
       press=".onShowHello"/>
 </mvc:View>

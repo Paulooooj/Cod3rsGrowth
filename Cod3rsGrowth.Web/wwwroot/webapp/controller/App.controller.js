@@ -15,7 +15,7 @@ sap.ui.define([
       },
        onShowHello() {
           const oBundle = this.getView().getModel("i18n").getResourceBundle();
-          const sMsg = oBundle.getText("helloMsg");
+          const sMsg = oBundle.getText("mensagemOla");
  
           MessageToast.show(sMsg);
        }
