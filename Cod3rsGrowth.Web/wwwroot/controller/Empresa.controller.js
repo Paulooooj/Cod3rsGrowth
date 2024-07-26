@@ -12,7 +12,7 @@ sap.ui.define([
          });
          this.getView().setModel(i18nModel, "i18n");
          const oBundle = this.getView().getModel("i18n").getResourceBundle();
-         const sTitulo = oBundle.getText("nomeDaPagina");
+         const sTitulo = oBundle.getText("nomeDaPaginaEmpresa");
          document.title = sTitulo;
       },
        mostrarOla() {
