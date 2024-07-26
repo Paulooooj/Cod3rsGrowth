@@ -11,11 +11,7 @@ using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
-
-
-
-
-
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +37,11 @@ builder.Services.AddScoped<IValidator<Produto>, ValidadorProduto>();
 builder.Services.AddScoped<IRepositorioEmpresa, RepositorioEmpresa>();
 builder.Services.AddScoped<IRepositorioProduto, RepositorioProduto>();
 
+builder.Services.AddCors(p => p.AddPolicy("SAPApp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -58,6 +59,17 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("SAPApp");
+
+app.UseStaticFiles(new StaticFileOptions { ServeUnknownFileTypes = true });
+
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "wwwroot")),
+    EnableDirectoryBrowsing = true
+});
+
 app.UseAuthorization();
 
 app.MapControllers();
