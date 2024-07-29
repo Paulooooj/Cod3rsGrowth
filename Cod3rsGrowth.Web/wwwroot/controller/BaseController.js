@@ -22,6 +22,10 @@ sap.ui.define([
 			} else {
 				this.getRouter().navTo("appEmpresa", {}, true);
 			}
+		},
+
+		voltarPaginaInicial(){
+			this.getRouter().navTo("appEmpresa", {}, true);
 		}
 	});
 
