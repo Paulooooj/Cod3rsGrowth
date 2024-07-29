@@ -12,6 +12,10 @@ sap.ui.define([
          const oBundle = this.getView().getModel("i18n").getResourceBundle();
          const sTitulo = oBundle.getText("nomeDaPaginaNaoEncontrada");
          document.title = sTitulo;
-       }
+       },
+
+       voltarPaginaInicial: function() {
+			this.getRouter().navTo("appEmpresa", {}, true);
+		}
     });
  });

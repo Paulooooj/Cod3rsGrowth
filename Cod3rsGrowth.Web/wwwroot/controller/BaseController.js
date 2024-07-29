@@ -7,7 +7,7 @@ sap.ui.define([
 
 	return Controller.extend("ui5.cod3rsgrowth.controller.BaseController", {
 		
-		getRouter : function () {
+		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
 
@@ -22,10 +22,6 @@ sap.ui.define([
 			} else {
 				this.getRouter().navTo("appEmpresa", {}, true);
 			}
-		},
-
-		voltarPaginaInicial(){
-			this.getRouter().navTo("appEmpresa", {}, true);
 		}
 	});
 

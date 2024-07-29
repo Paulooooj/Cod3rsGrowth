@@ -6,7 +6,7 @@ sap.ui.define([
    "use strict";
  
     return BaseController.extend("ui5.cod3rsgrowth.controller.Empresa", {
-      onInit() {
+      onInit: function () {
          const i18nModel = new ResourceModel({
             bundleName: "ui5.cod3rsgrowth.i18n.i18n"
          });
@@ -15,7 +15,7 @@ sap.ui.define([
          const sTitulo = oBundle.getText("nomeDaPaginaEmpresa");
          document.title = sTitulo;
       },
-       mostrarOla() {
+       mostrarOla: function () {
           const oBundle = this.getView().getModel("i18n").getResourceBundle();
           const sMsg = oBundle.getText("mensagemOla");
           MessageToast.show(sMsg);
