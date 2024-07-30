@@ -14,7 +14,7 @@ sap.ui.define([
          document.title = sTitulo;
        },
 
-       voltarPaginaInicial: function() {
+       voltarPaginaInicial: function () {
 			this.getRouter().navTo("appEmpresa", {}, true);
 		}
     });
