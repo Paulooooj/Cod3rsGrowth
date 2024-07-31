@@ -1,12 +1,57 @@
-<mvc:View
+<mvc:View xmlns:calendar="sap.ui.unified.calendar" xmlns:tnt="sap.tnt"
    controllerName="ui5.cod3rsgrowth.controller.Empresa"
    xmlns="sap.m"
-   xmlns:mvc="sap.ui.core.mvc">
-   <Page title="{i18n>nomeDaPaginaEmpresa.titulo}" class="sapUiResponsiveContentPadding">  
-      <content>
-   <Button
-      text="{i18n>mostrarBotaoOla}"
-      press=".mostrarOla"/>
-      </content>
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:core="sap.ui.core"
+   xmlns:f="sap.f">
+   <Page title="{i18n>nomeDaPaginaEmpresa.titulo}" >  
+      <customHeader>
+        <Toolbar >
+         <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4"></Title>
+        </Toolbar>
+      </customHeader>
+      <Table
+         id="listaEmpresa"
+         sticky="ColumnHeaders,HeaderToolbar"
+			width="auto"
+			mode="SingleSelectLeft"
+			fixedLayout="false"
+			autoPopinMode="true"
+			hiddenInPopin="None">
+         <headerToolbar>
+            <Toolbar >
+               <Title text="{i18n>nomeBarraDeFerramentas} ( )" titleStyle="H5"/>
+               <ToolbarSpacer />
+               <Text text="Filtros:"/>
+               <SearchField 
+               width="20%"
+               placeholder="{i18n>barraDePesquisaEmpresa}"
+               />
+               <ComboBox/>
+            </Toolbar>
+         </headerToolbar>
+         <columns> 
+            <Column>
+               <Text text="{i18n>nomeColuna.razaoSocial}"/>
+            </Column>
+            <Column>
+               <Text text="{i18n>nomeColuna.cnpj}"/>
+            </Column>
+            <Column>
+               <Text text="{i18n>nomeColuna.ramo}"/>
+            </Column>
+         </columns>
+         <items>
+            <ColumnListItem >
+               <cells>
+                  <Button
+                  class="sapUiTinyMarginBegin"
+                  type="Transparent"
+                  icon="sap-icon://decline"
+              />
+               </cells>
+            </ColumnListItem>
+         </items>
+        </Table>
    </Page>
 </mvc:View>
