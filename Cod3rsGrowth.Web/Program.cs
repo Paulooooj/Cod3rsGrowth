@@ -12,6 +12,7 @@ using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
 using Microsoft.Extensions.FileProviders;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,11 @@ builder.Services.AddScoped<IValidator<Empresa>, ValidadorEmpresa>();
 builder.Services.AddScoped<IValidator<Produto>, ValidadorProduto>();
 builder.Services.AddScoped<IRepositorioEmpresa, RepositorioEmpresa>();
 builder.Services.AddScoped<IRepositorioProduto, RepositorioProduto>();
+
+builder.Services.AddMvc().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 builder.Services.AddCors(p => p.AddPolicy("SAPApp", builder =>
 {

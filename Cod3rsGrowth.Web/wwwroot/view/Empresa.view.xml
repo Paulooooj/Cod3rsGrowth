@@ -12,43 +12,68 @@
       </customHeader>
       <Table
          id="listaEmpresa"
+         growing="true"
          sticky="ColumnHeaders,HeaderToolbar"
 			width="auto"
-			mode="SingleSelectLeft"
 			fixedLayout="false"
 			autoPopinMode="true"
-			hiddenInPopin="None">
+			hiddenInPopin="None"
+         items="{listaEmpresa>/}">
          <headerToolbar>
             <Toolbar >
-               <Title text="{i18n>nomeBarraDeFerramentas} ( )" titleStyle="H5"/>
+               <Title text="{i18n>nomeBarraDeFerramentas} ({= ${listaEmpresa>/}.length})" />
                <ToolbarSpacer />
                <Text text="Filtros:"/>
                <SearchField 
+               id="searchField"
                width="20%"
                placeholder="{i18n>barraDePesquisaEmpresa}"
-               />
-               <ComboBox/>
+               liveChange="onfiltroEmpresa"/>
+               <ComboBox />
+               <Button
+               id="downloadSelectedButton"
+               text="Adicionar"
+               enabled="true"
+               icon="sap-icon://sys-add"/>
             </Toolbar>
          </headerToolbar>
          <columns> 
-            <Column>
-               <Text text="{i18n>nomeColuna.razaoSocial}"/>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Begin"
+           >
+               <header>
+                  <Label text="{i18n>nomeColuna.razaoSocial}"/>
+               </header>
             </Column>
-            <Column>
-               <Text text="{i18n>nomeColuna.cnpj}"/>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>nomeColuna.cnpj}"/>
+               </header>
             </Column>
-            <Column>
-               <Text text="{i18n>nomeColuna.ramo}"/>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>nomeColuna.ramo}"/>
+               </header>
             </Column>
+            <Column hAlign="End"/>
          </columns>
          <items>
-            <ColumnListItem >
+            <ColumnListItem type="Active">
                <cells>
-                  <Button
-                  class="sapUiTinyMarginBegin"
-                  type="Transparent"
-                  icon="sap-icon://decline"
-              />
+                  <ObjectIdentifier title="{listaEmpresa>razaoSocial}"/>
+                  <Text text="{listaEmpresa>cnpj}"/>
+                  <Text text="{listaEmpresa>ramo}"/>
                </cells>
             </ColumnListItem>
          </items>
