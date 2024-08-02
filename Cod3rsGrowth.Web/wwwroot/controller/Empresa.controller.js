@@ -5,6 +5,8 @@ sap.ui.define([
    "../model/formatter"
 ], (BaseController, ResourceModel, JSONModel, formatter) => {
    "use strict";
+   let eventoPesquisa = "";
+   let eventoCombox = "";
  
     return BaseController.extend("ui5.cod3rsgrowth.controller.Empresa", {
       formatter: formatter,
@@ -27,19 +29,27 @@ sap.ui.define([
       },
 
       onfiltroEmpresa: function (oEvent){
-         let urlObterTodosUsandoFiltro = "/api/Empresa?RazaoSocialECnpj=";
-         const sQuery = oEvent.getSource().getValue();
-
-         urlObterTodosUsandoFiltro = urlObterTodosUsandoFiltro + sQuery;
-
-         if(sQuery && sQuery.length > 0){
-            this.buscarApi(urlObterTodosUsandoFiltro);
-      }else{
-         this.buscarApi(urlObterTodosUsandoFiltro);
-      }
+         var teste = oEvent.getSource().getValue();
+         eventoPesquisa = teste.replace(/[^a-z0-9]/gi,'')
+         this.filtros();
       },
 
-      buscarApi(url){
+      filtroCombobox: function (oEvent){
+         eventoCombox = oEvent.getSource().getValue();
+         this.filtros();
+      },
+
+      filtros : function (){
+         let urlObterTodosUsandoFiltro;
+         if(eventoCombox != "Todos"){
+            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${eventoPesquisa}&Ramo=${eventoCombox}`;
+         }else{
+            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${eventoPesquisa}`;
+         }
+         this.buscarApi(urlObterTodosUsandoFiltro);
+      },
+      
+      buscarApi: function (url){
          fetch(url).then(res => res.json()).then(res => {
             const dataModel = new JSONModel();
             var teste = res;
@@ -51,7 +61,6 @@ sap.ui.define([
             this.getView().setModel(dataModel, "listaEmpresa")
         })
       }
-
     });
  
  });

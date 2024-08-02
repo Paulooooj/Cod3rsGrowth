@@ -29,7 +29,15 @@
                width="20%"
                placeholder="{i18n>barraDePesquisaEmpresa}"
                liveChange="onfiltroEmpresa"/>
-               <ComboBox />
+               <ComboBox 
+               placeholder="Ramo"
+               selectionChange="filtroCombobox"
+             > 
+               <core:ListItem key="1" text="Todos"/>
+               <core:ListItem key="2" text="Industria"/>
+               <core:ListItem key="3" text="Comercio"/>   
+               <core:ListItem key="4" text="Servico"/>                  
+             </ComboBox>
                <Button
                id="downloadSelectedButton"
                text="Adicionar"
