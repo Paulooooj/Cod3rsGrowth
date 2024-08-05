@@ -4,15 +4,17 @@
    xmlns:mvc="sap.ui.core.mvc"
    xmlns:core="sap.ui.core"
    xmlns:f="sap.f">
-   <Page title="{i18n>nomeDaPaginaEmpresa.titulo}" >  
+   <Page title="{i18n>nomeDaPaginaEmpresa.titulo}">  
       <customHeader>
         <Toolbar >
-         <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4"></Title>
+         <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4" class="sapUiResponsiveMargin"></Title>
         </Toolbar>
       </customHeader>
       <Table
          id="listaEmpresa"
+         class="sapUiResponsiveMargin"
          growing="true"
+         growingThreshold="20"
          sticky="ColumnHeaders,HeaderToolbar"
 			width="auto"
 			fixedLayout="false"
@@ -20,23 +22,20 @@
 			hiddenInPopin="None"
          items="{listaEmpresa>/}">
          <headerToolbar>
-            <Toolbar >
+            <Toolbar>
                <Title text="{i18n>nomeBarraDeFerramentas} ({= ${listaEmpresa>/}.length})" />
-               <ToolbarSpacer />
-               <Text text="Filtros:"/>
+               <ToolbarSpacer/>
                <SearchField 
                id="searchField"
-               width="20%"
+               width="25%"
                placeholder="{i18n>barraDePesquisaEmpresa}"
                liveChange="onfiltroEmpresa"/>
                <ComboBox 
+               id="comboxRamo"
                placeholder="Ramo"
                selectionChange="filtroCombobox"
-             > 
-               <core:ListItem key="1" text="Todos"/>
-               <core:ListItem key="2" text="Industria"/>
-               <core:ListItem key="3" text="Comercio"/>   
-               <core:ListItem key="4" text="Servico"/>                  
+               items="{listaEnum>/}"> 
+               <core:ListItem key="{listaEnum>key}" text="{listaEnum>descricao}"/>
              </ComboBox>
                <Button
                id="downloadSelectedButton"
@@ -50,10 +49,9 @@
             minScreenWidth="Small"
             demandPopin="true"
             vAlign="Middle"
-            hAlign="Begin"
-           >
+            hAlign="Begin">
                <header>
-                  <Label text="{i18n>nomeColuna.razaoSocial}"/>
+                  <Label text="{i18n>nomeColuna.razaoSocial}" />
                </header>
             </Column>
             <Column 

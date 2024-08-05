@@ -7,11 +7,13 @@ using Cod3rsGrowth.Infra.Repositorio;
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Servico.Validacao;
 using Cod3rsGrowth.Web;
+using Cod3rsGrowth.Web.MetodosAuxiliares;
 using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
 using Microsoft.Extensions.FileProviders;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +39,9 @@ builder.Services.AddScoped<IValidator<Empresa>, ValidadorEmpresa>();
 builder.Services.AddScoped<IValidator<Produto>, ValidadorProduto>();
 builder.Services.AddScoped<IRepositorioEmpresa, RepositorioEmpresa>();
 builder.Services.AddScoped<IRepositorioProduto, RepositorioProduto>();
+
+var tipoClientes = Enum.GetValues(typeof(EnumRamoDaEmpresa)).Cast<EnumRamoDaEmpresa>().Select(x => new { Descricao = DescricaoEnum.pegarDescricaoEnum(x)});
+var options = new JsonSerializerOptions();
 
 builder.Services.AddMvc().AddJsonOptions(x =>
 {
