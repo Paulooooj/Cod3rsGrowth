@@ -13,6 +13,7 @@
       <Table
          id="listaEmpresa"
          class="sapUiResponsiveMargin"
+         alternateRowColors="true"
          growing="true"
          growingThreshold="20"
          sticky="ColumnHeaders,HeaderToolbar"
@@ -23,7 +24,7 @@
          items="{listaEmpresa>/}">
          <headerToolbar>
             <Toolbar>
-               <Title text="{i18n>nomeBarraDeFerramentas} ({= ${listaEmpresa>/}.length})" />
+               <Title text="{i18n>nomeBarraDeFerramentas} ({= ${listaEmpresa>/}.length})" titleStyle="H5"/>
                <ToolbarSpacer/>
                <SearchField 
                id="searchField"
@@ -32,7 +33,7 @@
                liveChange="onfiltroEmpresa"/>
                <ComboBox 
                id="comboxRamo"
-               placeholder="Ramo"
+               placeholder="Todos"
                selectionChange="filtroCombobox"
                items="{listaEnum>/}"> 
                <core:ListItem key="{listaEnum>key}" text="{listaEnum>descricao}"/>
@@ -72,7 +73,6 @@
                   <Label text="{i18n>nomeColuna.ramo}"/>
                </header>
             </Column>
-            <Column hAlign="End"/>
          </columns>
          <items>
             <ColumnListItem type="Active">

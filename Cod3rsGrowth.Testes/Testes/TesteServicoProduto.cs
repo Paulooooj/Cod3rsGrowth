@@ -98,7 +98,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "teste",
                 DataCadastro = DateTime.Today,
                 TemDataValidade = true,
-                DataValidade = DateTime.Parse("12/10/2024"),
+                DataValidade = DateTime.Parse("12/10/2025"),
                 EmpresaId = 3
             };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));

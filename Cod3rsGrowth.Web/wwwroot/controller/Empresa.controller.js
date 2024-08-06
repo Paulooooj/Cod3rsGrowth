@@ -23,6 +23,7 @@ sap.ui.define([
          this.buscarApi(urlObterTodos);
          const urlEnum = '/api/Enum';
          this.buscarApiEnum(urlEnum);
+         this.getView().byId('comboxRamo').setValue("Todos");
       },
       
       onfiltroEmpresa: function (oEvent){
@@ -38,7 +39,7 @@ sap.ui.define([
          eventoCombox = oEvent.getSource().getSelectedKey();
          this.filtros();
       },
-      
+
       filtros : function (){
          let urlObterTodosUsandoFiltro;
          if(eventoCombox != "Todos"){
@@ -67,7 +68,6 @@ sap.ui.define([
             dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEnum")
         }); 
-
       },
 
       formatarCnpj: function (cnpj)

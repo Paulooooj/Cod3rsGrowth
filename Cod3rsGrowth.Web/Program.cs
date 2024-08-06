@@ -14,7 +14,6 @@ using LinqToDB;
 using LinqToDB.AspNet;
 using Microsoft.Extensions.FileProviders;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,12 +39,12 @@ builder.Services.AddScoped<IValidator<Produto>, ValidadorProduto>();
 builder.Services.AddScoped<IRepositorioEmpresa, RepositorioEmpresa>();
 builder.Services.AddScoped<IRepositorioProduto, RepositorioProduto>();
 
-var tipoClientes = Enum.GetValues(typeof(EnumRamoDaEmpresa)).Cast<EnumRamoDaEmpresa>().Select(x => new { Descricao = DescricaoEnum.pegarDescricaoEnum(x)});
+var tipoClientes = Enum.GetValues(typeof(EnumRamoDaEmpresa)).Cast<EnumRamoDaEmpresa>().Select(x => new { Descricao = DescricaoEnum.PegarDescricaoEnum(x)});
 var options = new JsonSerializerOptions();
 
 builder.Services.AddMvc().AddJsonOptions(x =>
 {
-    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    x.JsonSerializerOptions.Converters.Add(new Converter<EnumRamoDaEmpresa>());
 });
 
 builder.Services.AddCors(p => p.AddPolicy("SAPApp", builder =>

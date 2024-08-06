@@ -9,11 +9,11 @@ namespace Cod3rsGrowth.Web.Controllers
     public class EnumController : Controller
     {
         [HttpGet]
-        public IActionResult pegarDescricaoEnum()
+        public IActionResult ObterDescricaoRamo()
         {
             var enumEmpresa = Enum.GetValues(typeof(EnumRamoDaEmpresa))
                 .Cast<EnumRamoDaEmpresa>()
-                .Select(x => new { key = x.ToString(), Descricao = DescricaoEnum.pegarDescricaoEnum(x)})
+                .Select(x => new { key = x.ToString(), Descricao = DescricaoEnum.PegarDescricaoEnum(x)})
                 .ToList();
 
             return Ok(enumEmpresa);
