@@ -4,7 +4,7 @@ namespace Cod3rsGrowth.Dominio.Entidades
 {
     public enum EnumRamoDaEmpresa
     {
-        [Description("Todos")]
+        [Description("Não Definido")]
         NaoDefinido,
         [Description("Indústria")]
         Industria,

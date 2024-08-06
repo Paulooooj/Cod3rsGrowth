@@ -55,7 +55,7 @@ sap.ui.define([
             const dataModel = new JSONModel();
             var arrayEmpresas = res;
             arrayEmpresas.forEach(element => {
-               element.cnpj = this.formatarCnpj(element.cnpj);
+               element.cnpj = this.formatter.formatarCnpj(element.cnpj);
             });
             dataModel.setData(arrayEmpresas);
             this.getView().setModel(dataModel, "listaEmpresa")
@@ -68,11 +68,7 @@ sap.ui.define([
             dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEnum")
         }); 
-      },
-
-      formatarCnpj: function (cnpj)
-      {
-          return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
       }
+      
    });
  });

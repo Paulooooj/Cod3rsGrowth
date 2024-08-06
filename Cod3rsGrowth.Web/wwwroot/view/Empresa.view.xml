@@ -12,6 +12,7 @@
       </customHeader>
       <Table
          id="listaEmpresa"
+         busyIndicatorDelay="1000"
          class="sapUiResponsiveMargin"
          alternateRowColors="true"
          growing="true"
@@ -31,13 +32,15 @@
                width="25%"
                placeholder="{i18n>barraDePesquisaEmpresa}"
                liveChange="onfiltroEmpresa"/>
-               <ComboBox 
+               <ToolbarSeparator />
+               <Label text="{i18n>labelFiltroEnum}" />
+               <Select
                id="comboxRamo"
-               placeholder="Todos"
-               selectionChange="filtroCombobox"
+               width="10%"
+               change="filtroCombobox"
                items="{listaEnum>/}"> 
-               <core:ListItem key="{listaEnum>key}" text="{listaEnum>descricao}"/>
-             </ComboBox>
+               <core:ListItem key="{listaEnum>key}" text="{path: 'listaEnum>descricao', formatter: '.formatter.formatarValorPadraoCombobox'}"/>
+               </Select>
                <Button
                id="downloadSelectedButton"
                text="Adicionar"
