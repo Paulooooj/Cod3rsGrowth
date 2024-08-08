@@ -9,10 +9,9 @@ return{
     formatarValorPadraoCombobox : function(ramo)
     {
         const oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
-        if(ramo == "Não Definido"){
+        if(ramo === "Não Definido"){
             return oResourceBundle.getText("enumNaoDevinido");
         }
-
         return ramo;
     }
     }

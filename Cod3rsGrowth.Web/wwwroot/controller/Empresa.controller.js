@@ -2,11 +2,14 @@ sap.ui.define([
    "ui5/cod3rsgrowth/controller/BaseController",
    "sap/ui/model/resource/ResourceModel",
    "sap/ui/model/json/JSONModel",
-   "../model/formatter"
-], (BaseController, ResourceModel, JSONModel, formatter) => {
+   "../model/formatter",
+   "sap/m/MessageBox"
+], (BaseController, ResourceModel, JSONModel, formatter, MessageBox) => {
    "use strict";
    let eventoPesquisa = "";
    let eventoCombox = "";
+
+   var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
  
     return BaseController.extend("ui5.cod3rsgrowth.controller.Empresa", {
       formatter: formatter,
@@ -23,13 +26,12 @@ sap.ui.define([
          this.buscarApi(urlObterTodos);
          const urlEnum = '/api/Enum';
          this.buscarApiEnum(urlEnum);
-         this.getView().byId('comboxRamo').setValue("Todos");
       },
       
       onfiltroEmpresa: function (oEvent){
          var evento = oEvent.getSource().getValue();
          eventoPesquisa = evento.replace(/[^a-z0-9]/gi,'');
-         const verificarSeECNPJ = RegExp('^[0-9]+$');
+         var verificarSeECNPJ = RegExp('^[0-9]+$');
          if(!verificarSeECNPJ.test(eventoPesquisa))
             eventoPesquisa = evento;
          this.filtros();
@@ -51,19 +53,40 @@ sap.ui.define([
       },
       
       buscarApi: function (url){
+         const statusOk = 200;
+
          fetch(url).then(res => res.json()).then(res => {
+            if(res.Status && res.Status !== statusOk){
+               this.funcaoTesteErro(res);
+            }
             const dataModel = new JSONModel();
-            var arrayEmpresas = res;
-            arrayEmpresas.forEach(element => {
+            res.forEach(element => {
                element.cnpj = this.formatter.formatarCnpj(element.cnpj);
-            });
-            dataModel.setData(arrayEmpresas);
+            })
+            dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEmpresa")
          })
       },
 
+      funcaoTesteErro : function(erro){
+         MessageBox.error(`${erro.Title}`, {
+				title: "Error",
+				details: 
+            `<p><strong>Status: ${erro.Status}</strong></p>` +
+            "<p><strong>Detalhes:</strong></p>" +
+					"<ul>" +
+					`<li>${erro.Detail}</li>` +
+					"</ul>",
+				styleClass: sResponsivePaddingClasses,
+				dependentOn: this.getView()
+			});
+      },
+
       buscarApiEnum: function (url){
          fetch(url).then(res => res.json()).then(res => {
+            if(res.Status && res.Status !== statusOk){
+               this.funcaoTesteErro(res);
+            }
             const dataModel = new JSONModel();
             dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEnum")

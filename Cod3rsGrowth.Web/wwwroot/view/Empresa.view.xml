@@ -12,7 +12,7 @@
       </customHeader>
       <Table
          id="listaEmpresa"
-         busyIndicatorDelay="1000"
+         busyIndicatorDelay="5"
          class="sapUiResponsiveMargin"
          alternateRowColors="true"
          growing="true"
@@ -25,7 +25,7 @@
          items="{listaEmpresa>/}">
          <headerToolbar>
             <Toolbar>
-               <Title text="{i18n>nomeBarraDeFerramentas} ({= ${listaEmpresa>/}.length})" titleStyle="H5"/>
+               <Title id = "tituloTabela" text="{i18n>nomeBarraDeFerramentas} ({= ${listaEmpresa>/}.length})" titleStyle="H4"/>
                <ToolbarSpacer/>
                <SearchField 
                id="searchField"
