@@ -22,10 +22,11 @@
 			fixedLayout="false"
 			autoPopinMode="true"
 			hiddenInPopin="None"
-         items="{listaEmpresa>/}">
+         items="{listaEmpresa>/}"
+         updateFinished="atualizarTitulo ">
          <headerToolbar>
             <Toolbar>
-               <Title id = "tituloTabela" text="{i18n>nomeBarraDeFerramentas} ({= ${listaEmpresa>/}.length})" titleStyle="H4"/>
+               <Title id = "tituloTabela" text="" titleStyle="H4"/>
                <ToolbarSpacer/>
                <SearchField 
                id="searchField"

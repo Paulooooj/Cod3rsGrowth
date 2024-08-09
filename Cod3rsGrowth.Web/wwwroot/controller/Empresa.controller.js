@@ -91,6 +91,19 @@ sap.ui.define([
             dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEnum")
         }); 
+      },
+      
+      atualizarTitulo : function(oEvent){
+         var sTitle,
+				oTable = oEvent.getSource(),
+				iTotalItems = oEvent.getParameter("total");
+            const oBundle = this.getView().getModel("i18n").getResourceBundle();
+			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
+				sTitle = oBundle.getText("nomeBarraFerramentasEmpresaCount", [iTotalItems]);
+			} else {
+				sTitle = oBundle.getText("nomeBarraDeFerramentas");
+			}
+      this.getView().byId("tituloTabela").setProperty("text", sTitle);
       }
       
    });

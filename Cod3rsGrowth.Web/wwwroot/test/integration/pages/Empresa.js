@@ -34,7 +34,7 @@ sap.ui.define([
 							length: 1
 						}),
 						success: function () {
-							Opa5.assert.ok(true, "A tabela contéum uma entra correspondente");
+							Opa5.assert.ok(true, "A tabela contém uma entrada correspondente");
 						},
 						errorMessage: "A tabela não contém um item."
 					});
@@ -59,14 +59,14 @@ sap.ui.define([
 						id: "tituloTabela",
 						viewName: sViewName,
 						matchers: new I18NText({
-							key: "worklistTableTitleCount",
+							key: "nomeBarraFerramentasEmpresaCount",
 							propertyName: "text",
 							parameters: [26]
 						}),
 						success: function () {
-							Opa5.assert.ok(true, "The table header has 23 items");
+							Opa5.assert.ok(true, "O titulo da tabela contém tem 22 elementos");
 						},
-						errorMessage: "The table header does not contain the number of items: 23"
+						errorMessage: "A tabela não contem 22 elementos"
 					});
 				},
 				

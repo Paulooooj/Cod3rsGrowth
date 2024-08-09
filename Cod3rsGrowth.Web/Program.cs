@@ -17,9 +17,12 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const string variavelAmbienteStringConexao = "ConnectionString";
-var stringConexao = Environment.GetEnvironmentVariable(variavelAmbienteStringConexao)
-    ?? throw new Exception($"Variavel de ambiente [{variavelAmbienteStringConexao}] nao encontrada");
+if(args.FirstOrDefault() == "BancoTeste")
+{
+    ConnectionString.connectionString = "ConnectionStringTeste";
+}
+var stringConexao = Environment.GetEnvironmentVariable(ConnectionString.connectionString)
+    ?? throw new Exception($"Variavel de ambiente [{ConnectionString.connectionString}] nao encontrada");
 
 builder.Services.AddFluentMigratorCore().ConfigureRunner(rb => rb.
 AddSqlServer()
