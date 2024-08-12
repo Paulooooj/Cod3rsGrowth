@@ -24,22 +24,33 @@ sap.ui.define([
 		
 		When.EmpresaPage.bucarPor("Apple");
 
-		Then.EmpresaPage.verificarSeTabelaFiltrouUmItem();
+		Then.EmpresaPage.verificarSeTabelaFiltrouUsandoBarraDePesquisa();
 	});
 
-	opaTest("Deve selecionar Serviço na combobox", function(Given, When, Then) {
+	opaTest("Deve verificar se é possível selecionar um Ramo", function(Given, When, Then) {
 
 		When.EmpresaPage.selecionarCombobox();
 
 		Then.EmpresaPage.verificarItemSelecionadoCombobox();
 	});
 
-	opaTest("Deve filtrar por Indústria e verificar a quantidade filtrada somando com o filtro de barra de pesquisa.", function(Given, When, Then) {
+	opaTest("Deve filtrar junto com o filtro anterior da barra de pesquisa, filtrar pelo select escolhendo Indústria e encontrar só uma empresa", function(Given, When, Then) {
 
-		When.EmpresaPage.filtrarPorIndustria();
+		When.EmpresaPage.filtrarPorRamo("Indústria");
 
 		Then.EmpresaPage.verificarQuantidadeEmpresasFiltradas();
 
+	});
+
+	opaTest("Deve verificar se está filtrando corretamente o select de ramo, filtrando por Comércio", function(Given, When, Then) {
+
+		When.EmpresaPage.bucarPor(" ");
+
+		When.EmpresaPage.filtrarPorRamo("Comércio");
+
+		Then.EmpresaPage.verificarQuantidadeEmpresasFiltradasSomentePorComercio();
+
 		Then.iTeardownMyApp();
 	});
+
 });

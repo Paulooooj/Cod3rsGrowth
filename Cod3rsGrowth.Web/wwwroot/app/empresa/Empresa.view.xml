@@ -11,7 +11,7 @@
         </Toolbar>
       </customHeader>
       <Table
-         id="listaEmpresa"
+         id="idTabelaEmpresa"
          busyIndicatorDelay="5"
          class="sapUiResponsiveMargin"
          alternateRowColors="true"

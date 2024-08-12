@@ -1,16 +1,14 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
-	"sap/ui/test/actions/Press",
 	'sap/ui/test/matchers/AggregationLengthEquals',
 	'sap/ui/test/actions/EnterText',
 	'sap/ui/test/matchers/I18NText',
-	"sap/ui/test/matchers/Ancestor",
-	"sap/ui/test/matchers/Properties",
-], (Opa5, Press, AggregationLengthEquals, EnterText, I18NText, Ancestor, Properties) => {
+
+], (Opa5, AggregationLengthEquals, EnterText, I18NText) => {
 	"use strict";
 
 	const sViewName = "ui5.cod3rsgrowth.app.empresa.Empresa";
-	var sTableId = "listaEmpresa";
+	var sTableId = "idTabelaEmpresa";
 	var mensagemDeAcerto = "";
 	var mensagemDeErro = "";
 	var totalItensFiltrados = 0;
@@ -25,7 +23,7 @@ sap.ui.define([
 						actions: new EnterText({
 							text: sBuscaString
 						}),
-						errorMessage: "Campo de pesquisa não foi encontrado."
+						errorMessage: "Barra de pesquisa não foi encontrado."
 					});
 				},
 
@@ -41,30 +39,29 @@ sap.ui.define([
 					});
 				},
 
-				filtrarPorIndustria: function () {
+				filtrarPorRamo: function (ramo) {
 					return this.waitFor({
 						id: "idEnumSelecaoRamo",
 						viewName: sViewName,
 						actions: new EnterText({
-							text: "Indústria"
+							text: `${ramo}`
 						}),
-						errorMessage: "Select não encontrado"
+						errorMessage: `${ramo} não foi encontrado`
 					});
 				},
 
 			},
 			assertions: {
-				verificarSeTabelaFiltrouUmItem: function (){
+				verificarSeTabelaFiltrouUsandoBarraDePesquisa: function (){
 					mensagemDeAcerto = "A tabela contém duas entrada correspondente";
-					mensagemDeErro = "A tabela não contém esse item.";
+					mensagemDeErro = "Não foi encontrado nada.";
 					totalItensFiltrados = 2;
 
 					this.verificarQuantidadeEmpresaTabela(mensagemDeAcerto, mensagemDeErro, totalItensFiltrados);
-					
 				},
 
 				verificarSeTemPaginacaoNaTabela: function (){
-					mensagemDeAcerto = "A tabela tem 20 itens na primeira página";
+					mensagemDeAcerto = "A tabela tem 20 Empresas na primeira página";
 					mensagemDeErro = "A tabela não contém todos os items.";
 					totalItensFiltrados = 20;
 
@@ -72,13 +69,22 @@ sap.ui.define([
 				},
 				
 				verificarQuantidadeEmpresasFiltradas: function (){
-					mensagemDeAcerto = "A tabela tem 1 itens na primeira página";
-					mensagemDeErro = "A tabela não contém todos os items.";
+					mensagemDeAcerto = "Foi encontrada uma Empresa";
+					mensagemDeErro = "Não foi encontrado nada.";
 					totalItensFiltrados = 1;
 
 					this.verificarQuantidadeEmpresaTabela(mensagemDeAcerto, mensagemDeErro, totalItensFiltrados);
 				},
 				
+				verificarQuantidadeEmpresasFiltradasSomentePorComercio: function () {
+					mensagemDeAcerto = "A tabela tem 12 empresas filtradas por Comércio";
+					mensagemDeErro = "A tabela não contém empresas filtradas por Comércio..";
+					totalItensFiltrados = 12;
+
+					this.verificarQuantidadeEmpresaTabela(mensagemDeAcerto, mensagemDeErro, totalItensFiltrados);
+
+				},
+
 				verificarQuantidadeEmpresaTabela: function (mensagemDeAcerto, mensagemDeErro, totalItensFiltrados) {
 					return this.waitFor({
 						id: sTableId,
@@ -94,7 +100,6 @@ sap.ui.define([
 					});
 				},
 
-
 				oDisplayDeveTerOTantoDeItems: function () {
 					return this.waitFor({
 						id: "idtituloTabela",
@@ -105,9 +110,9 @@ sap.ui.define([
 							parameters: [27]
 						}),
 						success: function () {
-							Opa5.assert.ok(true, "O titulo da tabela contém 27 elementos");
+							Opa5.assert.ok(true, "O título da tabela contém 27 elementos");
 						},
-						errorMessage: "A tabela não contém 27 elementos."
+						errorMessage: "O título da tabela não contém 27 elementos."
 					});
 				},
 
@@ -116,7 +121,7 @@ sap.ui.define([
 						id: "idEnumSelecaoRamo",
 						viewName: sViewName,
 						success: function (oSelect) {
-							Opa5.assert.strictEqual(oSelect.getSelectedKey(), "Servico", "Selecionado Serviço");
+							Opa5.assert.strictEqual(oSelect.getSelectedKey(), "Servico", "Foi selecionado Serviço");
 						},
 						errorMessage: "Serviço não selecionado."
 					});
