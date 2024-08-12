@@ -1,11 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"sap/ui/core/UIComponent"
+	"sap/ui/core/UIComponent",
 ], function(Controller, History, UIComponent) {
 	"use strict";
 
-	return Controller.extend("ui5.cod3rsgrowth.controller.BaseController", {
+	return Controller.extend("ui5.cod3rsgrowth.app.BaseController", {
 		
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
