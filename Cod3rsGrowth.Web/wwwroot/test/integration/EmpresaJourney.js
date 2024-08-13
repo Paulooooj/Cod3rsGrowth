@@ -16,37 +16,53 @@ sap.ui.define([
 		Then.EmpresaPage.verificarSeTemPaginacaoNaTabela();
 	});
 
-	opaTest("Deve verificar se a quantidade de Empresas mostradas no título está correta", function (Given, When, Then){
+	opaTest("Deve verificar se a quantidade de empresas mostradas no título está correta", function (Given, When, Then){
 		Then.EmpresaPage.oDisplayDeveTerOTantoDeItems();
 	});
 
-	opaTest("Deve ser capaz de pesquisar por um item especifico usando a barra de pesquisa", function (Given, When, Then) {
+	opaTest("Deve ao passar um nome inválido na barra de pesquisa não encontrar nada", function(Given, When, Then){
 		
-		When.EmpresaPage.bucarPor("Apple");
+		When.EmpresaPage.bucarPor("Empresa Teste");
 
-		Then.EmpresaPage.verificarSeTabelaFiltrouUsandoBarraDePesquisa();
+		Then.EmpresaPage.aoPassarNomeInvalidoNaoDeveFiltrar();
 	});
 
-	opaTest("Deve verificar se é possível selecionar um Ramo", function(Given, When, Then) {
+	opaTest("Deve verificar se é possível selecionar um ramo na select", function(Given, When, Then) {
 
 		When.EmpresaPage.selecionarCombobox();
 
 		Then.EmpresaPage.verificarItemSelecionadoCombobox();
 	});
 
+	opaTest("Deve ser capaz de pesquisar por um item especifico usando a barra de pesquisa", function (Given, When, Then) {
+
+		When.EmpresaPage.filtrarPorRamo("NaoDefinido")
+
+		When.EmpresaPage.bucarPor("Apple");
+
+		Then.EmpresaPage.verificarSeTabelaFiltrouUsandoBarraDePesquisa();
+	});
+
 	opaTest("Deve filtrar junto com o filtro anterior da barra de pesquisa, filtrar pelo select escolhendo Indústria e encontrar só uma empresa", function(Given, When, Then) {
 
-		When.EmpresaPage.filtrarPorRamo("Indústria");
+		When.EmpresaPage.filtrarPorRamo("Industria");
 
-		Then.EmpresaPage.verificarQuantidadeEmpresasFiltradas();
+		Then.EmpresaPage.verificarQuantidadeEmpresasFiltradasPorBarraDePesquisaECombobox();
 
+	});
+
+	opaTest("Deve limpar todos os filtros", function(Given, When, Then){
+
+		When.EmpresaPage.bucarPor(" ");
+
+		When.EmpresaPage.filtrarPorRamo("NaoDefinido")
+
+		Then.EmpresaPage.verificarSeParouDeFiltrar();
 	});
 
 	opaTest("Deve verificar se está filtrando corretamente o select de ramo, filtrando por Comércio", function(Given, When, Then) {
 
-		When.EmpresaPage.bucarPor(" ");
-
-		When.EmpresaPage.filtrarPorRamo("Comércio");
+		When.EmpresaPage.filtrarPorRamo("Comercio");
 
 		Then.EmpresaPage.verificarQuantidadeEmpresasFiltradasSomentePorComercio();
 

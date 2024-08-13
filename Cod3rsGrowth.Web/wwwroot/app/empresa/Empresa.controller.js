@@ -6,8 +6,8 @@ sap.ui.define([
    "sap/m/MessageBox"
 ], (BaseController, ResourceModel, JSONModel, formatter, MessageBox) => {
    "use strict";
-   let eventoBarraDePesquisa = "";
-   let eventoCombobox = "";
+   let filtroBarraDePesquisa = "";
+   let filtroSelect = "";
 
    var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
  
@@ -36,24 +36,25 @@ sap.ui.define([
       
       filtroBarraDePesquisa: function (oEvent){
          var evento = oEvent.getSource().getValue();
-         eventoBarraDePesquisa = evento.replace(/[^a-z0-9]/gi,'');
+         filtroBarraDePesquisa = evento.replace(/[^a-z0-9]/gi,'');
          var verificarSeECNPJ = RegExp('^[0-9]+$');
-         if(!verificarSeECNPJ.test(eventoBarraDePesquisa))
-            eventoBarraDePesquisa = evento;
-         this.filtros();
+
+         if(!verificarSeECNPJ.test(filtroBarraDePesquisa))
+            filtroBarraDePesquisa = evento;
+         this.UrlDeTodosOsFiltros();
       },
       
       filtroCombobox: function (oEvent){
-         eventoCombobox = oEvent.getSource().getSelectedKey();
-         this.filtros();
+         filtroSelect = oEvent.getSource().getSelectedKey();
+         this.UrlDeTodosOsFiltros();
       },
 
-      filtros : function (){
+      UrlDeTodosOsFiltros : function (){
          let urlObterTodosUsandoFiltro;
-         if(eventoCombobox != "Todos"){
-            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${eventoBarraDePesquisa}&Ramo=${eventoCombobox}`;
+         if(filtroSelect != "Todos"){
+            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}&Ramo=${filtroSelect}`;
          }else{
-            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${eventoBarraDePesquisa}`;
+            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}`;
          }
          this.buscarApi(urlObterTodosUsandoFiltro);
       },
