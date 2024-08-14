@@ -17,10 +17,10 @@ sap.ui.define([
          this._mudarNomeDaAba();
 
          const urlObterTodos = '/api/Empresa';
-         this._buscarApi(urlObterTodos);
+         this._obterTodos(urlObterTodos);
 
          const urlEnum = '/api/Enum';
-         this._buscarApiEnum(urlEnum);
+         this._obterDescricaoEnum(urlEnum);
       },
 
       _mudarNomeDaAba: function () 
@@ -56,10 +56,10 @@ sap.ui.define([
          }else{
             urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}`;
          }
-         this._buscarApi(urlObterTodosUsandoFiltro);
+         this._obterTodos(urlObterTodosUsandoFiltro);
       },
       
-      _buscarApi: function (url){
+      _obterTodos: function (url){
          fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
             const dataModel = new JSONModel();
             res.forEach(element => {
@@ -70,7 +70,7 @@ sap.ui.define([
          })
       },
       
-      _buscarApiEnum: function (url){
+      _obterDescricaoEnum: function (url){
          fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
             const dataModel = new JSONModel();
             dataModel.setData(res);
@@ -102,7 +102,7 @@ sap.ui.define([
 			} else {
 				sTitle = oBundle.getText("nomeBarraDeFerramentas");
 			}
-      this.getView().byId("idtituloTabela").setProperty("text", sTitle);
+         this.getView().byId("idtituloTabela").setProperty("text", sTitle);
       }
    });
  });
