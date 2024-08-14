@@ -7,7 +7,8 @@ namespace Cod3rsGrowth.Web.MetodosAuxiliares
     {
         public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            int value = reader.GetInt32();
+            return (T?)Enum.ToObject(typeof(T), value);
         }
 
         public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)

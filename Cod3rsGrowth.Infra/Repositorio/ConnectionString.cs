@@ -3,6 +3,5 @@
     public sealed class ConnectionString
     {
         public static string connectionString { get; set; } = "ConnectionString";
-
     }
 }

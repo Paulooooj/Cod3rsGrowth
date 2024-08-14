@@ -17,10 +17,11 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if(args.FirstOrDefault() == "BancoTeste")
+if(args?.FirstOrDefault() == "BancoTeste")
 {
     ConnectionString.connectionString = "ConnectionStringTeste";
 }
+
 var stringConexao = Environment.GetEnvironmentVariable(ConnectionString.connectionString)
     ?? throw new Exception($"Variavel de ambiente [{ConnectionString.connectionString}] nao encontrada");
 

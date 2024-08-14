@@ -14,16 +14,16 @@ sap.ui.define([
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.Empresa", {
       formatter: formatter,
       onInit: function () {
-         this.mudarNomeDaAba();
+         this._mudarNomeDaAba();
 
          const urlObterTodos = '/api/Empresa';
-         this.buscarApi(urlObterTodos);
+         this._buscarApi(urlObterTodos);
 
          const urlEnum = '/api/Enum';
-         this.buscarApiEnum(urlEnum);
+         this._buscarApiEnum(urlEnum);
       },
 
-      mudarNomeDaAba: function () 
+      _mudarNomeDaAba: function () 
       {
          const i18nModel = new ResourceModel({
             bundleName: "ui5.cod3rsgrowth.i18n.i18n"
@@ -41,32 +41,26 @@ sap.ui.define([
 
          if(!verificarSeECNPJ.test(filtroBarraDePesquisa))
             filtroBarraDePesquisa = evento;
-         this.UrlDeTodosOsFiltros();
+         this._urlDeTodosOsFiltros();
       },
       
       filtroCombobox: function (oEvent){
          filtroSelect = oEvent.getSource().getSelectedKey();
-         this.UrlDeTodosOsFiltros();
+         this._urlDeTodosOsFiltros();
       },
 
-      UrlDeTodosOsFiltros : function (){
+      _urlDeTodosOsFiltros : function (){
          let urlObterTodosUsandoFiltro;
          if(filtroSelect != "Todos"){
             urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}&Ramo=${filtroSelect}`;
          }else{
             urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}`;
          }
-         this.buscarApi(urlObterTodosUsandoFiltro);
+         this._buscarApi(urlObterTodosUsandoFiltro);
       },
       
-      
-      buscarApi: function (url){
-         const statusOk = 200;
-         
-         fetch(url).then(res => res.json()).then(res => {
-            if(res.Status && res.Status !== statusOk){
-               this.mensagemDeErro(res);
-            }
+      _buscarApi: function (url){
+         fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
             const dataModel = new JSONModel();
             res.forEach(element => {
                element.cnpj = this.formatter.formatarCnpj(element.cnpj);
@@ -76,18 +70,15 @@ sap.ui.define([
          })
       },
       
-      buscarApiEnum: function (url){
-         fetch(url).then(res => res.json()).then(res => {
-            if(res.Status && res.Status !== statusOk){
-               this.mensagemDeErro(res);
-            }
+      _buscarApiEnum: function (url){
+         fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
             const dataModel = new JSONModel();
             dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEnum")
          }); 
       },
 
-      mensagemDeErro : function (erro){
+      _mensagemDeErro : function (erro){
          MessageBox.error(`${erro.Title}`, {
             title: "Error",
             details: 
@@ -113,6 +104,5 @@ sap.ui.define([
 			}
       this.getView().byId("idtituloTabela").setProperty("text", sTitle);
       }
-      
    });
  });
