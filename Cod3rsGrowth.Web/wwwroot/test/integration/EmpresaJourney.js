@@ -20,7 +20,7 @@ sap.ui.define([
 		Then.EmpresaPage.oDisplayDeveTerOTantoDeItems();
 	});
 
-	opaTest("Deve ao passar um nome inválido na barra de pesquisa não encontrar nada", function(Given, When, Then){
+	opaTest("Deve ao passar um nome inválido na barra de pesquisa e não encontrar nada", function(Given, When, Then){
 		
 		When.EmpresaPage.bucarPor("Empresa Teste");
 

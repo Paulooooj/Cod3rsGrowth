@@ -5,14 +5,14 @@ sap.ui.define([
     "use strict";
     return BaseController.extend("ui5.cod3rsgrowth.app.notFound.NotFound", {
        onInit: function () {
-         this.mudarNomeDaAba();
+         this._mudarNomeDaAba();
        },
 
        voltarPaginaInicial: function () {
 			this.getRouter().navTo("appEmpresa", {}, true);
 		},
 
-      mudarNomeDaAba: function () 
+      _mudarNomeDaAba: function () 
       {
          const i18nModel = new ResourceModel({
             bundleName: "ui5.cod3rsgrowth.i18n.i18n"
