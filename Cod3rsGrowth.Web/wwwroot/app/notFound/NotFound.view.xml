@@ -1,12 +1,13 @@
 <mvc:View
-   controllerName="ui5.cod3rsgrowth.controller.NotFound"
+   controllerName="ui5.cod3rsgrowth.app.notFound.NotFound"
    xmlns="sap.m"
    xmlns:mvc="sap.ui.core.mvc">
    <Page title="{i18n>paginaNaoEncontrada}" 
       class="sapUiResponsiveContentPadding"
       showNavButton="true"
       navButtonPress="onNavBack"
-      titleAlignment="Center">
+      titleAlignment="Center"
+      >
        <headerContent>
       <Toolbar >
          <Button icon="sap-icon://home"

@@ -1,0 +1,92 @@
+<mvc:View xmlns:calendar="sap.ui.unified.calendar" xmlns:tnt="sap.tnt"
+   controllerName="ui5.cod3rsgrowth.app.empresa.Empresa"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   xmlns:core="sap.ui.core"
+   xmlns:f="sap.f">
+   <Page title="{i18n>nomeDaPaginaEmpresa.titulo}">  
+      <customHeader>
+        <Toolbar >
+         <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4" class="sapUiResponsiveMargin"></Title>
+        </Toolbar>
+      </customHeader>
+      <Table
+         id="idTabelaEmpresa"
+         busyIndicatorDelay="5"
+         class="sapUiResponsiveMargin"
+         alternateRowColors="true"
+         growing="true"
+         growingThreshold="20"
+         sticky="ColumnHeaders,HeaderToolbar"
+			width="auto"
+			fixedLayout="false"
+			autoPopinMode="true"
+			hiddenInPopin="None"
+         items="{listaEmpresa>/}"
+         updateFinished="atualizarTitulo ">
+         <headerToolbar>
+            <Toolbar>
+               <Title id = "idtituloTabela" text="" titleStyle="H4"/>
+               <ToolbarSpacer/>
+               <SearchField 
+               id="idInputRazaoSocial"
+               width="25%"
+               placeholder="{i18n>barraDePesquisaEmpresa}"
+               liveChange="filtroBarraDePesquisa"/>
+               <ToolbarSeparator />
+               <Label text="{i18n>labelFiltroEnum}" />
+               <Select
+               id="idEnumSelecaoRamo"
+               width="10%"
+               change="filtroCombobox"
+               items="{listaEnum>/}"> 
+               <core:ListItem key="{listaEnum>key}" text="{path: 'listaEnum>descricao', formatter: '.formatter.formatarValorPadraoCombobox'}"/>
+               </Select>
+               <Button
+               id="downloadSelectedButton"
+               text="Adicionar"
+               enabled="true"
+               icon="sap-icon://sys-add"/>
+            </Toolbar>
+         </headerToolbar>
+         <columns> 
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Begin">
+               <header>
+                  <Label text="{i18n>nomeColuna.razaoSocial}" />
+               </header>
+            </Column>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>nomeColuna.cnpj}"/>
+               </header>
+            </Column>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>nomeColuna.ramo}"/>
+               </header>
+            </Column>
+         </columns>
+         <items>
+            <ColumnListItem type="Active">
+               <cells>
+                  <ObjectIdentifier title="{listaEmpresa>razaoSocial}"/>
+                  <Text text="{listaEmpresa>cnpj}"/>
+                  <Text text="{listaEmpresa>ramo}"/>
+               </cells>
+            </ColumnListItem>
+         </items>
+        </Table>
+   </Page>
+</mvc:View>
