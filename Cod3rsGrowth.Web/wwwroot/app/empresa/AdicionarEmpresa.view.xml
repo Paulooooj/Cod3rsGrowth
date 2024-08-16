@@ -1,0 +1,31 @@
+<mvc:View xmlns:cards="sap.f.cards" xmlns:vk="sap.ui.vk" 
+	xmlns:form="sap.ui.layout.form"
+	controllerName="ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+	displayBlock="true">
+	<Page title="{i18n>nomeDaPaginaEmpresa.titulo}"  showNavButton="true" navButtonPress="onNavBack">  
+		<content >
+			<Toolbar style="Clear">
+				<Title text="Cadastro de Empresa" textAlign="Center" width="100%"/>
+			</Toolbar>
+			<form:SimpleForm 
+				maxContainerCols="2"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				labelSpanL="4" labelSpanM="4"
+				emptySpanL="4" emptySpanM="4"
+				columnsL="1" columnsM="1">
+				<form:content > 
+					<Label text="Razão Social" required="true"/>
+					<Input value="{FirstName}" required="true" />
+					<Label text="CNPJ" required="true"/>
+					<Input value="{FirstName}" required="true"/>
+					<Label text="Ramo" required="true"/>
+					<Input value="{FirstName}" required="true"/>
+				</form:content>
+			</form:SimpleForm>
+		</content>
+		</Page>
+</mvc:View>

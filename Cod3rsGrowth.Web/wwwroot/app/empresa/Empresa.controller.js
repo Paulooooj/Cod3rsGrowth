@@ -103,6 +103,24 @@ sap.ui.define([
 				sTitle = oBundle.getText("nomeBarraDeFerramentas");
 			}
          this.getView().byId("idtituloTabela").setProperty("text", sTitle);
+      },
+
+      mudarDeTema: function (oEvent){
+         var eventoAlterarTema = oEvent.getSource().getText();
+         const modoClaro = "Claro";
+         const temaClaro = "sap_horizon";
+         const temaEscuro = "sap_horizon_dark";
+
+         if(eventoAlterarTema === modoClaro){
+            sap.ui.getCore().applyTheme(temaClaro);
+         }
+         else{
+            sap.ui.getCore().applyTheme(temaEscuro);
+         }
+      }, 
+
+      irParaAdicionarEmpresa: function (){
+         this.getRouter().navTo("appAdicionarEmpresa", {}, true);
       }
    });
  });

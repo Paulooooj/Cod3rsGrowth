@@ -58,7 +58,12 @@
             "pattern": "",
             "name": "appEmpresa",
             "target": "empresa"
-         }],
+         }, {
+            "pattern" : "adicionar",
+            "name" : "appAdicionarEmpresa",
+            "target": "adicionar"
+         }
+        ],
          "targets": {
             "empresa": {
               "path" :"ui5.cod3rsgrowth.app.empresa",
@@ -71,6 +76,12 @@
               "id": "notFound",
               "name": "NotFound",
               "transition" : "show"
+            },
+            "adicionar" : {
+              "id": "adicionarEmpresa",
+              "path": "ui5.cod3rsgrowth.app.empresa",
+              "name": "AdicionarEmpresa",
+              "level": 2
             }
          }
       }
