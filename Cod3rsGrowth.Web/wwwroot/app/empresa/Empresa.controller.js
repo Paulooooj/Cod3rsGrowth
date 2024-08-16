@@ -16,6 +16,8 @@ sap.ui.define([
       onInit: function () {
          this._mudarNomeDaAba();
 
+         this.getView().setBusyIndicatorDelay(0);
+         this.getView().setBusy(true);
          const urlObterTodos = '/api/Empresa';
          this._obterTodos(urlObterTodos);
 
@@ -61,6 +63,7 @@ sap.ui.define([
       
       _obterTodos: function (url){
          fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
+            this.getView().setBusy(false);
             const dataModel = new JSONModel();
             res.forEach(element => {
                element.cnpj = this.formatter.formatarCnpj(element.cnpj);
@@ -104,20 +107,6 @@ sap.ui.define([
 			}
          this.getView().byId("idtituloTabela").setProperty("text", sTitle);
       },
-
-      mudarDeTema: function (oEvent){
-         var eventoAlterarTema = oEvent.getSource().getText();
-         const modoClaro = "Claro";
-         const temaClaro = "sap_horizon";
-         const temaEscuro = "sap_horizon_dark";
-
-         if(eventoAlterarTema === modoClaro){
-            sap.ui.getCore().applyTheme(temaClaro);
-         }
-         else{
-            sap.ui.getCore().applyTheme(temaEscuro);
-         }
-      }, 
 
       irParaAdicionarEmpresa: function (){
          this.getRouter().navTo("appAdicionarEmpresa", {}, true);

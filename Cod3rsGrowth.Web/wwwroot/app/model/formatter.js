@@ -13,6 +13,16 @@ return{
                 return oResourceBundle.getText("enumNaoDefinido");
             }
             return ramo;
+        },
+
+        formatarValorPadraoComboboxAdicionar : function(ramo) {
+            const ramoNaoDefinido = "Não Definido"; 
+            const oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        
+            if(ramo === ramoNaoDefinido){
+                return oResourceBundle.getText("Selecionar");
+            }
+            return ramo;
         }
     }
 });

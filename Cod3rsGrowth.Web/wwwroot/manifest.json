@@ -58,8 +58,9 @@
             "pattern": "",
             "name": "appEmpresa",
             "target": "empresa"
-         }, {
-            "pattern" : "adicionar",
+         }, 
+         {
+            "pattern" : "AdicionarEmpresa",
             "name" : "appAdicionarEmpresa",
             "target": "adicionar"
          }

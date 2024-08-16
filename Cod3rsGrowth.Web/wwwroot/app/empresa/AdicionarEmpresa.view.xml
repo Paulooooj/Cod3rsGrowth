@@ -5,27 +5,67 @@
 	xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
 	displayBlock="true">
-	<Page title="{i18n>nomeDaPaginaEmpresa.titulo}"  showNavButton="true" navButtonPress="onNavBack">  
-		<content >
-			<Toolbar style="Clear">
-				<Title text="Cadastro de Empresa" textAlign="Center" width="100%"/>
+	<Page title="{i18n>nomeDaPaginaEmpresa.titulo}"  showNavButton="true" navButtonPress="onNavBack"> 
+		<customHeader>
+			<Toolbar>
+			<Button type="Back" press="onNavBack"></Button>
+			 <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4" class="sapUiResponsiveMargin" ></Title>
+			 <ToolbarSpacer />
+         <MenuButton 
+         icon="sap-icon://action-settings"
+         menuPosition="EndBottom"
+         type="Transparent">
+         <menu>
+            <Menu >
+               <MenuItem 
+               icon="sap-icon://palette">
+                  <items>
+                     <MenuItem icon="sap-icon://light-mode" text="Claro" press="mudarDeTema"/>
+                     <MenuItem icon="sap-icon://dark-mode" text="Escuro" press="mudarDeTema"/>
+                  </items>
+               </MenuItem>
+            </Menu>
+         </menu>
+         </MenuButton>
 			</Toolbar>
+		</customHeader>
+		<FlexBox class="sapUiResponsiveMargin" justifyContent="SpaceBetween" direction="Column" backgroundDesign="Translucent">
 			<form:SimpleForm 
 				maxContainerCols="2"
 				editable="true"
 				layout="ResponsiveGridLayout"
-				labelSpanL="4" labelSpanM="4"
-				emptySpanL="4" emptySpanM="4"
-				columnsL="1" columnsM="1">
-				<form:content > 
-					<Label text="Razão Social" required="true"/>
-					<Input value="{FirstName}" required="true" />
-					<Label text="CNPJ" required="true"/>
-					<Input value="{FirstName}" required="true"/>
-					<Label text="Ramo" required="true"/>
-					<Input value="{FirstName}" required="true"/>
+				labelSpanL="1" labelSpanM="1"
+				emptySpanL="8" emptySpanM="8"
+				columnsL="1" columnsM="1"
+				>
+				<form:toolbar>
+					<OverflowToolbar> 
+					<Title text="{i18n>nomeTituloAdicionar}" titleStyle="H4"/>
+					<ToolbarSpacer/>
+					<Button 
+					text="Salvar"
+					type="Success"
+					icon="sap-icon://save"
+					/>
+					<Button 
+					text="Cancelar"
+					type="Reject"
+					icon="sap-icon://sys-cancel-2"/>
+					</OverflowToolbar>
+				</form:toolbar >
+				<form:content> 
+					<Label text="{i18n>textoLabelAdicionar.razaoSocial}" required="true"/>
+					<Input required="true" placeholder="{i18n>placeHolderAdicionar.razaoSocial}"/>
+					<Label text="{i18n>textoLabelAdicionar.cnpj}" required="true"/>
+					<MaskInput mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="{i18n>placeHolderAdicionar.ramo}" showClearIcon="true" required="true"/>
+					<Label text="{i18n>textoLabelAdicionar.ramo}" required="true" />
+					<Select
+               			width="50%"
+               			items="{listaEnum>/}"> 
+               			<core:ListItem key="{listaEnum>key}" text="{path: 'listaEnum>descricao', formatter: '.formatter.formatarValorPadraoComboboxAdicionar'}"/>
+               		</Select>
 				</form:content>
 			</form:SimpleForm>
-		</content>
+			</FlexBox>
 		</Page>
 </mvc:View>
