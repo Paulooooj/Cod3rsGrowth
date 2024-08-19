@@ -2,7 +2,9 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
 	"sap/ui/core/UIComponent",
-], function(Controller, History, UIComponent) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/resource/ResourceModel",
+], function(Controller, History, UIComponent, JSONModel, ResourceModel) {
 	"use strict";
 
 	return Controller.extend("ui5.cod3rsgrowth.app.BaseController", {
@@ -37,6 +39,24 @@ sap.ui.define([
 			   sap.ui.getCore().applyTheme(temaEscuro);
 			}
 		 }, 
+
+		 _obterDescricaoEnum: function (url){
+			fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
+			   const dataModel = new JSONModel();
+			   dataModel.setData(res);
+			   this.getView().setModel(dataModel, "listaEnum")
+			}); 
+		 },
+
+		 _mudarNomeDaAba: function (nomeDaAbaPagina) {
+			const i18nModel = new ResourceModel({
+			   bundleName: "ui5.cod3rsgrowth.i18n.i18n"
+			});
+			this.getView().setModel(i18nModel, "i18n");
+			const oBundle = this.getView().getModel("i18n").getResourceBundle();
+			const sTitulo = oBundle.getText(nomeDaAbaPagina);
+			document.title = sTitulo;
+		 }
 	});
 
 });

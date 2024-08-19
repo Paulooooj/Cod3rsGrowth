@@ -44,8 +44,8 @@
 					<ToolbarSpacer/>
 					<Button 
 					text="Salvar"
-					type="Success"
 					icon="sap-icon://save"
+					press="salvar"
 					/>
 					<Button 
 					text="Cancelar"
@@ -55,11 +55,12 @@
 				</form:toolbar >
 				<form:content> 
 					<Label text="{i18n>textoLabelAdicionar.razaoSocial}" required="true"/>
-					<Input required="true" placeholder="{i18n>placeHolderAdicionar.razaoSocial}"/>
+					<Input id="valorInputRazaoSocial" required="true" placeholder="{i18n>placeHolderAdicionar.razaoSocial}"/>
 					<Label text="{i18n>textoLabelAdicionar.cnpj}" required="true"/>
-					<MaskInput mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="{i18n>placeHolderAdicionar.ramo}" showClearIcon="true" required="true"/>
+					<MaskInput id="valorInputCNPJ" mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="{i18n>placeHolderAdicionar.ramo}" showClearIcon="true" required="true"/>
 					<Label text="{i18n>textoLabelAdicionar.ramo}" required="true" />
 					<Select
+						id="selectRamoAdicionar"
                			width="50%"
                			items="{listaEnum>/}"> 
                			<core:ListItem key="{listaEnum>key}" text="{path: 'listaEnum>descricao', formatter: '.formatter.formatarValorPadraoComboboxAdicionar'}"/>

@@ -14,26 +14,17 @@ sap.ui.define([
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.Empresa", {
       formatter: formatter,
       onInit: function () {
-         this._mudarNomeDaAba();
+         var nomeDaAba = "nomeDaPaginaEmpresa";
+         this._mudarNomeDaAba(nomeDaAba);
 
          this.getView().setBusyIndicatorDelay(0);
          this.getView().setBusy(true);
+
          const urlObterTodos = '/api/Empresa';
          this._obterTodos(urlObterTodos);
 
          const urlEnum = '/api/Enum';
          this._obterDescricaoEnum(urlEnum);
-      },
-
-      _mudarNomeDaAba: function () 
-      {
-         const i18nModel = new ResourceModel({
-            bundleName: "ui5.cod3rsgrowth.i18n.i18n"
-         });
-         this.getView().setModel(i18nModel, "i18n");
-         const oBundle = this.getView().getModel("i18n").getResourceBundle();
-         const sTitulo = oBundle.getText("nomeDaPaginaEmpresa");
-         document.title = sTitulo;
       },
       
       filtroBarraDePesquisa: function (oEvent){
@@ -52,13 +43,19 @@ sap.ui.define([
       },
 
       _urlDeTodosOsFiltros : function (){
-         let urlObterTodosUsandoFiltro;
-         if(filtroSelect != "Todos"){
-            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}&Ramo=${filtroSelect}`;
-         }else{
-            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}`;
+         let query = {};
+
+         if(filtroBarraDePesquisa){
+            query.razaoSocialECnpj = filtroBarraDePesquisa;
          }
-         this._obterTodos(urlObterTodosUsandoFiltro);
+
+         if(filtroSelect && filtroSelect != "Todos"){
+            query.ramo = filtroSelect;
+         }
+
+         let urlObterTodos = '/api/Empresa?' + new URLSearchParams(query);
+
+         this._obterTodos(urlObterTodos);
       },
       
       _obterTodos: function (url){
@@ -71,14 +68,6 @@ sap.ui.define([
             dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEmpresa")
          })
-      },
-      
-      _obterDescricaoEnum: function (url){
-         fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
-            const dataModel = new JSONModel();
-            dataModel.setData(res);
-            this.getView().setModel(dataModel, "listaEnum")
-         }); 
       },
 
       _mensagemDeErro : function (erro){
