@@ -14,7 +14,7 @@ sap.ui.define([
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.Empresa", {
       formatter: formatter,
       onInit: function () {
-         var nomeDaAba = "nomeDaPaginaEmpresa";
+         const nomeDaAba = "nomeDaPaginaEmpresa";
          this._mudarNomeDaAba(nomeDaAba);
 
          this.getView().setBusyIndicatorDelay(0);

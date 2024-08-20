@@ -40,7 +40,7 @@
 			autoPopinMode="true"
 			hiddenInPopin="None"
          items="{listaEmpresa>/}"
-         updateFinished="atualizarTitulo ">
+         updateFinished="atualizarTitulo">
          <headerToolbar>
             <Toolbar>
                <Title id = "idtituloTabela" text="" titleStyle="H4"/>

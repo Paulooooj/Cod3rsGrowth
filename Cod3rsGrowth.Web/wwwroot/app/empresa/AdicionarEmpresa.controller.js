@@ -3,45 +3,69 @@ sap.ui.define([
    "../model/formatter",
  ], function (BaseController, formatter, JSONModel) {
     "use strict";
+
+    const IdInputRazaoSocial = "valorInputRazaoSocial";
+    const IdInputCnpj = "valorInputCNPJ";
+    const IdSelectRamo = "selectRamoAdicionar";
+    const razaoSocialECNPJVazio = "";
+    const ramoNaoDefinido = "NaoDefinido";
+
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa", {
       formatter: formatter,
       onInit: function () {
-         var nomeDaAba = "nomeDaAbaPaginaIniciar";
+         const nomeDaAba = "nomeDaAbaPaginaIniciar";
          this._mudarNomeDaAba(nomeDaAba);
 
          const urlEnum = '/api/Enum';
          this._obterDescricaoEnum(urlEnum);
 
-         this.getRouter().getRoute("appAdicionarEmpresa").attachMatched(this._aoCoincidirRota, this);
+         const rotaTelaDeAdicionar = "appAdicionarEmpresa";
+         this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);
       },
 
       _aoCoincidirRota: function () {
-         this.getView().byId("valorInputRazaoSocial").setValueState("None");
-         this.getView().byId("valorInputCNPJ").setValueState("None");
-         this.getView().byId("selectRamoAdicionar").setValueState("None");
+         const valueStateNenhum = "None";
+
+         this.getView().byId(IdInputRazaoSocial).setValueState(valueStateNenhum);
+         this.getView().byId(IdInputRazaoSocial).setValue("");
+
+         this.getView().byId(IdInputCnpj).setValueState(valueStateNenhum);
+         this.getView().byId(IdInputCnpj).setValue("");
+
+         this.getView().byId(IdSelectRamo).setValueState(valueStateNenhum);
+         this.getView().byId(IdSelectRamo).setSelectedKey(valueStateNenhum);
       },
 
       salvar: function (){
-         var razaoSocial = this.getView().byId("valorInputRazaoSocial").getValue();
-         var cnpj = this.getView().byId("valorInputCNPJ").getValue();
+         var razaoSocial = this.getView().byId(IdInputRazaoSocial).getValue();
+         var cnpj = this.getView().byId(IdInputCnpj).getValue();
          cnpj = cnpj.replace(/[^a-z0-9]/gi,'');
-         var ramo = this.getView().byId("selectRamoAdicionar").getSelectedKey();
+         var ramo = this.getView().byId(IdSelectRamo).getSelectedKey();
 
-         if(razaoSocial === ""){
-            this.getView().byId("valorInputRazaoSocial").setValueState("Error");
-            this.getView().byId("valorInputRazaoSocial").setValueStateText("Informe a Razão Social");
-         }
+         this._validacaoDeTela(razaoSocial, cnpj, ramo);
 
-         if(cnpj === ""){
-            this.getView().byId("valorInputCNPJ").setValueState("Error");
-            this.getView().byId("valorInputCNPJ").setValueStateText("Informe o CNPJ");
-         }
+         if(razaoSocial !== razaoSocialECNPJVazio && cnpj !== razaoSocialECNPJVazio && ramo !== ramoNaoDefinido)
+            debugger;
+      }, 
 
-         if(ramo === "NaoDefinido"){
-            this.getView().byId("selectRamoAdicionar").setValueState("Error");
-            this.getView().byId("selectRamoAdicionar").setValueStateText("Informe o Ramo");
-         }
+      _validacaoDeTela: function (razaoSocial, cnpj, ramo){
+         const valueStateErro = "Error";
+         const valueStateSucesso = "None";
+
+         if(razaoSocial === razaoSocialECNPJVazio)
+            this.getView().byId(IdInputRazaoSocial).setValueState(valueStateErro);
+         else 
+            this.getView().byId(IdInputRazaoSocial).setValueState(valueStateSucesso);
+
+         if(cnpj === razaoSocialECNPJVazio)
+            this.getView().byId(IdInputCnpj).setValueState(valueStateErro);
+         else 
+            this.getView().byId(IdInputCnpj).setValueState(valueStateSucesso);
+
+         if(ramo === ramoNaoDefinido)
+            this.getView().byId(IdSelectRamo).setValueState(valueStateErro);
+         else 
+            this.getView().byId(IdSelectRamo).setValueState(valueStateSucesso);
       }
     });
- 
  });
