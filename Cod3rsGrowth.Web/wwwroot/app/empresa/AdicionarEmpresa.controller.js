@@ -1,14 +1,18 @@
 sap.ui.define([
    "ui5/cod3rsgrowth/app/BaseController",
    "../model/formatter",
- ], function (BaseController, formatter, JSONModel) {
+	"sap/m/MessageBox"
+ ], function (BaseController, formatter, MessageBox) {
     "use strict";
 
     const IdInputRazaoSocial = "valorInputRazaoSocial";
     const IdInputCnpj = "valorInputCNPJ";
     const IdSelectRamo = "selectRamoAdicionar";
     const razaoSocialECNPJVazio = "";
-    const ramoNaoDefinido = "NaoDefinido";
+    const ramoNaoDefinido = 0;
+    const removerValueState = "None";
+    var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
+
 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa", {
       formatter: formatter,
@@ -24,48 +28,85 @@ sap.ui.define([
       },
 
       _aoCoincidirRota: function () {
-         const valueStateNenhum = "None";
-
-         this.getView().byId(IdInputRazaoSocial).setValueState(valueStateNenhum);
+         this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
          this.getView().byId(IdInputRazaoSocial).setValue("");
 
-         this.getView().byId(IdInputCnpj).setValueState(valueStateNenhum);
+         this.getView().byId(IdInputCnpj).setValueState(removerValueState);
          this.getView().byId(IdInputCnpj).setValue("");
 
-         this.getView().byId(IdSelectRamo).setValueState(valueStateNenhum);
-         this.getView().byId(IdSelectRamo).setSelectedKey(valueStateNenhum);
+         this.getView().byId(IdSelectRamo).setValueState(removerValueState);
+         this.getView().byId(IdSelectRamo).setSelectedKey(removerValueState);
       },
 
-      salvar: function (){
-         var razaoSocial = this.getView().byId(IdInputRazaoSocial).getValue();
-         var cnpj = this.getView().byId(IdInputCnpj).getValue();
-         cnpj = cnpj.replace(/[^a-z0-9]/gi,'');
-         var ramo = this.getView().byId(IdSelectRamo).getSelectedKey();
+      aoClicarEmSalvar: function (){
+         let empresa = {};
+         empresa.razaoSocial = this.getView().byId(IdInputRazaoSocial).getValue();
+         empresa.cnpj = this.getView().byId(IdInputCnpj).getValue();
+         empresa.cnpj = empresa.cnpj.replace(/[^a-z0-9]/gi,'');
+         empresa.ramo = parseInt(this.getView().byId(IdSelectRamo).getSelectedKey());
 
-         this._validacaoDeTela(razaoSocial, cnpj, ramo);
+         this._validacaoDeTela(empresa);
 
-         if(razaoSocial !== razaoSocialECNPJVazio && cnpj !== razaoSocialECNPJVazio && ramo !== ramoNaoDefinido)
-            debugger;
+         if(empresa.razaoSocial !== razaoSocialECNPJVazio && empresa.cnpj !== razaoSocialECNPJVazio && empresa.ramo !== ramoNaoDefinido)
+            this._adicionarEmpresaAoBancoDeDados(empresa);
       }, 
 
-      _validacaoDeTela: function (razaoSocial, cnpj, ramo){
+      _validacaoDeTela: function (empresa){
          const valueStateErro = "Error";
-         const valueStateSucesso = "None";
 
-         if(razaoSocial === razaoSocialECNPJVazio)
+         if(empresa.razaoSocial === razaoSocialECNPJVazio)
             this.getView().byId(IdInputRazaoSocial).setValueState(valueStateErro);
          else 
-            this.getView().byId(IdInputRazaoSocial).setValueState(valueStateSucesso);
+            this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
 
-         if(cnpj === razaoSocialECNPJVazio)
+         if(empresa.cnpj === razaoSocialECNPJVazio)
             this.getView().byId(IdInputCnpj).setValueState(valueStateErro);
          else 
-            this.getView().byId(IdInputCnpj).setValueState(valueStateSucesso);
+            this.getView().byId(IdInputCnpj).setValueState(removerValueState);
 
-         if(ramo === ramoNaoDefinido)
+         if(empresa.ramo === ramoNaoDefinido)
             this.getView().byId(IdSelectRamo).setValueState(valueStateErro);
          else 
-            this.getView().byId(IdSelectRamo).setValueState(valueStateSucesso);
-      }
+            this.getView().byId(IdSelectRamo).setValueState(removerValueState);
+      }, 
+
+      aoClicarEmCancelar: function (){
+			 this.getRouter().navTo("appEmpresa", {}, true);
+      },
+
+      _adicionarEmpresaAoBancoDeDados: function (empresa){
+         const url = '/api/Empresa';
+         const options = {
+            method: 'Post',
+            body: JSON.stringify(empresa),
+            headers: {
+               "Content-Type": "application/json",
+            }
+         };
+
+         fetch(url, options)
+         .then( res => {
+               if(!res.ok){
+                  res.json()
+                  .then(res => {this._mensagemDeErro(res)})
+               }
+         })
+      },
+
+      _mensagemDeErro : function (erro){
+			let mensagemDeErro = Object.values(erro.Extensions.ErroDeValidacao).join("\n");
+			MessageBox.error(`${erro.Title} \n\n ${mensagemDeErro}`, {
+			   title: "Error",
+            
+			   details:
+			   `<p><strong>Status: ${erro.Status}</strong></p>` +
+			   "<p><strong>Detalhes:</strong></p>" +
+			   "<ul>" +
+			   `<li>${erro.Detail}</li>` +
+			   "</ul>",
+			   styleClass: sResponsivePaddingClasses,
+			   dependentOn: this.getView()
+			});
+		 },
     });
  });

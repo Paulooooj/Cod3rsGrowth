@@ -1,10 +1,9 @@
 sap.ui.define([
    "ui5/cod3rsgrowth/app/BaseController",
-   "sap/ui/model/resource/ResourceModel",
    "sap/ui/model/json/JSONModel",
    "../model/formatter",
    "sap/m/MessageBox"
-], (BaseController, ResourceModel, JSONModel, formatter, MessageBox) => {
+], (BaseController, JSONModel, formatter, MessageBox) => {
    "use strict";
    let filtroBarraDePesquisa = "";
    let filtroSelect = "";
@@ -16,9 +15,6 @@ sap.ui.define([
       onInit: function () {
          const nomeDaAba = "nomeDaPaginaEmpresa";
          this._mudarNomeDaAba(nomeDaAba);
-
-         this.getView().setBusyIndicatorDelay(0);
-         this.getView().setBusy(true);
 
          const urlObterTodos = '/api/Empresa';
          this._obterTodos(urlObterTodos);
@@ -60,9 +56,9 @@ sap.ui.define([
       
       _obterTodos: function (url){
          fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
-            this.getView().setBusy(false);
             const dataModel = new JSONModel();
             res.forEach(element => {
+               debugger;
                element.cnpj = this.formatter.formatarCnpj(element.cnpj);
             })
             dataModel.setData(res);
@@ -70,20 +66,6 @@ sap.ui.define([
          })
       },
 
-      _mensagemDeErro : function (erro){
-         MessageBox.error(`${erro.Title}`, {
-            title: "Error",
-            details: 
-            `<p><strong>Status: ${erro.Status}</strong></p>` +
-            "<p><strong>Detalhes:</strong></p>" +
-            "<ul>" +
-            `<li>${erro.Detail}</li>` +
-            "</ul>",
-            styleClass: sResponsivePaddingClasses,
-            dependentOn: this.getView()
-         });
-      },
-      
       atualizarTitulo : function (oEvent){
          var sTitle,
 				oTable = oEvent.getSource(),
@@ -96,6 +78,20 @@ sap.ui.define([
 			}
          this.getView().byId("idtituloTabela").setProperty("text", sTitle);
       },
+
+      _mensagemDeErro : function (erro){
+			MessageBox.error(`${erro.Title}`, {
+			   title: "Error",
+			   details: A
+			   `<p><strong>Status: ${erro.Status}</strong></p>` +
+			   "<p><strong>Detalhes:</strong></p>" +
+			   "<ul>" +
+			   `<li>${erro.Detail}</li>` +
+			   "</ul>",
+			   styleClass: sResponsivePaddingClasses,
+			   dependentOn: this.getView()
+			});
+		 },
 
       irParaAdicionarEmpresa: function (){
          this.getRouter().navTo("appAdicionarEmpresa", {}, true);
