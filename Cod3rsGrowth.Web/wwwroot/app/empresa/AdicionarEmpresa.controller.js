@@ -94,7 +94,7 @@ sap.ui.define([
       },
 
       _mensagemDeErro : function (erro){
-			let mensagemDeErro = Object.values(erro.Extensions.ErroDeValidacao).join("\n");
+			let mensagemDeErro = Object.values(erro.Extensions.ErroDeValidacao).join("\r\n");
 			MessageBox.error(`${erro.Title} \n\n ${mensagemDeErro}`, {
 			   title: "Error",
             
