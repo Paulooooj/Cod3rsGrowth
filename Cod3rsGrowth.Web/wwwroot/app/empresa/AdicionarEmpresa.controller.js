@@ -11,8 +11,7 @@ sap.ui.define([
     const razaoSocialECNPJVazio = "";
     const ramoNaoDefinido = 0;
     const removerValueState = "None";
-    var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
-
+	 var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa", {
       formatter: formatter,
@@ -54,24 +53,31 @@ sap.ui.define([
       _validacaoDeTela: function (empresa){
          const valueStateErro = "Error";
 
-         if(empresa.razaoSocial === razaoSocialECNPJVazio)
-            this.getView().byId(IdInputRazaoSocial).setValueState(valueStateErro);
-         else 
-            this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
+         empresa.razaoSocial == razaoSocialECNPJVazio? 
+         this.getView().byId(IdInputRazaoSocial).setValueState(valueStateErro) : 
+         this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
+       
+         empresa.cnpj == razaoSocialECNPJVazio? 
+         this.getView().byId(IdInputCnpj).setValueState(valueStateErro) : 
+         this.getView().byId(IdInputCnpj).setValueState(removerValueState);
 
-         if(empresa.cnpj === razaoSocialECNPJVazio)
-            this.getView().byId(IdInputCnpj).setValueState(valueStateErro);
-         else 
-            this.getView().byId(IdInputCnpj).setValueState(removerValueState);
-
-         if(empresa.ramo === ramoNaoDefinido)
-            this.getView().byId(IdSelectRamo).setValueState(valueStateErro);
-         else 
-            this.getView().byId(IdSelectRamo).setValueState(removerValueState);
+         empresa.ramo == ramoNaoDefinido? 
+         this.getView().byId(IdSelectRamo).setValueState(valueStateErro) : 
+         this.getView().byId(IdSelectRamo).setValueState(removerValueState);
       }, 
 
       aoClicarEmCancelar: function (){
-			 this.getRouter().navTo("appEmpresa", {}, true);
+         const mensagemDeSucesso = `Deseja mesmo cancelar?`
+         MessageBox.warning(mensagemDeSucesso, {
+            styleClass: sResponsivePaddingClasses,
+            dependentOn: this.getView(),
+            actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+            onClose: (sAction) => {
+               if(sAction == MessageBox.Action.OK){
+				      this.getRouter().navTo("appEmpresa", {}, true);
+               }
+            }
+         })
       },
 
       _adicionarEmpresaAoBancoDeDados: function (empresa){
@@ -85,28 +91,25 @@ sap.ui.define([
          };
 
          fetch(url, options)
-         .then( res => {
-               if(!res.ok){
-                  res.json()
-                  .then(res => {this._mensagemDeErro(res)})
-               }
+         .then( res => {return !res.ok? 
+            res.json().then(res => this._mensagemDeErro(res)) : 
+            this._mensageDeSucesso(empresa);
          })
       },
 
-      _mensagemDeErro : function (erro){
-			let mensagemDeErro = Object.values(erro.Extensions.ErroDeValidacao).join("\r\n");
-			MessageBox.error(`${erro.Title} \n\n ${mensagemDeErro}`, {
-			   title: "Error",
-            
-			   details:
-			   `<p><strong>Status: ${erro.Status}</strong></p>` +
-			   "<p><strong>Detalhes:</strong></p>" +
-			   "<ul>" +
-			   `<li>${erro.Detail}</li>` +
-			   "</ul>",
-			   styleClass: sResponsivePaddingClasses,
-			   dependentOn: this.getView()
-			});
-		 },
+      _mensageDeSucesso: function (empresa){
+         const mensagemDeSucesso = `${empresa.razaoSocial} foi adicionado com sucesso!`
+         MessageBox.success(mensagemDeSucesso, {
+            id: "messageBoxSucesso",
+            styleClass: sResponsivePaddingClasses,
+            dependentOn: this.getView(),
+            actions: [MessageBox.Action.OK],
+            onClose: (sAction) => {
+               if(sAction == MessageBox.Action.OK){
+				      this.getRouter().navTo("appEmpresa", {}, true);
+               }
+            }
+         })
+      }
     });
  });

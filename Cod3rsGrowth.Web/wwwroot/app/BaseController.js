@@ -4,8 +4,11 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/resource/ResourceModel",
-], function(Controller, History, UIComponent, JSONModel, ResourceModel) {
+	"sap/m/MessageBox"
+], function(Controller, History, UIComponent, JSONModel, ResourceModel, MessageBox) {
 	"use strict";
+	
+	var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
 
 	return Controller.extend("ui5.cod3rsgrowth.app.BaseController", {
 		
@@ -41,7 +44,9 @@ sap.ui.define([
 		 }, 
 
 		 _obterDescricaoEnum: function (url){
-			fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
+			fetch(url).then(res => {return res.ok? res.json() :
+				res.json().then(res => {this._mensagemDeErro(res)})})
+				.then(res => {
 			   const dataModel = new JSONModel();
 			   dataModel.setData(res);
 			   this.getView().setModel(dataModel, "listaEnum")
@@ -56,7 +61,39 @@ sap.ui.define([
 			const oBundle = this.getView().getModel("i18n").getResourceBundle();
 			const sTitulo = oBundle.getText(nomeDaAbaPagina);
 			document.title = sTitulo;
-		 }
+		 },
+
+		 _mensagemDeErro : function (erro){
+			const tituloErroDeValidacao = "Erro de Validação!";
+
+			if(erro.Title == tituloErroDeValidacao){
+			let mensagemDeErro = Object.values(erro.Extensions.ErroDeValidacao).join("\r\n");
+			MessageBox.error(`${erro.Title} \n\n ${mensagemDeErro}`, {
+			   title: "Error",
+			   details:
+			   `<p><strong>Status: ${erro.Status}</strong></p>` +
+			   "<p><strong>Detalhes:</strong></p>" +
+			   "<ul>" +
+			   `<li>${erro.Detail}</li>` +
+			   "</ul>",
+			   styleClass: sResponsivePaddingClasses,
+			   dependentOn: this.getView()
+			});
+			}
+			else {
+				MessageBox.error(`${erro.Title}`, {
+					title: "Error",
+					details:
+					`<p><strong>Status: ${erro.Status}</strong></p>` +
+					"<p><strong>Detalhes:</strong></p>" +
+					"<ul>" +
+					`<li>${erro.Detail}</li>` +
+					"</ul>",
+					styleClass: sResponsivePaddingClasses,
+					dependentOn: this.getView()
+				 });
+			}
+		 },
 	});
 
 });

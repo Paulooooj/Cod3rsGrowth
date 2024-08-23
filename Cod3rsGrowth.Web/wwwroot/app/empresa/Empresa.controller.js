@@ -3,16 +3,19 @@ sap.ui.define([
    "sap/ui/model/json/JSONModel",
    "../model/formatter",
    "sap/m/MessageBox"
-], (BaseController, JSONModel, formatter, MessageBox) => {
+], (BaseController, JSONModel, formatter) => {
    "use strict";
    let filtroBarraDePesquisa = "";
    let filtroSelect = "";
 
-   var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
- 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.Empresa", {
       formatter: formatter,
       onInit: function () {
+         const rotaTelaDeAdicionar = "appEmpresa";
+         this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);
+      },
+
+      _aoCoincidirRota: function () {
          const nomeDaAba = "nomeDaPaginaEmpresa";
          this._mudarNomeDaAba(nomeDaAba);
 
@@ -55,10 +58,12 @@ sap.ui.define([
       },
       
       _obterTodos: function (url){
-         fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
+         fetch(url).then(res => {return res.ok? 
+            res.json() : 
+            res.json().then(res => {this._mensagemDeErro(res)})})
+            .then(res => {
             const dataModel = new JSONModel();
             res.forEach(element => {
-               debugger;
                element.cnpj = this.formatter.formatarCnpj(element.cnpj);
             })
             dataModel.setData(res);
@@ -78,20 +83,6 @@ sap.ui.define([
 			}
          this.getView().byId("idtituloTabela").setProperty("text", sTitle);
       },
-
-      _mensagemDeErro : function (erro){
-			MessageBox.error(`${erro.Title}`, {
-			   title: "Error",
-			   details: A
-			   `<p><strong>Status: ${erro.Status}</strong></p>` +
-			   "<p><strong>Detalhes:</strong></p>" +
-			   "<ul>" +
-			   `<li>${erro.Detail}</li>` +
-			   "</ul>",
-			   styleClass: sResponsivePaddingClasses,
-			   dependentOn: this.getView()
-			});
-		 },
 
       irParaAdicionarEmpresa: function (){
          this.getRouter().navTo("appAdicionarEmpresa", {}, true);

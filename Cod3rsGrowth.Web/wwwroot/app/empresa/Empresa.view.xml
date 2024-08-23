@@ -60,7 +60,7 @@
                <core:ListItem key="{listaEnum>key}" text="{path: 'listaEnum>descricao', formatter: '.formatter.formatarValorPadraoCombobox'}"/>
                </Select>
                <Button
-               id="downloadSelectedButton"
+               id="idBotaoAdicionar"
                text="Adicionar"
                enabled="true"
                icon="sap-icon://sys-add"
