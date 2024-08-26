@@ -43,11 +43,13 @@
 					<Title text="{i18n>nomeTituloAdicionar}" titleStyle="H4"/>
 					<ToolbarSpacer/>
 					<Button 
+					id="idBotaoSalvar"
 					text="Salvar"
 					icon="sap-icon://save"
 					press="aoClicarEmSalvar"
 					/>
 					<Button 
+					id="idBotaoCancelar"
 					text="Cancelar"
 					type="Reject"
 					icon="sap-icon://sys-cancel-2"
@@ -56,12 +58,12 @@
 				</form:toolbar >
 				<form:content> 
 					<Label text="{i18n>textoLabelAdicionar.razaoSocial}" required="true"/>
-					<Input id="valorInputRazaoSocial" required="true" placeholder="{i18n>placeHolderAdicionar.razaoSocial}" valueStateText="{i18n>mensagemDeErroInput.razaoSocial}"/>
+					<Input id="idInputRazaoSocial" required="true" placeholder="{i18n>placeHolderAdicionar.razaoSocial}" valueStateText="{i18n>mensagemDeErroInput.razaoSocial}"/>
 					<Label text="{i18n>textoLabelAdicionar.cnpj}" required="true"/>
-					<MaskInput id="valorInputCNPJ" mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="{i18n>placeHolderAdicionar.ramo}" showClearIcon="true" required="true" valueStateText="{i18n>mensagemDeErroInput.cnpj}"/>
+					<MaskInput id="idInputCNPJ" mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="{i18n>placeHolderAdicionar.ramo}" showClearIcon="true" required="true" valueStateText="{i18n>mensagemDeErroInput.cnpj}"/>
 					<Label text="{i18n>textoLabelAdicionar.ramo}" required="true" />
 					<Select
-						id="selectRamoAdicionar"
+						id="idSelectRamoAdicionar"
                			width="50%"
 						valueStateText="{i18n>mensagemDeErroSelect}"
                			items="{listaEnum>/}"> 

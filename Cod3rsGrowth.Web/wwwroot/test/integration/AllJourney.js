@@ -2,7 +2,8 @@ sap.ui.define([
     'sap/ui/test/Opa5',
     './arrangements/Startup',
     './EmpresaJourney',
-], function(Opa5, Startup, EmpresaJourney) {
+    './AdicionarEmpresaJourney'
+], function(Opa5, Startup, EmpresaJourney, AdicionarEmpresaJourney) {
     'use strict';
  
     Opa5.extendConfig({
@@ -11,4 +12,3 @@ sap.ui.define([
         autoWait: true
     });   
 });
- 

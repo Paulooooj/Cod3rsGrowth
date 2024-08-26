@@ -11,7 +11,6 @@ sap.ui.define([
 	"use strict";
 
 	const sViewName = "empresa.Empresa";
-	const nomeDaViewDeAdicionarEmpresa = "empresa.AdicionarEmpresa";
 	var sTableId = "idTabelaEmpresa";
 	var mensagemDeAcerto = "";
 	var mensagemDeErro = "";
@@ -69,7 +68,7 @@ sap.ui.define([
 						actions: new Press(),
 						errorMessage : "Não foi possivel encontrar o botão!"
 					});
-				}
+				},
 			},
 
 			assertions: {

@@ -5,9 +5,9 @@ sap.ui.define([
  ], function (BaseController, formatter, MessageBox) {
     "use strict";
 
-    const IdInputRazaoSocial = "valorInputRazaoSocial";
-    const IdInputCnpj = "valorInputCNPJ";
-    const IdSelectRamo = "selectRamoAdicionar";
+    const IdInputRazaoSocial = "idInputRazaoSocial";
+    const IdInputCnpj = "idInputCNPJ";
+    const IdSelectRamo = "idSelectRamoAdicionar";
     const razaoSocialECNPJVazio = "";
     const ramoNaoDefinido = 0;
     const removerValueState = "None";
@@ -53,9 +53,10 @@ sap.ui.define([
       _validacaoDeTela: function (empresa){
          const valueStateErro = "Error";
 
-         empresa.razaoSocial == razaoSocialECNPJVazio? 
-         this.getView().byId(IdInputRazaoSocial).setValueState(valueStateErro) : 
-         this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
+         if(empresa.razaoSocial  === razaoSocialECNPJVazio || empresa.razaoSocial.trim() === razaoSocialECNPJVazio)
+            this.getView().byId(IdInputRazaoSocial).setValueState(valueStateErro);
+         else
+            this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
        
          empresa.cnpj == razaoSocialECNPJVazio? 
          this.getView().byId(IdInputCnpj).setValueState(valueStateErro) : 
