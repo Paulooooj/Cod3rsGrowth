@@ -26,21 +26,6 @@ sap.ui.define([
          this._obterDescricaoEnum(urlEnum);
       },
       
-      filtroBarraDePesquisa: function (oEvent){
-         var evento = oEvent.getSource().getValue();
-         filtroBarraDePesquisa = evento.replace(/[^a-z0-9]/gi,'');
-         var verificarSeECNPJ = RegExp('^[0-9]+$');
-
-         if(!verificarSeECNPJ.test(filtroBarraDePesquisa))
-            filtroBarraDePesquisa = evento;
-         this._urlDeTodosOsFiltros();
-      },
-      
-      filtroCombobox: function (oEvent){
-         filtroSelect = oEvent.getSource().getSelectedKey();
-         this._urlDeTodosOsFiltros();
-      },
-
       _urlDeTodosOsFiltros : function (){
          let query = {};
 
@@ -69,6 +54,21 @@ sap.ui.define([
             dataModel.setData(res);
             this.getView().setModel(dataModel, "listaEmpresa")
          })
+      },
+
+      filtroBarraDePesquisa: function (oEvent){
+         var evento = oEvent.getSource().getValue();
+         filtroBarraDePesquisa = evento.replace(/[^a-z0-9]/gi,'');
+         var verificarSeECNPJ = RegExp('^[0-9]+$');
+
+         if(!verificarSeECNPJ.test(filtroBarraDePesquisa))
+            filtroBarraDePesquisa = evento;
+         this._urlDeTodosOsFiltros();
+      },
+      
+      filtroCombobox: function (oEvent){
+         filtroSelect = oEvent.getSource().getSelectedKey();
+         this._urlDeTodosOsFiltros();
       },
 
       atualizarTitulo : function (oEvent){

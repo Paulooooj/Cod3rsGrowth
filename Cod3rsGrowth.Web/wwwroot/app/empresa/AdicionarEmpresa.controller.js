@@ -37,19 +37,6 @@ sap.ui.define([
          this.getView().byId(IdSelectRamo).setSelectedKey(removerValueState);
       },
 
-      aoClicarEmSalvar: function (){
-         let empresa = {};
-         empresa.razaoSocial = this.getView().byId(IdInputRazaoSocial).getValue();
-         empresa.cnpj = this.getView().byId(IdInputCnpj).getValue();
-         empresa.cnpj = empresa.cnpj.replace(/[^a-z0-9]/gi,'');
-         empresa.ramo = parseInt(this.getView().byId(IdSelectRamo).getSelectedKey());
-
-         this._validacaoDeTela(empresa);
-
-         if(empresa.razaoSocial !== razaoSocialECNPJVazio && empresa.cnpj !== razaoSocialECNPJVazio && empresa.ramo !== ramoNaoDefinido)
-            this._adicionarEmpresaAoBancoDeDados(empresa);
-      }, 
-
       _validacaoDeTela: function (empresa){
          const valueStateErro = "Error";
 
@@ -65,20 +52,6 @@ sap.ui.define([
          empresa.ramo == ramoNaoDefinido? 
          this.getView().byId(IdSelectRamo).setValueState(valueStateErro) : 
          this.getView().byId(IdSelectRamo).setValueState(removerValueState);
-      }, 
-
-      aoClicarEmCancelar: function (){
-         const mensagemDeSucesso = `Deseja mesmo cancelar?`
-         MessageBox.warning(mensagemDeSucesso, {
-            styleClass: sResponsivePaddingClasses,
-            dependentOn: this.getView(),
-            actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-            onClose: (sAction) => {
-               if(sAction == MessageBox.Action.OK){
-				      this.getRouter().navTo("appEmpresa", {}, true);
-               }
-            }
-         })
       },
 
       _adicionarEmpresaAoBancoDeDados: function (empresa){
@@ -111,6 +84,33 @@ sap.ui.define([
                }
             }
          })
-      }
+      },
+
+      aoClicarEmSalvar: function (){
+         let empresa = {};
+         empresa.razaoSocial = this.getView().byId(IdInputRazaoSocial).getValue();
+         empresa.cnpj = this.getView().byId(IdInputCnpj).getValue();
+         empresa.cnpj = empresa.cnpj.replace(/[^a-z0-9]/gi,'');
+         empresa.ramo = parseInt(this.getView().byId(IdSelectRamo).getSelectedKey());
+
+         this._validacaoDeTela(empresa);
+
+         if(empresa.razaoSocial !== razaoSocialECNPJVazio && empresa.cnpj !== razaoSocialECNPJVazio && empresa.ramo !== ramoNaoDefinido)
+            this._adicionarEmpresaAoBancoDeDados(empresa);
+      }, 
+
+      aoClicarEmCancelar: function (){
+         const mensagemDeSucesso = `Deseja mesmo cancelar?`
+         MessageBox.warning(mensagemDeSucesso, {
+            styleClass: sResponsivePaddingClasses,
+            dependentOn: this.getView(),
+            actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+            onClose: (sAction) => {
+               if(sAction == MessageBox.Action.OK){
+				      this.getRouter().navTo("appEmpresa", {}, true);
+               }
+            }
+         })
+      },
     });
  });
