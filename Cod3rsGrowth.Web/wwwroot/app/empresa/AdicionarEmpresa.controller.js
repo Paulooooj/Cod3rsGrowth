@@ -1,8 +1,9 @@
 sap.ui.define([
    "ui5/cod3rsgrowth/app/BaseController",
    "../model/formatter",
-	"sap/m/MessageBox"
- ], function (BaseController, formatter, MessageBox) {
+	"sap/m/MessageBox",
+   "../servico/validacao",
+ ], function (BaseController, formatter, MessageBox, validacao) {
     "use strict";
 
     const IdInputRazaoSocial = "idInputRazaoSocial";
@@ -15,6 +16,7 @@ sap.ui.define([
 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa", {
       formatter: formatter,
+      validacao: validacao,
       onInit: function () {
          const nomeDaAba = "nomeDaAbaPaginaIniciar";
          this._mudarNomeDaAba(nomeDaAba);
@@ -37,24 +39,8 @@ sap.ui.define([
          this.getView().byId(IdSelectRamo).setSelectedKey(removerValueState);
       },
 
-      _validacaoDeTela: function (empresa){
-         const valueStateErro = "Error";
-
-         if(empresa.razaoSocial  === razaoSocialECNPJVazio || empresa.razaoSocial.trim() === razaoSocialECNPJVazio)
-            this.getView().byId(IdInputRazaoSocial).setValueState(valueStateErro);
-         else
-            this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
-       
-         empresa.cnpj == razaoSocialECNPJVazio? 
-         this.getView().byId(IdInputCnpj).setValueState(valueStateErro) : 
-         this.getView().byId(IdInputCnpj).setValueState(removerValueState);
-
-         empresa.ramo == ramoNaoDefinido? 
-         this.getView().byId(IdSelectRamo).setValueState(valueStateErro) : 
-         this.getView().byId(IdSelectRamo).setValueState(removerValueState);
-      },
-
-      _adicionarEmpresaAoBancoDeDados: function (empresa){
+      _adicionarEmpresaNaApi: function (empresa){
+         let view = this.getView();
          const url = '/api/Empresa';
          const options = {
             method: 'Post',
@@ -63,26 +49,10 @@ sap.ui.define([
                "Content-Type": "application/json",
             }
          };
-
          fetch(url, options)
          .then( res => {return !res.ok? 
-            res.json().then(res => this._mensagemDeErro(res)) : 
+            res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
             this._mensageDeSucesso(empresa);
-         })
-      },
-
-      _mensageDeSucesso: function (empresa){
-         const mensagemDeSucesso = `${empresa.razaoSocial} foi adicionado com sucesso!`
-         MessageBox.success(mensagemDeSucesso, {
-            id: "messageBoxSucesso",
-            styleClass: sResponsivePaddingClasses,
-            dependentOn: this.getView(),
-            actions: [MessageBox.Action.OK],
-            onClose: (sAction) => {
-               if(sAction == MessageBox.Action.OK){
-				      this.getRouter().navTo("appEmpresa", {}, true);
-               }
-            }
          })
       },
 
@@ -93,10 +63,11 @@ sap.ui.define([
          empresa.cnpj = empresa.cnpj.replace(/[^a-z0-9]/gi,'');
          empresa.ramo = parseInt(this.getView().byId(IdSelectRamo).getSelectedKey());
 
-         this._validacaoDeTela(empresa);
+         let view = this.getView();
+         this.validacao.validacaoDeTela(view, empresa);
 
          if(empresa.razaoSocial !== razaoSocialECNPJVazio && empresa.cnpj !== razaoSocialECNPJVazio && empresa.ramo !== ramoNaoDefinido)
-            this._adicionarEmpresaAoBancoDeDados(empresa);
+            this._adicionarEmpresaNaApi(empresa);
       }, 
 
       aoClicarEmCancelar: function (){

@@ -43,9 +43,10 @@ sap.ui.define([
       },
       
       _obterTodos: function (url){
+         let view = this.getView();
          fetch(url).then(res => {return res.ok? 
             res.json() : 
-            res.json().then(res => {this._mensagemDeErro(res)})})
+            res.json().then(res => {this.validacao.mensagemDeErro(res, view)})})
             .then(res => {
             const dataModel = new JSONModel();
             res.forEach(element => {
