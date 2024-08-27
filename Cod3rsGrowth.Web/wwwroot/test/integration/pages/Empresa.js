@@ -102,7 +102,6 @@ sap.ui.define([
 					totalItensFiltrados = 0;
 
 					this.verificarQuantidadeEmpresaTabela(mensagemDeAcerto, mensagemDeErro, totalItensFiltrados);
-
 				},
 
 				verificarSeTabelaFiltrouUsandoBarraDePesquisa: function () {

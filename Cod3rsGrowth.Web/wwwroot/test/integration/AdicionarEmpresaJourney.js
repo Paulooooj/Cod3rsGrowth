@@ -88,6 +88,5 @@ sap.ui.define([
 			Then.iTeardownMyApp();
 
 		})
-
 	});
 });
