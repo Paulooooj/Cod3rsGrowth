@@ -5,7 +5,7 @@ sap.ui.define([
     return BaseController.extend("ui5.cod3rsgrowth.app.notFound.NotFound", {
        onInit: function () {
          const nomeDaAba = "nomeDaPaginaNaoEncontrada";
-         this._mudarNomeDaAba(nomeDaAba);
+         this.mudarNomeDaAba(nomeDaAba);
        },
 
        voltarPaginaInicial: function () {

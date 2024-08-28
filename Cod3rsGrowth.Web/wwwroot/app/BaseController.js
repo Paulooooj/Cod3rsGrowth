@@ -54,7 +54,7 @@ sap.ui.define([
 			}); 
 		 },
 
-		 _mudarNomeDaAba: function (nomeDaAbaPagina) {
+		 mudarNomeDaAba: function (nomeDaAbaPagina) {
 			const i18nModel = new ResourceModel({
 			   bundleName: "ui5.cod3rsgrowth.i18n.i18n"
 			});
@@ -64,7 +64,7 @@ sap.ui.define([
 			document.title = sTitulo;
 		 },
 
-		 _mensageDeSucesso: function (empresa){
+		 mensageDeSucesso: function (empresa){
 			const mensagemDeSucesso = `${empresa.razaoSocial} foi adicionado com sucesso!`
 			MessageBox.success(mensagemDeSucesso, {
 			   id: "messageBoxSucesso",

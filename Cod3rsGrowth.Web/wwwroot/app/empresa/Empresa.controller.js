@@ -17,7 +17,7 @@ sap.ui.define([
 
       _aoCoincidirRota: function () {
          const nomeDaAba = "nomeDaPaginaEmpresa";
-         this._mudarNomeDaAba(nomeDaAba);
+         this.mudarNomeDaAba(nomeDaAba);
 
          const urlObterTodos = '/api/Empresa';
          this._obterTodos(urlObterTodos);

@@ -19,7 +19,7 @@ sap.ui.define([
       validacao: validacao,
       onInit: function () {
          const nomeDaAba = "nomeDaAbaPaginaIniciar";
-         this._mudarNomeDaAba(nomeDaAba);
+         this.mudarNomeDaAba(nomeDaAba);
 
          const urlEnum = '/api/Enum';
          this.obterDescricaoEnum(urlEnum);
@@ -52,7 +52,7 @@ sap.ui.define([
          fetch(url, options)
          .then( res => {return !res.ok? 
             res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
-            this._mensageDeSucesso(empresa);
+            this.mensageDeSucesso(empresa);
          })
       },
 
