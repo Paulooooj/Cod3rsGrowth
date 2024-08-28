@@ -22,7 +22,7 @@ sap.ui.define([
          this._mudarNomeDaAba(nomeDaAba);
 
          const urlEnum = '/api/Enum';
-         this._obterDescricaoEnum(urlEnum);
+         this.obterDescricaoEnum(urlEnum);
 
          const rotaTelaDeAdicionar = "appAdicionarEmpresa";
          this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);

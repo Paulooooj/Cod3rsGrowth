@@ -23,7 +23,7 @@ sap.ui.define([
          this._obterTodos(urlObterTodos);
 
          const urlEnum = '/api/Enum';
-         this._obterDescricaoEnum(urlEnum);
+         this.obterDescricaoEnum(urlEnum);
       },
       
       _urlDeTodosOsFiltros : function (){

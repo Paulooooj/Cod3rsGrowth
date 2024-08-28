@@ -43,7 +43,7 @@ sap.ui.define([
 			}
 		 }, 
 
-		 _obterDescricaoEnum: function (url){
+		 obterDescricaoEnum: function (url){
 			let view = this.getView();
 			fetch(url).then(res => {return res.ok? res.json() :
 				res.json().then(res => {this.validacao.mensagemDeErro(res, view)})})
