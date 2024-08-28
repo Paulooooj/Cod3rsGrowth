@@ -3,4 +3,4 @@
 **/obj/
 *.config
 
-
+**/DB_Store

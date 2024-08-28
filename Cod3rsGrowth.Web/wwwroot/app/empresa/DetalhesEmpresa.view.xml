@@ -1,0 +1,33 @@
+<mvc:View xmlns:cards="sap.f.cards" xmlns:vk="sap.ui.vk" 
+	xmlns:form="sap.ui.layout.form"
+	controllerName="ui5.cod3rsgrowth.app.empresa.DetalhesEmpresa"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+	displayBlock="true">
+	<Page title="{i18n>nomeDaPaginaEmpresa.titulo}"  showNavButton="true" navButtonPress="onNavBack"> 
+		<customHeader>
+			<Toolbar>
+			<Button id="botaoDeNavegarDeVoltar" type="Back" press="onNavBack"></Button>
+			 <Title text="{i18n>nomeTituloTelaDetalhes}" titleStyle="H4" class="sapUiResponsiveMargin" ></Title>
+			 <ToolbarSpacer />
+         <MenuButton 
+         icon="sap-icon://action-settings"
+         menuPosition="EndBottom"
+         type="Transparent">
+         <menu>
+            <Menu >
+               <MenuItem 
+               icon="sap-icon://palette">
+                  <items>
+                     <MenuItem icon="sap-icon://light-mode" text="Claro" press="mudarDeTema"/>
+                     <MenuItem icon="sap-icon://dark-mode" text="Escuro" press="mudarDeTema"/>
+                  </items>
+               </MenuItem>
+            </Menu>
+         </menu>
+         </MenuButton>
+			</Toolbar>
+		</customHeader>
+		</Page>
+</mvc:View>

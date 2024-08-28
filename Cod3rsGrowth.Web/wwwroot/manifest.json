@@ -63,7 +63,12 @@
             "pattern" : "AdicionarEmpresa",
             "name" : "appAdicionarEmpresa",
             "target": "adicionar"
-         }
+         },
+         {
+          "pattern" : "DetalhesEmpresa/{empresaId}",
+          "name" : "appDetalhesEmpresa",
+          "target": "detalhes"
+       }
         ],
          "targets": {
             "empresa": {
@@ -83,6 +88,12 @@
               "path": "ui5.cod3rsgrowth.app.empresa",
               "name": "AdicionarEmpresa",
               "level": 2
+            },
+            "detalhes" : {
+              "id": "detalhesEmpresa",
+              "path": "ui5.cod3rsgrowth.app.empresa",
+              "name": "DetalhesEmpresa",
+              "level": 3
             }
          }
       }
