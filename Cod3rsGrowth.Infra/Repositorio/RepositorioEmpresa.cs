@@ -15,7 +15,6 @@ namespace Cod3rsGrowth.Infra.Repositorio
         public RepositorioEmpresa(DbCod3rsGrowth dbCod3Rs)
         {
             _db = dbCod3Rs;
-
         }
 
         public void Adicionar(Empresa empresa)

@@ -1,39 +1,62 @@
 sap.ui.define([
    "ui5/cod3rsgrowth/app/BaseController",
-   "sap/ui/model/resource/ResourceModel",
    "sap/ui/model/json/JSONModel",
    "../model/formatter",
    "sap/m/MessageBox"
-], (BaseController, ResourceModel, JSONModel, formatter, MessageBox) => {
+], (BaseController, JSONModel, formatter) => {
    "use strict";
    let filtroBarraDePesquisa = "";
    let filtroSelect = "";
 
-   var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
- 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.Empresa", {
       formatter: formatter,
       onInit: function () {
-         this._mudarNomeDaAba();
+         const rotaTelaDeAdicionar = "appEmpresa";
+         this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);
+      },
+
+      _aoCoincidirRota: function () {
+         const nomeDaAba = "nomeDaPaginaEmpresa";
+         this.mudarNomeDaAba(nomeDaAba);
 
          const urlObterTodos = '/api/Empresa';
          this._obterTodos(urlObterTodos);
 
          const urlEnum = '/api/Enum';
-         this._obterDescricaoEnum(urlEnum);
-      },
-
-      _mudarNomeDaAba: function () 
-      {
-         const i18nModel = new ResourceModel({
-            bundleName: "ui5.cod3rsgrowth.i18n.i18n"
-         });
-         this.getView().setModel(i18nModel, "i18n");
-         const oBundle = this.getView().getModel("i18n").getResourceBundle();
-         const sTitulo = oBundle.getText("nomeDaPaginaEmpresa");
-         document.title = sTitulo;
+         this.obterDescricaoEnum(urlEnum);
       },
       
+      _urlDeTodosOsFiltros : function (){
+         let query = {};
+
+         if(filtroBarraDePesquisa){
+            query.razaoSocialECnpj = filtroBarraDePesquisa;
+         }
+
+         if(filtroSelect && filtroSelect != "Todos"){
+            query.ramo = filtroSelect;
+         }
+
+         let urlObterTodos = '/api/Empresa?' + new URLSearchParams(query);
+
+         this._obterTodos(urlObterTodos);
+      },
+      
+      _obterTodos: function (url){
+         let view = this.getView();
+         fetch(url).then(res => {return res.ok? 
+            res.json() : 
+            res.json().then(res => {this.validacao.mensagemDeErro(res, view)})})
+            .then(res => {
+            const dataModel = new JSONModel();
+            res.forEach(element => {
+               element.cnpj = this.formatter.formatarCnpj(element.cnpj);
+            })
+            dataModel.setData(res);
+            this.getView().setModel(dataModel, "listaEmpresa")
+         })
+      },
+
       filtroBarraDePesquisa: function (oEvent){
          var evento = oEvent.getSource().getValue();
          filtroBarraDePesquisa = evento.replace(/[^a-z0-9]/gi,'');
@@ -49,49 +72,6 @@ sap.ui.define([
          this._urlDeTodosOsFiltros();
       },
 
-      _urlDeTodosOsFiltros : function (){
-         let urlObterTodosUsandoFiltro;
-         if(filtroSelect != "Todos"){
-            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}&Ramo=${filtroSelect}`;
-         }else{
-            urlObterTodosUsandoFiltro = `/api/Empresa?RazaoSocialECnpj=${filtroBarraDePesquisa}`;
-         }
-         this._obterTodos(urlObterTodosUsandoFiltro);
-      },
-      
-      _obterTodos: function (url){
-         fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
-            const dataModel = new JSONModel();
-            res.forEach(element => {
-               element.cnpj = this.formatter.formatarCnpj(element.cnpj);
-            })
-            dataModel.setData(res);
-            this.getView().setModel(dataModel, "listaEmpresa")
-         })
-      },
-      
-      _obterDescricaoEnum: function (url){
-         fetch(url).then(res => {return res.ok? res.json() : res.json().then(res => {this._mensagemDeErro(res)})}).then(res => {
-            const dataModel = new JSONModel();
-            dataModel.setData(res);
-            this.getView().setModel(dataModel, "listaEnum")
-         }); 
-      },
-
-      _mensagemDeErro : function (erro){
-         MessageBox.error(`${erro.Title}`, {
-            title: "Error",
-            details: 
-            `<p><strong>Status: ${erro.Status}</strong></p>` +
-            "<p><strong>Detalhes:</strong></p>" +
-            "<ul>" +
-            `<li>${erro.Detail}</li>` +
-            "</ul>",
-            styleClass: sResponsivePaddingClasses,
-            dependentOn: this.getView()
-         });
-      },
-      
       atualizarTitulo : function (oEvent){
          var sTitle,
 				oTable = oEvent.getSource(),
@@ -103,6 +83,10 @@ sap.ui.define([
 				sTitle = oBundle.getText("nomeBarraDeFerramentas");
 			}
          this.getView().byId("idtituloTabela").setProperty("text", sTitle);
+      },
+
+      irParaAdicionarEmpresa: function (){
+         this.getRouter().navTo("appAdicionarEmpresa", {}, true);
       }
    });
  });

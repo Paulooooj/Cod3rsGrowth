@@ -7,7 +7,24 @@
    <Page title="{i18n>nomeDaPaginaEmpresa.titulo}">  
       <customHeader>
         <Toolbar >
-         <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4" class="sapUiResponsiveMargin"></Title>
+         <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4" class="sapUiResponsiveMargin" ></Title>
+         <ToolbarSpacer />
+         <MenuButton 
+         icon="sap-icon://action-settings"
+         menuPosition="EndBottom"
+         type="Transparent">
+         <menu>
+            <Menu >
+               <MenuItem 
+               icon="sap-icon://palette">
+                  <items>
+                     <MenuItem icon="sap-icon://light-mode" text="Claro" press="mudarDeTema"/>
+                     <MenuItem icon="sap-icon://dark-mode" text="Escuro" press="mudarDeTema"/>
+                  </items>
+               </MenuItem>
+            </Menu>
+         </menu>
+         </MenuButton>
         </Toolbar>
       </customHeader>
       <Table
@@ -23,7 +40,7 @@
 			autoPopinMode="true"
 			hiddenInPopin="None"
          items="{listaEmpresa>/}"
-         updateFinished="atualizarTitulo ">
+         updateFinished="atualizarTitulo">
          <headerToolbar>
             <Toolbar>
                <Title id = "idtituloTabela" text="" titleStyle="H4"/>
@@ -43,10 +60,11 @@
                <core:ListItem key="{listaEnum>key}" text="{path: 'listaEnum>descricao', formatter: '.formatter.formatarValorPadraoCombobox'}"/>
                </Select>
                <Button
-               id="downloadSelectedButton"
+               id="idBotaoAdicionar"
                text="Adicionar"
                enabled="true"
-               icon="sap-icon://sys-add"/>
+               icon="sap-icon://sys-add"
+               press="irParaAdicionarEmpresa"/>
             </Toolbar>
          </headerToolbar>
          <columns> 

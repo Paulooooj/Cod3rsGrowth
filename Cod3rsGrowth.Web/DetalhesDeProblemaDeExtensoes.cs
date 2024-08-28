@@ -28,7 +28,7 @@ namespace Cod3rsGrowth.Web
                             detalhesDeProblemas.Title = "Erro de Validação!";
                             detalhesDeProblemas.Status = StatusCodes.Status400BadRequest;
                             detalhesDeProblemas.Detail = validationException.StackTrace;
-                            detalhesDeProblemas.Extensions["Erro de validação"] = validationException.Errors
+                            detalhesDeProblemas.Extensions["ErroDeValidacao"] = validationException.Errors
                             .GroupBy(x => x.PropertyName, x => x.ErrorMessage)
                             .ToDictionary(y => y.Key, y => y.ToList());
                         }
@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Web
                             detalhesDeProblemas.Title = "Erro no Banco de Dados!";
                             detalhesDeProblemas.Status = StatusCodes.Status500InternalServerError;
                             detalhesDeProblemas.Detail = sqlException.StackTrace;
-                            detalhesDeProblemas.Extensions["Erro Banco de Dadosgi"] = sqlException.Message;
+                            detalhesDeProblemas.Extensions["ErroBancoDeDados"] = sqlException.Message;
                         }
                         else
                         {
@@ -46,6 +46,7 @@ namespace Cod3rsGrowth.Web
                             detalhesDeProblemas.Title = erroDoManipuladorDaExcecao.Message;
                             detalhesDeProblemas.Status = StatusCodes.Status500InternalServerError;
                             detalhesDeProblemas.Detail = erroDoManipuladorDaExcecao.Demystify().ToString();
+                            detalhesDeProblemas.Extensions["ErroInesperado"] = erroDoManipuladorDaExcecao.Message;
                         }
                         context.Response.StatusCode = detalhesDeProblemas.Status.Value;
                         context.Response.ContentType = "application/problem+json";

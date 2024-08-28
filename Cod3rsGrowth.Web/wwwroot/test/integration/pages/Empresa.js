@@ -4,12 +4,13 @@ sap.ui.define([
 	'sap/ui/test/actions/EnterText',
 	'sap/ui/test/matchers/I18NText',
 	'sap/ui/test/actions/Press',
-    'sap/ui/test/matchers/Properties'
+    'sap/ui/test/matchers/Properties',
+	'sap/ui/test/matchers/PropertyStrictEquals'
 
-], (Opa5, AggregationLengthEquals, EnterText, I18NText, Press, Properties) => {
+], (Opa5, AggregationLengthEquals, EnterText, I18NText, Press, Properties, PropertyStrictEquals) => {
 	"use strict";
 
-	const sViewName = "ui5.cod3rsgrowth.app.empresa.Empresa";
+	const sViewName = "empresa.Empresa";
 	var sTableId = "idTabelaEmpresa";
 	var mensagemDeAcerto = "";
 	var mensagemDeErro = "";
@@ -35,7 +36,7 @@ sap.ui.define([
 						id: "idEnumSelecaoRamo",
 						viewName: sViewName,
 						actions: function (oSelect) {
-							oSelect.setSelectedKey("Servico");
+							oSelect.setSelectedKey(3);
 						},
 						errorMessage: "Não foi possível selecionar Serviço."
 					});
@@ -51,14 +52,23 @@ sap.ui.define([
 							this.waitFor({
 								controlType: "sap.ui.core.Item",
 								matchers: [
-									new Properties({key: ramo})
+									new Properties({text: ramo})
 								],
 								actions: new Press(),
 								errorMessage: `Não foi possivel encontrar ${ramo} na mySelecet`
 							})
 						}
 					});
-				}
+				},
+
+				deveAoAbertarBotão: function (id, viewName){
+					return this.waitFor({
+						id: id,
+						viewName: viewName,
+						actions: new Press(),
+						errorMessage : "Não foi possivel encontrar o botão!"
+					});
+				},
 			},
 
 			assertions: {
@@ -92,7 +102,6 @@ sap.ui.define([
 					totalItensFiltrados = 0;
 
 					this.verificarQuantidadeEmpresaTabela(mensagemDeAcerto, mensagemDeErro, totalItensFiltrados);
-
 				},
 
 				verificarSeTabelaFiltrouUsandoBarraDePesquisa: function () {
@@ -108,7 +117,7 @@ sap.ui.define([
 						id: "idEnumSelecaoRamo",
 						viewName: sViewName,
 						success: function (oSelect) {
-							Opa5.assert.strictEqual(oSelect.getSelectedKey(), "Servico", "Foi selecionado Serviço");
+							Opa5.assert.strictEqual(oSelect.getSelectedKey(), "3", "Foi selecionado Serviço");
 						},
 						errorMessage: "Serviço não selecionado."
 					});
@@ -152,6 +161,26 @@ sap.ui.define([
 						},
 						errorMessage: mensagemDeErro
 					});
+				},
+
+				deveEstarNaTelaDeAdicionar: function (titulo){
+					return this.waitFor({
+						controlType: "sap.m.Title",
+						matchers: new PropertyStrictEquals({
+							name: 'text',
+							value: titulo
+						}),
+						success: () => Opa5.assert.ok(true, "A tela de adicionar foi carregada corretamente"),
+						errorMessage: "A tela de adicionar não foi carregada corretamente"
+					})
+				},
+
+				deveEstarNaTelaDeListagem: function (titulo){
+					return this.waitFor({
+						viewName: sViewName,
+						success: () => Opa5.assert.ok(true, "A tela de listagem de empresa foi carregada corretamente"),
+						errorMessage: "A tela de listagem não foi carregada corretamente"
+					})
 				},
 			}
 		}
