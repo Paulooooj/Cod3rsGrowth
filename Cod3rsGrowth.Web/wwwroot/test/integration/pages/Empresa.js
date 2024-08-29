@@ -69,6 +69,15 @@ sap.ui.define([
 						errorMessage : "Não foi possivel encontrar o botão!"
 					});
 				},
+
+				aoApertarEmUmaLinhaDaTabelaIrParaDetalhes: function (){
+					return this.waitFor({
+						viewName: sViewName,
+						controlType: "sap.m.ColumnListItem",
+						actions: new Press(),
+						errorMessage: "Não foi possível ir para tela de detalhes"
+					})
+				}
 			},
 
 			assertions: {
@@ -182,6 +191,19 @@ sap.ui.define([
 						errorMessage: "A tela de listagem não foi carregada corretamente"
 					})
 				},
+
+				deveVerificarSeEstaNaPagindaDeDetalhes: function (titulo){
+					return this.waitFor({
+						controlType: "sap.m.Title",
+						matchers: new PropertyStrictEquals({
+							name: 'text',
+							value: "Detalhes"
+						}),
+						success: () => Opa5.assert.ok(true, "A tela de Detalhes foi carregada corretamente"),
+						errorMessage: "A tela de detalhes não foi carregada corretamente"
+					})
+				}, 
+				
 			}
 		}
 	});

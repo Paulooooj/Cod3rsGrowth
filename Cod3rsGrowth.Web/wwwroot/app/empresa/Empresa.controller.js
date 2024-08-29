@@ -23,7 +23,9 @@ sap.ui.define([
          this._obterTodos(urlObterTodos);
 
          const urlEnum = '/api/Enum';
-         this.obterDescricaoEnum(urlEnum);
+         const viewAtual = this.getView();
+         const nomeContexto = "listaEnum";
+         this.obterEmpresa(urlEnum, viewAtual, nomeContexto);
       },
       
       _urlDeTodosOsFiltros: function (){

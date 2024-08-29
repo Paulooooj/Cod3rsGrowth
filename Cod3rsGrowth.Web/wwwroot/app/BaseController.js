@@ -43,14 +43,13 @@ sap.ui.define([
 			}
 		 }, 
 
-		 obterDescricaoEnum: function (url){
-			let view = this.getView();
+		 obterEmpresa: function (url, view, nomeContexto){
 			fetch(url).then(res => {return res.ok? res.json() :
 				res.json().then(res => {this.validacao.mensagemDeErro(res, view)})})
 				.then(res => {
 			   const dataModel = new JSONModel();
 			   dataModel.setData(res);
-			   this.getView().setModel(dataModel, "listaEnum")
+			   this.getView().setModel(dataModel, nomeContexto)
 			}); 
 		 },
 
