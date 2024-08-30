@@ -9,7 +9,7 @@ sap.ui.define([
 ], function(Controller, History, UIComponent, JSONModel, ResourceModel, MessageBox, validacao) {
 	"use strict";
 	var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
-
+	
 	return Controller.extend("ui5.cod3rsgrowth.app.BaseController", {
 		validacao: validacao,
 		getRouter: function () {

@@ -3,7 +3,8 @@ sap.ui.define([
    "../model/formatter",
 	"sap/m/MessageBox",
    "../servico/validacao",
- ], function (BaseController, formatter, MessageBox, validacao) {
+	"sap/ui/model/json/JSONModel",
+ ], function (BaseController, formatter, MessageBox, validacao, JSONModel) {
     "use strict";
 
     const IdInputRazaoSocial = "idInputRazaoSocial";
@@ -13,6 +14,7 @@ sap.ui.define([
     const ramoNaoDefinido = 0;
     const removerValueState = "None";
 	 var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
+    var idEmpresaAtualizar = "";
 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa", {
       formatter: formatter,
@@ -30,7 +32,7 @@ sap.ui.define([
          this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);
       },
 
-      _aoCoincidirRota: function () {
+      _aoCoincidirRota: function (oEvent) {
          this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
          this.getView().byId(IdInputRazaoSocial).setValue("");
 
@@ -39,13 +41,41 @@ sap.ui.define([
 
          this.getView().byId(IdSelectRamo).setValueState(removerValueState);
          this.getView().byId(IdSelectRamo).setSelectedKey(removerValueState);
+
+         idEmpresaAtualizar = this._obterIdPelaRota(oEvent);
+         this._verificarSeTemId();
       },
 
-      _adicionarEmpresaNaApi: function (empresa){
+      _obterIdPelaRota: function (oEvent){
+         let empresaId = oEvent.getParameters().arguments.empresaId;
+         return empresaId;
+      },
+
+      _verificarSeTemId: function (){
+         if(!idEmpresaAtualizar)
+            return;
+         const viewAtual = this.getView();
+         const urlEmpresa = `/api/Empresa/${idEmpresaAtualizar}`;
+         this._obterEmpresaAtualizar(urlEmpresa, viewAtual);
+      },
+
+      _colocarValorNosCampos:function (empresaAtualizar) {
+         this.getView().byId(IdInputRazaoSocial).setValue(empresaAtualizar.razaoSocial);
+         const cnpjFormatado = this.formatter.formatarCnpj(empresaAtualizar.cnpj);
+         this.getView().byId(IdInputCnpj).setValue(cnpjFormatado);
+         this.getView().byId(IdSelectRamo).setValue(empresaAtualizar.ramo);
+      },
+
+      _obterEmpresaAtualizar: function (url, view){
+         fetch(url).then(res => {return res.ok? res.json().then(res => {this._colocarValorNosCampos(res)}) :
+				res.json().then(res => {this.validacao.mensagemDeErro(res, view)})})
+		 },
+
+      _adicionarEmpresaNaApi: function (empresa, requisicao){
          let view = this.getView();
          const url = '/api/Empresa';
          const options = {
-            method: 'Post',
+            method: requisicao,
             body: JSON.stringify(empresa),
             headers: {
                "Content-Type": "application/json",
@@ -57,7 +87,7 @@ sap.ui.define([
             this.mensageDeSucesso(empresa);
          })
       },
-
+    
       aoClicarEmSalvar: function (){
          let empresa = {};
          empresa.razaoSocial = this.getView().byId(IdInputRazaoSocial).getValue();
@@ -68,8 +98,17 @@ sap.ui.define([
          let view = this.getView();
          this.validacao.validacaoDeTela(view, empresa);
 
+         var requisicaoSalvar 
+         if(!idEmpresaAtualizar){
+            requisicaoSalvar = "Post";
+         }
+         else{
+            requisicaoSalvar = "Patch";
+            empresa.id = idEmpresaAtualizar;
+         }
+
          if(empresa.razaoSocial !== razaoSocialECNPJVazio && empresa.cnpj !== razaoSocialECNPJVazio && empresa.ramo !== ramoNaoDefinido)
-            this._adicionarEmpresaNaApi(empresa);
+            this._adicionarEmpresaNaApi(empresa, requisicaoSalvar);
       }, 
 
       aoClicarEmCancelar: function (){
