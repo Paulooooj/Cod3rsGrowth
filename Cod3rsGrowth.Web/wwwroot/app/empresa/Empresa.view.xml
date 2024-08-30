@@ -97,7 +97,7 @@
             </Column>
          </columns>
          <items>
-            <ColumnListItem type="Active">
+            <ColumnListItem type="Navigation" press="aoClicarIrParaTelaDetalhes" id="idLinhaTabela">
                <cells>
                   <ObjectIdentifier title="{listaEmpresa>razaoSocial}"/>
                   <Text text="{listaEmpresa>cnpj}"/>

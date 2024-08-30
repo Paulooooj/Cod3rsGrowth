@@ -1,0 +1,61 @@
+<mvc:View xmlns:cards="sap.f.cards" xmlns:vk="sap.ui.vk" 
+	xmlns:form="sap.ui.layout.form"
+	controllerName="ui5.cod3rsgrowth.app.empresa.DetalhesEmpresa"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+	displayBlock="true">
+	<Page title="{i18n>nomeDaPaginaEmpresa.titulo}"  showNavButton="true" navButtonPress="onNavBack"> 
+		<customHeader>
+			<Toolbar>
+			<Button id="botaoDeNavegarDeVoltar" type="Back" press="onNavBack"></Button>
+			 <Title text="{i18n>nomeTituloTelaDetalhes}" titleStyle="H4" class="sapUiResponsiveMargin" ></Title>
+			 <ToolbarSpacer />
+         <MenuButton 
+         icon="sap-icon://action-settings"
+         menuPosition="EndBottom"
+         type="Transparent">
+         <menu>
+            <Menu >
+               <MenuItem 
+               icon="sap-icon://palette">
+                  <items>
+                     <MenuItem icon="sap-icon://light-mode" text="Claro" press="mudarDeTema"/>
+                     <MenuItem icon="sap-icon://dark-mode" text="Escuro" press="mudarDeTema"/>
+                  </items>
+               </MenuItem>
+            </Menu>
+         </menu>
+         </MenuButton>
+			</Toolbar>
+		</customHeader>
+      <FlexBox class="sapUiResponsiveMargin" justifyContent="SpaceBetween" direction="Column" backgroundDesign="Translucent">
+      <Toolbar >
+         <Title text="{i18n>nomeToolbarTelaDetahles}" titleStyle="H4"/>
+      </Toolbar>
+      <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" >
+         <f:title>
+            <f:DynamicPageTitle>
+               <f:heading>
+                  <Title text="{empresaDetalhes>/razaoSocial}"/>
+               </f:heading>
+            </f:DynamicPageTitle>
+         </f:title>
+         <f:header>
+            <f:DynamicPageHeader pinnable="false"  >
+               <FlexBox alignItems="Start" justifyContent="SpaceBetween">
+                     <layout:HorizontalLayout allowWrapping="true">
+                        <layout:VerticalLayout class="sapUiMediumMarginEnd" >
+                           <ObjectStatus id = "idCnpjDetalhes" title="{i18n>labelTelaDetalhes.cnpj}" text="{path: 'empresaDetalhes>/cnpj', formatter: '.formatter.formatarCnpj'}" />
+                           <ObjectStatus title="{i18n>labelTelaDetalhes.ramo}" text="{empresaDetalhes>/ramo}" />
+                           </layout:VerticalLayout>
+                     </layout:HorizontalLayout>
+               </FlexBox>
+            </f:DynamicPageHeader>
+         </f:header>
+      </f:DynamicPage>
+   </FlexBox>
+		</Page>
+</mvc:View>

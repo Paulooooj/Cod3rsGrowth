@@ -75,8 +75,21 @@ sap.ui.define([
 		When.EmpresaPage.deveAoAbertarBotão("botaoDeNavegarDeVoltar", "empresa.AdicionarEmpresa");
 
 		Then.EmpresaPage.deveEstarNaTelaDeListagem();
-
-		Then.iTeardownMyApp();
 	});
 
+	opaTest("Deve verificar se a rota de tela de detalhes está funcionando corretamente", function(Given, When, Then){
+
+		When.EmpresaPage.aoApertarEmUmaLinhaDaTabelaIrParaDetalhes();
+
+		Then.EmpresaPage.deveVerificarSeEstaNaPagindaDeDetalhes();
+	})
+
+	opaTest("Deve voltar para a tela de listagem", function(Given, When, Then){
+
+		When.EmpresaPage.deveAoAbertarBotão("botaoDeNavegarDeVoltar", "empresa.DetalhesEmpresa");
+
+		Then.EmpresaPage.deveEstarNaTelaDeListagem();
+
+		Then.iTeardownMyApp();
+	})
 });

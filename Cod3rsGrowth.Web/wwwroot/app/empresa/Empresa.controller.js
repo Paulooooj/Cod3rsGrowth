@@ -2,7 +2,7 @@ sap.ui.define([
    "ui5/cod3rsgrowth/app/BaseController",
    "sap/ui/model/json/JSONModel",
    "../model/formatter",
-   "sap/m/MessageBox"
+   "sap/m/MessageBox",
 ], (BaseController, JSONModel, formatter) => {
    "use strict";
    let filtroBarraDePesquisa = "";
@@ -23,10 +23,12 @@ sap.ui.define([
          this._obterTodos(urlObterTodos);
 
          const urlEnum = '/api/Enum';
-         this.obterDescricaoEnum(urlEnum);
+         const viewAtual = this.getView();
+         const nomeContexto = "listaEnum";
+         this.obterEmpresa(urlEnum, viewAtual, nomeContexto);
       },
       
-      _urlDeTodosOsFiltros : function (){
+      _urlDeTodosOsFiltros: function (){
          let query = {};
 
          if(filtroBarraDePesquisa){
@@ -72,7 +74,7 @@ sap.ui.define([
          this._urlDeTodosOsFiltros();
       },
 
-      atualizarTitulo : function (oEvent){
+      atualizarTitulo: function (oEvent){
          var sTitle,
 				oTable = oEvent.getSource(),
 				iTotalItems = oEvent.getParameter("total");
@@ -87,6 +89,14 @@ sap.ui.define([
 
       irParaAdicionarEmpresa: function (){
          this.getRouter().navTo("appAdicionarEmpresa", {}, true);
+      },
+
+      aoClicarIrParaTelaDetalhes: function (itemPressionado){
+         const rotaTelaDetalhes = "appDetalhesEmpresa";
+         const contexto = "listaEmpresa";
+         this.getRouter().navTo(rotaTelaDetalhes, {
+            empresaId: itemPressionado.getSource().getBindingContext(contexto).getProperty("id")
+         }, true);
       }
    });
  });
