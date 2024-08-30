@@ -27,7 +27,14 @@ sap.ui.define([
         opaTest("Deve verificar se o Ramo está correto", function(Given, When, Then){
 
             Then.detalhesEmpresa.verificarSeORamoEstaCorreto();
+        })
 
+        opaTest("Deve voltar para tela de Lista Empresa", function(Given, When, Then){
+
+            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa();
+
+            Then.detalhesEmpresa.deveConfirmarQueEstaNaTelaDeListagem();
+            
             Then.iTeardownMyApp();
         })
 	});

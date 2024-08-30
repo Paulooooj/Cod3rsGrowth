@@ -1,14 +1,13 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
-	'sap/ui/test/matchers/AggregationLengthEquals',
-	'sap/ui/test/actions/EnterText',
-	'sap/ui/test/matchers/I18NText',
 	'sap/ui/test/actions/Press',
     'sap/ui/test/matchers/Properties',
 	'sap/ui/test/matchers/PropertyStrictEquals'
 
-], (Opa5, AggregationLengthEquals, EnterText, I18NText, Press, Properties, PropertyStrictEquals) => {
+], (Opa5, Press, Properties, PropertyStrictEquals) => {
 	"use strict";
+	const viewName = "empresa.DetalhesEmpresa";
+
 	Opa5.createPageObjects({
 		detalhesEmpresa: {
 			actions: {
@@ -22,7 +21,16 @@ sap.ui.define([
 						actions: new Press(),
 						errorMessage: "Não foi possível ir para tela de detalhes"
                     })
-                }
+                },
+				
+				deveVoltarParaTelaDeListagemEmpresa: function (id){
+					return this.waitFor({
+						id: "botaoDeNavegarDeVoltar",
+						viewName: viewName,
+						actions: new Press(),
+						errorMessage : "Não foi possivel encontrar o botão!"
+					});
+				},
 			},
 
 			assertions: {
@@ -66,7 +74,7 @@ sap.ui.define([
 
                 deveVerificarSeAsInformacoesEstaoCorretas: function (mensageDeSucesso, mensageDeErro, valor){
                     return this.waitFor({
-                        controlType: "sap.m.ObjectAttribute",
+                        controlType: "sap.m.ObjectStatus",
                         matchers: [
 							new Properties({text: valor}),
 						], 
@@ -74,6 +82,14 @@ sap.ui.define([
 						errorMessage: mensageDeErro
                     })
                 },
+
+				deveConfirmarQueEstaNaTelaDeListagem: function (){
+					return this.waitFor({
+						viewName: "empresa.Empresa",
+						success: () => Opa5.assert.ok(true, "A tela de listagem de empresa foi carregada corretamente"),
+						errorMessage: "A tela de listagem não foi carregada corretamente"
+					})
+				}
 			},
 		}
 	});

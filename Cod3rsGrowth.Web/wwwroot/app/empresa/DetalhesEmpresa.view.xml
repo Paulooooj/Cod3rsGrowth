@@ -48,8 +48,8 @@
                <FlexBox alignItems="Start" justifyContent="SpaceBetween">
                      <layout:HorizontalLayout allowWrapping="true">
                         <layout:VerticalLayout class="sapUiMediumMarginEnd" >
-                           <ObjectAttribute id = "idCnpjDetalhes" title="{i18n>labelTelaDetalhes.cnpj}" text="{path: 'empresaDetalhes>/cnpj', formatter: '.formatter.formatarCnpj'}" />
-                           <ObjectAttribute title="{i18n>labelTelaDetalhes.ramo}" text="{empresaDetalhes>/ramo}" />
+                           <ObjectStatus id = "idCnpjDetalhes" title="{i18n>labelTelaDetalhes.cnpj}" text="{path: 'empresaDetalhes>/cnpj', formatter: '.formatter.formatarCnpj'}" />
+                           <ObjectStatus title="{i18n>labelTelaDetalhes.ramo}" text="{empresaDetalhes>/ramo}" />
                            </layout:VerticalLayout>
                      </layout:HorizontalLayout>
                </FlexBox>

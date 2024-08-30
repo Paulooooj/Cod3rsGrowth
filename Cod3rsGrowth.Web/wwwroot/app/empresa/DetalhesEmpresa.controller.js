@@ -15,13 +15,17 @@ sap.ui.define([
        const nomeDaAba = "nomeDaAbaPaginaIniciar";
        this.mudarNomeDaAba(nomeDaAba);
 
-       const posicaoDoId = 1;
-       var empresaId = this.getOwnerComponent().getRouter().getHashChanger().getHash().split("/")[posicaoDoId];
-
+       let empresaId = this._obterIdPelaRota();
        const viewAtual = this.getView();
        const nomeContexto = "empresaDetalhes";
        const urlEmpresa = `/api/Empresa/${empresaId}`;
        this.obterEmpresa(urlEmpresa, viewAtual, nomeContexto);
       },
+
+      _obterIdPelaRota(){
+         const posicaoDoId = 1;
+         let empresaId = this.getOwnerComponent().getRouter().getHashChanger().getHash().split("/")[posicaoDoId];
+         return empresaId;
+      }
     });
  });
