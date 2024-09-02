@@ -40,7 +40,7 @@
 				>
 				<form:toolbar>
 					<OverflowToolbar> 
-					<Title text="{i18n>nomeTituloAdicionar}" titleStyle="H4"/>
+					<Title id="idTituloAdicionarEditar" text="{i18n>nomeTituloAdicionar}" titleStyle="H4"/>
 					<ToolbarSpacer/>
 					<Button 
 					id="idBotaoSalvar"

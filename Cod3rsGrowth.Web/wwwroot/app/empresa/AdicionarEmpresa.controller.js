@@ -29,6 +29,7 @@ sap.ui.define([
          this.obterEmpresa(urlEnum, viewAtual, nomeContexto);
 
          const rotaTelaDeAdicionar = "appAdicionarEmpresa";
+         
          this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);
       },
 
@@ -54,16 +55,23 @@ sap.ui.define([
       _verificarSeTemId: function (){
          if(!idEmpresaAtualizar)
             return;
+
+         const tituloEditar = "Editar Empresa";
+         const idTitulo = "idTituloAdicionarEditar";
+         this.getView().byId(idTitulo).setText(tituloEditar);
          const viewAtual = this.getView();
          const urlEmpresa = `/api/Empresa/${idEmpresaAtualizar}`;
          this._obterEmpresaAtualizar(urlEmpresa, viewAtual);
       },
 
       _colocarValorNosCampos:function (empresaAtualizar) {
+         var selectRamo = this.getView().byId(IdSelectRamo).getItems();
+         var ramo = selectRamo.find((ramoSelecionado) => ramoSelecionado.mProperties.text === empresaAtualizar.ramo);
+
          this.getView().byId(IdInputRazaoSocial).setValue(empresaAtualizar.razaoSocial);
          const cnpjFormatado = this.formatter.formatarCnpj(empresaAtualizar.cnpj);
          this.getView().byId(IdInputCnpj).setValue(cnpjFormatado);
-         this.getView().byId(IdSelectRamo).setValue(empresaAtualizar.ramo);
+         this.getView().byId(IdSelectRamo).setSelectedItem(ramo);
       },
 
       _obterEmpresaAtualizar: function (url, view){
@@ -99,9 +107,8 @@ sap.ui.define([
          this.validacao.validacaoDeTela(view, empresa);
 
          var requisicaoSalvar 
-         if(!idEmpresaAtualizar){
+         if(!idEmpresaAtualizar)
             requisicaoSalvar = "Post";
-         }
          else{
             requisicaoSalvar = "Patch";
             empresa.id = idEmpresaAtualizar;

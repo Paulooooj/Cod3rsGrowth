@@ -37,6 +37,8 @@
          <ToolbarSpacer />
          <Button 
             icon="sap-icon://edit"
+            text="Editar"
+            id="idBotaoEditarDetalhes"
             press="aoClicarDeveIrParaTelaDeEdicao"/>
       </Toolbar>
       <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" >

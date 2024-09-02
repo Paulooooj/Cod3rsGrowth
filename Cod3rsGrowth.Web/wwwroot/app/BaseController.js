@@ -64,7 +64,7 @@ sap.ui.define([
 		 },
 
 		 mensageDeSucesso: function (empresa){
-			const mensagemDeSucesso = `${empresa.razaoSocial} foi adicionado com sucesso!`
+			const mensagemDeSucesso = `${empresa.razaoSocial} foi salvo com sucesso!`
 			MessageBox.success(mensagemDeSucesso, {
 			   id: "messageBoxSucesso",
 			   styleClass: sResponsivePaddingClasses,

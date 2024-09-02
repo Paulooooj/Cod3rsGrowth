@@ -17,6 +17,18 @@ sap.ui.define([
 	Opa5.createPageObjects({
 		adicionarEmpresa: {
 			actions: {
+				irParaTelaDetalhaes: function (){
+                    return this.waitFor({
+                        viewName: "empresa.Empresa",
+                        controlType: "sap.m.ObjectIdentifier",
+                        matchers: [
+							new Properties({title: "Buriti Shopping"}),
+						], 
+						actions: new Press(),
+						errorMessage: "Não foi possível ir para tela de detalhes"
+                    })
+                },
+
 				deverClicarNoBotaoDeOk: function (){
 					return this.waitFor({
 						id: "idBotaoCancelar", 
@@ -72,12 +84,12 @@ sap.ui.define([
 					});
 				},
 
-				selecionarNaCombobox: function () {	
+				selecionarNaCombobox: function (valor) {	
 					return this.waitFor({
 						id: "idSelectRamoAdicionar",
 						viewName: sViewName,
 						actions: function (oSelect) {
-							oSelect.setSelectedKey(2);
+							oSelect.setSelectedKey(valor);
 						},
 						errorMessage: "Não foi possível selecionar Serviço."
 					});
@@ -106,12 +118,32 @@ sap.ui.define([
 						},
 						errorMessage: "Não foi possível encontrar o visualizar detalhes. "
 					})
-				}
+				},
 
+				deveIrParaTelaDeEditar: function(){
+					return this.waitFor({
+						id: "idBotaoEditarDetalhes",
+						viewName: "empresa.DetalhesEmpresa",
+						actions: new Press(),
+						errorMessage: "Não foi possível encontrar o botão de editar"
+					})
+				}
 			},
 
 			assertions: {
-				deveVerificarSeEstaNaPaginaDeAdicionar: function () {
+				verificarSeFoiParaTelaDetalhes: function (){
+					return this.waitFor({
+						controlType: "sap.m.Title",
+						matchers: new PropertyStrictEquals({
+							name: 'text',
+							value: "Detalhes"
+						}),
+						success: () => Opa5.assert.ok(true, "A tela de Detalhes foi carregada corretamente"),
+						errorMessage: "A tela de detalhes não foi carregada corretamente"
+					})
+				}, 
+
+				deveVerificarSeEstaNaPaginaDeAdicionarEditar: function () {
 					return this.waitFor({
 						controlType: "sap.m.Title",
 						matchers: new PropertyStrictEquals({
@@ -167,7 +199,7 @@ sap.ui.define([
 						
 					});
 				},
-
+				
 				apertarNoBotaoFecharMessagemErro: function (){
 					return this.waitFor({
 						viewName: sViewName,
@@ -198,7 +230,79 @@ sap.ui.define([
 						},
 						errorMessage: "O título da tabela não contém 27 elementos."
 					})
-				}	
+				}, 
+				
+				deveVerificarSeFoiParaTelaDeEditar: function (){
+					return this.waitFor({
+						viewName: sViewName,
+						controlType: "sap.m.Title",
+						matchers: new PropertyStrictEquals({
+							name: 'text',
+							value: "Editar Empresa"
+						}),
+						success: () => Opa5.assert.ok(true, "Deve estar na página de editar"),
+						errorMessage: "Não está na página de editar"
+					})
+				},
+
+				deveVerficarSeRazaoSocialEstaCorreta: function(){
+					const razaoSocial = "Buriti Shopping";
+					const mensageDeSucesso = "A Razão Social está correta";
+					const mensageDeErro = "A Razão Social não está correta";
+					this.deveVerificarSeOsDadosNaTelaEstaoCorretos(razaoSocial, mensageDeSucesso, mensageDeErro);
+				},
+
+				deveVerificarSeCnpjEstaCorreto: function (){
+					const cnpj = "26.489.114/0001-30";
+					const mensageDeSucesso = "O CNPJ está correto";
+					const mensageDeErro = "O Cnpj não está correto";
+					this.deveVerificarSeOsDadosNaTelaEstaoCorretos(cnpj, mensageDeSucesso, mensageDeErro);
+				},
+				
+				deveVerificarSeOsDadosNaTelaEstaoCorretos: function(valor, mensageDeSucesso, mensageDeErro){
+					return this.waitFor({
+							controlType: "sap.m.InputBase",
+							viewName: sViewName,
+							matchers: [
+								new Properties({value: valor}),
+							], 
+							success: () => Opa5.assert.ok(true, mensageDeSucesso),
+							errorMessage: mensageDeErro
+					})
+				},
+
+				deveVerificarSeValorSelectEstaCorreto: function (){
+					return this.waitFor({
+						id: "idSelectRamoAdicionar",
+						viewName: sViewName,
+						success: function (oSelect) {
+							Opa5.assert.strictEqual(oSelect.getSelectedKey(), "2", "Foi selecionado Comércio");
+						},
+						errorMessage: "Comércio não selecionado."
+					})
+				},
+
+				verificarSeOItemFoiEditado: function (){
+					return this.waitFor({
+                        viewName: "empresa.Empresa",
+                        controlType: "sap.m.ObjectIdentifier",
+                        matchers: [
+							new Properties({title: "Buriti Shoppingg"}),
+						], 
+						success: function (oSelect) {
+							Opa5.assert.ok(true, "Item editado corretamente");
+						},
+						errorMessage: "O item não foi editado corretamente"
+                    })
+				},
+
+				verificarSeOKVoltouParaTelaListagem: function (){
+					return this.waitFor({
+						viewName: "empresa.Empresa",
+						success: () => Opa5.assert.ok(true, "A tela de listagem de empresa foi carregada corretamente"),
+						errorMessage: "A tela de listagem não foi carregada corretamente"
+					})
+				}
 			},
 		}
 	});

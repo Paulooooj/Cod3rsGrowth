@@ -1,6 +1,6 @@
 sap.ui.define([
 	"sap/ui/test/opaQunit",
-	"./pages/AdicionarEmpresa"
+	"./pages/AdicionarEditarEmpresa"
 ], (opaTest) => {
 	"use strict";
 
@@ -10,7 +10,7 @@ sap.ui.define([
 				hash: "AdicionarEmpresa"
 			});
 	
-			Then.adicionarEmpresa.deveVerificarSeEstaNaPaginaDeAdicionar();
+			Then.adicionarEmpresa.deveVerificarSeEstaNaPaginaDeAdicionarEditar();
 		});
 
 		opaTest("Deve verificar se o botão de ok da message box de cancelar volta para a tela de empresa", function (Given, When, Then) {
@@ -46,7 +46,7 @@ sap.ui.define([
 
 			When.adicionarEmpresa.preencherInputs("idInputCNPJ", "12345678912345");
 
-			When.adicionarEmpresa.selecionarNaCombobox();
+			When.adicionarEmpresa.selecionarNaCombobox(2);
 
 			When.adicionarEmpresa.apertarNoBotaoSalvar();
 
@@ -60,7 +60,7 @@ sap.ui.define([
 
 			When.adicionarEmpresa.preencherInputs("idInputCNPJ", "12345678912345");
 
-			When.adicionarEmpresa.selecionarNaCombobox();
+			When.adicionarEmpresa.selecionarNaCombobox(2);
 
 			When.adicionarEmpresa.apertarNoBotaoSalvar();
 
@@ -77,7 +77,7 @@ sap.ui.define([
 
 			When.adicionarEmpresa.preencherInputs("idInputCNPJ", "88246684000157");
 
-			When.adicionarEmpresa.selecionarNaCombobox();
+			When.adicionarEmpresa.selecionarNaCombobox(2);
 
 			When.adicionarEmpresa.apertarNoBotaoSalvar();
 
