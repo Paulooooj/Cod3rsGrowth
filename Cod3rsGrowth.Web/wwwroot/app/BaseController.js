@@ -94,5 +94,16 @@ sap.ui.define([
 			   }
 			})
 		 },
+
+		 deletarEmpresa: function (url, empresa){
+			const mensagemDeSucesso = `${empresa} foi removido com sucesso!`
+			fetch(url, {
+			   method: "DELETE",
+			})
+			.then(res => {return !res.ok? 
+				  res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
+				  this.mensageDeSucesso(mensagemDeSucesso);
+			   })
+		 }
 	});
 });
