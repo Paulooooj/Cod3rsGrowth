@@ -3,16 +3,16 @@ sap.ui.define([
    "../model/formatter",
 	"sap/m/MessageBox",
    "../servico/validacao",
- ], function (BaseController, formatter, MessageBox, validacao) {
+	"sap/ui/model/json/JSONModel",
+ ], function (BaseController, formatter, MessageBox, validacao, JSONModel) {
     "use strict";
 
     const IdInputRazaoSocial = "idInputRazaoSocial";
     const IdInputCnpj = "idInputCNPJ";
     const IdSelectRamo = "idSelectRamoAdicionar";
-    const razaoSocialECNPJVazio = "";
-    const ramoNaoDefinido = 0;
     const removerValueState = "None";
 	 var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
+    var idEmpresaAtualizar = "";
 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa", {
       formatter: formatter,
@@ -27,10 +27,11 @@ sap.ui.define([
          this.obterEmpresa(urlEnum, viewAtual, nomeContexto);
 
          const rotaTelaDeAdicionar = "appAdicionarEmpresa";
+         
          this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);
       },
 
-      _aoCoincidirRota: function () {
+      _aoCoincidirRota: function (oEvent) {
          this.getView().byId(IdInputRazaoSocial).setValueState(removerValueState);
          this.getView().byId(IdInputRazaoSocial).setValue("");
 
@@ -39,13 +40,56 @@ sap.ui.define([
 
          this.getView().byId(IdSelectRamo).setValueState(removerValueState);
          this.getView().byId(IdSelectRamo).setSelectedKey(removerValueState);
+
+         idEmpresaAtualizar = this._obterIdPelaRota(oEvent);
+         if (idEmpresaAtualizar){
+            this._mudarTituto();
+            this._fazerUrlRequisicaoPreencherCamposEditar();
+         }
       },
 
-      _adicionarEmpresaNaApi: function (empresa){
+      _obterIdPelaRota: function (oEvent){
+         let empresaId = oEvent.getParameters().arguments.empresaId;
+         return empresaId;
+      },
+
+      _mudarTituto: function () {
+         const tituloEditar = "Editar Empresa";
+         const idTitulo = "idTituloAdicionarEditar";
+         this.getView().byId(idTitulo).setText(tituloEditar);
+      },
+
+      _fazerUrlRequisicaoPreencherCamposEditar: function (){
+         const viewAtual = this.getView();
+         const urlEmpresa = `/api/Empresa/${idEmpresaAtualizar}`;
+         this._obterEmpresaAtualizar(urlEmpresa, viewAtual);
+      },
+
+      _colocarValorNosCampos:function (empresaAtualizar) {
+         var selectRamo = this.getView().byId(IdSelectRamo).getItems();
+         var ramo = selectRamo.find((ramoSelecionado) => ramoSelecionado.mProperties.text === empresaAtualizar.ramo);
+
+         this.getView().byId(IdInputRazaoSocial).setValue(empresaAtualizar.razaoSocial);
+         const cnpjFormatado = this.formatter.formatarCnpj(empresaAtualizar.cnpj);
+         this.getView().byId(IdInputCnpj).setValue(cnpjFormatado);
+         this.getView().byId(IdSelectRamo).setSelectedItem(ramo);
+      },
+
+      _obterEmpresaAtualizar: function (url, view){
+         fetch(url)
+            .then(res => 
+            {
+               return res.ok? 
+                  res.json().then(res => {this._colocarValorNosCampos(res)}) :
+                  res.json().then(res => {this.validacao.mensagemDeErro(res, view)})
+            })
+		 },
+
+      _adicionarEmpresaNaApi: function (empresa, requisicao){
          let view = this.getView();
          const url = '/api/Empresa';
          const options = {
-            method: 'Post',
+            method: requisicao,
             body: JSON.stringify(empresa),
             headers: {
                "Content-Type": "application/json",
@@ -57,7 +101,7 @@ sap.ui.define([
             this.mensageDeSucesso(empresa);
          })
       },
-
+    
       aoClicarEmSalvar: function (){
          let empresa = {};
          empresa.razaoSocial = this.getView().byId(IdInputRazaoSocial).getValue();
@@ -66,10 +110,17 @@ sap.ui.define([
          empresa.ramo = parseInt(this.getView().byId(IdSelectRamo).getSelectedKey());
 
          let view = this.getView();
-         this.validacao.validacaoDeTela(view, empresa);
+         var verificarValidacao = this.validacao.validacaoDeTela(view, empresa);
 
-         if(empresa.razaoSocial !== razaoSocialECNPJVazio && empresa.cnpj !== razaoSocialECNPJVazio && empresa.ramo !== ramoNaoDefinido)
-            this._adicionarEmpresaNaApi(empresa);
+         let requisicaoSalvar = "Post";
+
+         if(idEmpresaAtualizar){
+            requisicaoSalvar = "Patch";
+            empresa.id = idEmpresaAtualizar;
+         }
+
+         if(verificarValidacao)
+            this._adicionarEmpresaNaApi(empresa, requisicaoSalvar);
       }, 
 
       aoClicarEmCancelar: function (){

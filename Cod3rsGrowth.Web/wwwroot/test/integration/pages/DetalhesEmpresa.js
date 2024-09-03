@@ -23,14 +23,23 @@ sap.ui.define([
                     })
                 },
 				
-				deveVoltarParaTelaDeListagemEmpresa: function (id){
+				deveVoltarParaTelaDeListagemEmpresa: function (){
 					return this.waitFor({
 						id: "botaoDeNavegarDeVoltar",
-						viewName: viewName,
+						viewName: "empresa.AdicionarEmpresa",
 						actions: new Press(),
 						errorMessage : "Não foi possivel encontrar o botão!"
 					});
 				},
+
+				deveApertarNoBotaoDeEditar: function (){
+					return this.waitFor({
+						controlType: "sap.m.Button",
+						viewName: viewName,
+						actions: new Press(),
+						errorMessage: "Não foi possível encontrar o botão de editar"
+					})
+				}
 			},
 
 			assertions: {
@@ -88,6 +97,19 @@ sap.ui.define([
 						viewName: "empresa.Empresa",
 						success: () => Opa5.assert.ok(true, "A tela de listagem de empresa foi carregada corretamente"),
 						errorMessage: "A tela de listagem não foi carregada corretamente"
+					})
+				},
+
+				deveVerificarSeEstaNaPaginaDeEditar: function(){
+					return this.waitFor({
+						viewName: "empresa.AdicionarEmpresa",
+						controlType: "sap.m.Title",
+						matchers: new PropertyStrictEquals({
+							name: 'text',
+							value: "Editar Empresa"
+						}),
+						success: () => Opa5.assert.ok(true, "Deve estar na página de editar"),
+						errorMessage: "Não está na página de editar"
 					})
 				}
 			},

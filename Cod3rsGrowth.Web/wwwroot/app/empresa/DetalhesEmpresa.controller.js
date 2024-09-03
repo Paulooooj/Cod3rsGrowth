@@ -4,6 +4,7 @@ sap.ui.define([
   "../model/formatter",
  ], function (BaseController, JSONModel, formatter) {
     "use strict";
+    var idEmpresa = "";
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.DetalhesEmpresa", {
      formatter: formatter,
       onInit: function () {
@@ -15,16 +16,21 @@ sap.ui.define([
        const nomeDaAba = "nomeDaAbaPaginaIniciar";
        this.mudarNomeDaAba(nomeDaAba);
 
-       let empresaId = this._obterIdPelaRota(oEvent);
+       idEmpresa = this._obterIdPelaRota(oEvent);
        const viewAtual = this.getView();
        const nomeContexto = "empresaDetalhes";
-       const urlEmpresa = `/api/Empresa/${empresaId}`;
+       const urlEmpresa = `/api/Empresa/${idEmpresa}`;
        this.obterEmpresa(urlEmpresa, viewAtual, nomeContexto);
       },
 
       _obterIdPelaRota(oEvent){
          let empresaId = oEvent.getParameters().arguments.empresaId
          return empresaId;
+      },
+
+      aoClicarDeveIrParaTelaDeEdicao: function (){
+         const rotaAtualizar = "appAdicionarEmpresa"; 
+         this.getRouter().navTo(rotaAtualizar, {empresaId: idEmpresa}); 
       }
     });
  });

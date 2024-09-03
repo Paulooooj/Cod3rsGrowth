@@ -60,7 +60,7 @@
             "target": "empresa"
          }, 
          {
-            "pattern" : "AdicionarEmpresa",
+            "pattern" : "AdicionarEmpresa/:empresaId:",
             "name" : "appAdicionarEmpresa",
             "target": "adicionar"
          },
@@ -97,6 +97,5 @@
             }
          }
       }
-      
     }
   }

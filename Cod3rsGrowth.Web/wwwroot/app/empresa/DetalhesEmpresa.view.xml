@@ -34,6 +34,12 @@
       <FlexBox class="sapUiResponsiveMargin" justifyContent="SpaceBetween" direction="Column" backgroundDesign="Translucent">
       <Toolbar >
          <Title text="{i18n>nomeToolbarTelaDetahles}" titleStyle="H4"/>
+         <ToolbarSpacer />
+         <Button 
+            icon="sap-icon://edit"
+            text="Editar"
+            id="idBotaoEditarDetalhes"
+            press="aoClicarDeveIrParaTelaDeEdicao"/>
       </Toolbar>
       <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" >
          <f:title>

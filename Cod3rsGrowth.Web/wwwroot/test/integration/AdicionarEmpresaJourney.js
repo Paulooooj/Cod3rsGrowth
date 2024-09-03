@@ -1,6 +1,6 @@
 sap.ui.define([
 	"sap/ui/test/opaQunit",
-	"./pages/AdicionarEmpresa"
+	"./pages/AdicionarEditarEmpresa"
 ], (opaTest) => {
 	"use strict";
 
@@ -10,80 +10,80 @@ sap.ui.define([
 				hash: "AdicionarEmpresa"
 			});
 	
-			Then.adicionarEmpresa.deveVerificarSeEstaNaPaginaDeAdicionar();
+			Then.adicionarEditarEmpresa.deveVerificarSeEstaNaPaginaDeAdicionarEditar();
 		});
 
 		opaTest("Deve verificar se o botão de ok da message box de cancelar volta para a tela de empresa", function (Given, When, Then) {
 	
-			When.adicionarEmpresa.deverClicarNoBotaoDeOk();
+			When.adicionarEditarEmpresa.deverClicarNoBotaoDeOk();
 
-			Then.adicionarEmpresa.verificarSeFoiParaPaginaListagemEmpresa("empresa.Empresa");
+			Then.adicionarEditarEmpresa.verificarSeFoiParaPaginaListagemEmpresa("empresa.Empresa");
 
 			
 		});
 
 		opaTest("Deve voltar para a tela de adicionarr", function (Given, When, Then) {
 
-			When.adicionarEmpresa.voltarParaAPaginaDeAdicionar("idBotaoAdicionar", "empresa.Empresa")
+			When.adicionarEditarEmpresa.voltarParaAPaginaDeAdicionar("idBotaoAdicionar", "empresa.Empresa")
 
 		});
 
 		opaTest("Deve apertar o botão de salvar sem nada nos input e verificar as mensagens de erro", function(Given, When, Then) {
 
-			When.adicionarEmpresa.apertarNoBotaoSalvar();
+			When.adicionarEditarEmpresa.apertarNoBotaoSalvar();
 
-			Then.adicionarEmpresa.verificarMensagemDeErroIEValorDeStatusAoTentarSalvarSemNadaInputRazaoSocial();
+			Then.adicionarEditarEmpresa.verificarMensagemDeErroIEValorDeStatusAoTentarSalvarSemNadaInputRazaoSocial();
 
-			Then.adicionarEmpresa.verificarMensagemDeErroIEValorDeStatusAoTentarSalvarSemNadaInputCNPJ();
+			Then.adicionarEditarEmpresa.verificarMensagemDeErroIEValorDeStatusAoTentarSalvarSemNadaInputCNPJ();
 
-			Then.adicionarEmpresa.verificarMensagemDeErroIEValorDeStatusAoTentarSalvarSemNadaSelectRamo();
+			Then.adicionarEditarEmpresa.verificarMensagemDeErroIEValorDeStatusAoTentarSalvarSemNadaSelectRamo();
 
 		});
 
 		opaTest("Deve verificar se ao tentar preencher com Razão Social que já existe e cnpj inválido vai aparecer erro de validação", function(Given, When, Then) {
 
-			When.adicionarEmpresa.preencherInputs("idInputRazaoSocial", "Apple");
+			When.adicionarEditarEmpresa.preencherInputs("idInputRazaoSocial", "Apple");
 
-			When.adicionarEmpresa.preencherInputs("idInputCNPJ", "12345678912345");
+			When.adicionarEditarEmpresa.preencherInputs("idInputCNPJ", "12345678912345");
 
-			When.adicionarEmpresa.selecionarNaCombobox();
+			When.adicionarEditarEmpresa.selecionarNaCombobox(2);
 
-			When.adicionarEmpresa.apertarNoBotaoSalvar();
+			When.adicionarEditarEmpresa.apertarNoBotaoSalvar();
 
-			Then.adicionarEmpresa.apertarNoBotaoFecharMessagemErro();
+			Then.adicionarEditarEmpresa.apertarNoBotaoFecharMessagemErro();
 
 		});
 
 		opaTest("Deve verificar o ver detalhes na mensagem box de erro de validação", function(Given, When, Then){
 			
-			When.adicionarEmpresa.preencherInputs("idInputRazaoSocial", "Apple");
+			When.adicionarEditarEmpresa.preencherInputs("idInputRazaoSocial", "Apple");
 
-			When.adicionarEmpresa.preencherInputs("idInputCNPJ", "12345678912345");
+			When.adicionarEditarEmpresa.preencherInputs("idInputCNPJ", "12345678912345");
 
-			When.adicionarEmpresa.selecionarNaCombobox();
+			When.adicionarEditarEmpresa.selecionarNaCombobox(2);
 
-			When.adicionarEmpresa.apertarNoBotaoSalvar();
+			When.adicionarEditarEmpresa.apertarNoBotaoSalvar();
 
-			When.adicionarEmpresa.clicarNoVerDetalhesMessageBox()
+			When.adicionarEditarEmpresa.clicarNoVerDetalhesMessageBox()
 		})
 
 		opaTest("Deve fechar a message box de erro", function(Given, When, Then){
-			Then.adicionarEmpresa.apertarNoBotaoFecharMessagemErro();
+			Then.adicionarEditarEmpresa.apertarNoBotaoFecharMessagemErro();
 		})
 		
 		opaTest("Deve verificar se ao apertar no botão de salvar, vai ser salvo a empresa no banco de dados", function(Given, When, Then) {
 			
-			When.adicionarEmpresa.preencherInputs("idInputRazaoSocial", "Yooso");
+			When.adicionarEditarEmpresa.preencherInputs("idInputRazaoSocial", "Yooso");
 
-			When.adicionarEmpresa.preencherInputs("idInputCNPJ", "88246684000157");
+			When.adicionarEditarEmpresa.preencherInputs("idInputCNPJ", "88246684000157");
 
-			When.adicionarEmpresa.selecionarNaCombobox();
+			When.adicionarEditarEmpresa.selecionarNaCombobox(2);
 
-			When.adicionarEmpresa.apertarNoBotaoSalvar();
+			When.adicionarEditarEmpresa.apertarNoBotaoSalvar();
 
-			When.adicionarEmpresa.confirmarNoOkAposSalvar();
+			When.adicionarEditarEmpresa.confirmarNoOkAposSalvar();
 
-			Then.adicionarEmpresa.conferirQuantidadeEmpresasTabela();
+			Then.adicionarEditarEmpresa.conferirQuantidadeEmpresasTabela();
 
 			Then.iTeardownMyApp();
 

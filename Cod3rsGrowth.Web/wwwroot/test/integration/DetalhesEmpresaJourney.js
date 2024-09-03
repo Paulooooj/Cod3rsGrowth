@@ -29,12 +29,19 @@ sap.ui.define([
             Then.detalhesEmpresa.verificarSeORamoEstaCorreto();
         })
 
-        opaTest("Deve voltar para tela de Lista Empresa", function(Given, When, Then){
+        opaTest("Deve verificar rota do botão de editar está correto", function(Given, When, Then){
+
+            When.detalhesEmpresa.deveApertarNoBotaoDeEditar();
+
+            Then.detalhesEmpresa.deveVerificarSeEstaNaPaginaDeEditar();
+        })
+
+        opaTest("Deve voltar para a página de listagem", function(Given, When, Then){
 
             When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa();
 
             Then.detalhesEmpresa.deveConfirmarQueEstaNaTelaDeListagem();
-            
+
             Then.iTeardownMyApp();
         })
 	});
