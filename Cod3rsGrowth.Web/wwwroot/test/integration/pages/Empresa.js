@@ -152,7 +152,7 @@ sap.ui.define([
 				verificarQuantidadeEmpresasFiltradasSomentePorComercio: function () {
 					mensagemDeAcerto = "A tabela tem 12 empresas filtradas por Comércio";
 					mensagemDeErro = "A tabela não contém empresas filtradas por Comércio.";
-					totalItensFiltrados = 12;
+					totalItensFiltrados = 13;
 
 					this.verificarQuantidadeEmpresaTabela(mensagemDeAcerto, mensagemDeErro, totalItensFiltrados);
 				},

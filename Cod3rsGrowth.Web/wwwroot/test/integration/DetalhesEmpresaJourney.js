@@ -9,9 +9,9 @@ sap.ui.define([
 			Given.euInicioMinhaApp({
 			});
 
-            When.detalhesEmpresa.deveIrParaATelaDeDetalhes();
+            When.detalhesEmpresa.deveIrParaATelaDeDetalhes("Microsoft");
 
-            Then.detalhesEmpresa.deveVerificarSeFoiParaPagindaDeDetalhes();
+            Then.detalhesEmpresa.deveVerificarSeFoiParaPaginaDeDetalhes();
 		});
 
         opaTest("Deve verificar se o Razão Social da Empresa está correta", function (Given, When, Then){
@@ -38,7 +38,9 @@ sap.ui.define([
 
         opaTest("Deve voltar para a página de listagem", function(Given, When, Then){
 
-            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa();
+            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa("empresa.AdicionarEmpresa");
+
+            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa("empresa.DetalhesEmpresa");
 
             Then.detalhesEmpresa.deveConfirmarQueEstaNaTelaDeListagem();
 

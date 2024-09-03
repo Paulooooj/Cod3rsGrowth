@@ -37,15 +37,21 @@
          <ToolbarSpacer />
          <Button 
             icon="sap-icon://edit"
-            text="Editar"
+            text="{i18n>botaoEditarDetalhes}"
             id="idBotaoEditarDetalhes"
             press="aoClicarDeveIrParaTelaDeEdicao"/>
+            <Button 
+            icon="sap-icon://delete"
+            text="{i18n>botaoRemoverDetalhes}"
+            id="idBotaoRemoverDetalhes"
+            press="aoClicarDeveRemoverEmpresa"
+            type="Reject"/>
       </Toolbar>
       <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" >
          <f:title>
             <f:DynamicPageTitle>
                <f:heading>
-                  <Title text="{empresaDetalhes>/razaoSocial}"/>
+                  <Title id="idNomeEmpresaTitulo" text="{empresaDetalhes>/razaoSocial}"/>
                </f:heading>
             </f:DynamicPageTitle>
          </f:title>
