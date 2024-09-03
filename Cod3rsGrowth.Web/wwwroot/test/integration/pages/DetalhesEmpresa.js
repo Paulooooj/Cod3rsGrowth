@@ -24,6 +24,15 @@ sap.ui.define([
                     })
                 },
 				
+				deveVoltarParaTelaDeDetalhesEmpresa: function (view){
+					return this.waitFor({
+						id: "botaoDeNavegarDeVoltar",
+						viewName: view,
+						actions: new Press(),
+						errorMessage : "Não foi possivel encontrar o botão!"
+					});
+				},
+
 				deveVoltarParaTelaDeListagemEmpresa: function (view){
 					return this.waitFor({
 						id: "botaoDeNavegarDeVoltar",

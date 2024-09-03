@@ -38,9 +38,9 @@ sap.ui.define([
 
         opaTest("Deve voltar para a página de listagem", function(Given, When, Then){
 
-            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa("empresa.AdicionarEmpresa");
+            When.detalhesEmpresa.deveVoltarParaTelaDeDetalhesEmpresa("empresa.AdicionarEmpresa");
 
-            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa("empresa.DetalhesEmpresa");
+            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa("empresa.AdicionarEmpresa");
 
             Then.detalhesEmpresa.deveConfirmarQueEstaNaTelaDeListagem();
 
