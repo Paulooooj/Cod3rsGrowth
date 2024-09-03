@@ -103,7 +103,7 @@ sap.ui.define([
 			.then(res => {return !res.ok? 
 				  res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
 				  this.mensageDeSucesso(mensagemDeSucesso);
-			   })
+			})
 		 }
 	});
 });
