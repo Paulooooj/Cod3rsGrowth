@@ -10,8 +10,6 @@ sap.ui.define([
     const IdInputRazaoSocial = "idInputRazaoSocial";
     const IdInputCnpj = "idInputCNPJ";
     const IdSelectRamo = "idSelectRamoAdicionar";
-    const razaoSocialECNPJVazio = "";
-    const ramoNaoDefinido = 0;
     const removerValueState = "None";
 	 var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
     var idEmpresaAtualizar = "";
@@ -44,7 +42,10 @@ sap.ui.define([
          this.getView().byId(IdSelectRamo).setSelectedKey(removerValueState);
 
          idEmpresaAtualizar = this._obterIdPelaRota(oEvent);
-         this._verificarSeTemId();
+         if (idEmpresaAtualizar){
+            this._mudarTituto();
+            this._fazerUrlRequisicaoPreencherCamposEditar();
+         }
       },
 
       _obterIdPelaRota: function (oEvent){
@@ -52,13 +53,13 @@ sap.ui.define([
          return empresaId;
       },
 
-      _verificarSeTemId: function (){
-         if(!idEmpresaAtualizar)
-            return;
-
+      _mudarTituto: function () {
          const tituloEditar = "Editar Empresa";
          const idTitulo = "idTituloAdicionarEditar";
          this.getView().byId(idTitulo).setText(tituloEditar);
+      },
+
+      _fazerUrlRequisicaoPreencherCamposEditar: function (){
          const viewAtual = this.getView();
          const urlEmpresa = `/api/Empresa/${idEmpresaAtualizar}`;
          this._obterEmpresaAtualizar(urlEmpresa, viewAtual);
@@ -75,8 +76,13 @@ sap.ui.define([
       },
 
       _obterEmpresaAtualizar: function (url, view){
-         fetch(url).then(res => {return res.ok? res.json().then(res => {this._colocarValorNosCampos(res)}) :
-				res.json().then(res => {this.validacao.mensagemDeErro(res, view)})})
+         fetch(url)
+            .then(res => 
+            {
+               return res.ok? 
+                  res.json().then(res => {this._colocarValorNosCampos(res)}) :
+                  res.json().then(res => {this.validacao.mensagemDeErro(res, view)})
+            })
 		 },
 
       _adicionarEmpresaNaApi: function (empresa, requisicao){
@@ -104,17 +110,16 @@ sap.ui.define([
          empresa.ramo = parseInt(this.getView().byId(IdSelectRamo).getSelectedKey());
 
          let view = this.getView();
-         this.validacao.validacaoDeTela(view, empresa);
+         var verificarValidacao = this.validacao.validacaoDeTela(view, empresa);
 
-         var requisicaoSalvar 
-         if(!idEmpresaAtualizar)
-            requisicaoSalvar = "Post";
-         else{
+         let requisicaoSalvar = "Post";
+
+         if(idEmpresaAtualizar){
             requisicaoSalvar = "Patch";
             empresa.id = idEmpresaAtualizar;
          }
 
-         if(empresa.razaoSocial !== razaoSocialECNPJVazio && empresa.cnpj !== razaoSocialECNPJVazio && empresa.ramo !== ramoNaoDefinido)
+         if(verificarValidacao)
             this._adicionarEmpresaNaApi(empresa, requisicaoSalvar);
       }, 
 
