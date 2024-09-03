@@ -15,7 +15,7 @@ sap.ui.define([
 	const viewNamePaginaListagemEmpresa = "empresa.Empresa";
 
 	Opa5.createPageObjects({
-		adicionarEmpresa: {
+		adicionarEditarEmpresa: {
 			actions: {
 				irParaTelaDetalhaes: function (){
                     return this.waitFor({
