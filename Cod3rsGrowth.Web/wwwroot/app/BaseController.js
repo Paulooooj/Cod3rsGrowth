@@ -82,6 +82,7 @@ sap.ui.define([
 		 },
 
 		 mensageDeSucesso: function (mensagemDeSucesso){
+			const rotaEmpresa = "appEmpresa";
 			MessageBox.success(mensagemDeSucesso, {
 			   id: "messageBoxSucesso",
 			   styleClass: sResponsivePaddingClasses,
@@ -89,7 +90,7 @@ sap.ui.define([
 			   actions: [MessageBox.Action.OK],
 			   onClose: (sAction) => {
 				  if(sAction == MessageBox.Action.OK){
-						 this.getRouter().navTo("appEmpresa", {}, true);
+						 this.getRouter().navTo(rotaEmpresa, {}, true);
 				  }
 			   }
 			})
