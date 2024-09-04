@@ -44,13 +44,13 @@
 					<ToolbarSpacer/>
 					<Button 
 					id="idBotaoSalvar"
-					text="Salvar"
+					text="{i18n>botaoSalvarAdicionar}"
 					icon="sap-icon://save"
 					press="aoClicarEmSalvar"
 					/>
 					<Button 
 					id="idBotaoCancelar"
-					text="Cancelar"
+					text="{i18n>botaoCancelarAdicionar}"
 					type="Reject"
 					icon="sap-icon://sys-cancel-2"
 					press="aoClicarEmCancelar"/>

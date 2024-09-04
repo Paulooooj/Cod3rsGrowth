@@ -63,8 +63,26 @@ sap.ui.define([
 			document.title = sTitulo;
 		 },
 
-		 mensageDeSucesso: function (empresa){
+		 adicionarEAtualizarEmpresaNaApi: function (empresa, requisicao){
+			let view = this.getView();
 			const mensagemDeSucesso = `${empresa.razaoSocial} foi salvo com sucesso!`
+			const url = '/api/Empresa';
+			const options = {
+			   method: requisicao,
+			   body: JSON.stringify(empresa),
+			   headers: {
+				  "Content-Type": "application/json",
+			   }
+			};
+			fetch(url, options)
+			.then( res => {return !res.ok? 
+			   res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
+			   this.mensageDeSucesso(mensagemDeSucesso);
+			})
+		 },
+
+		 mensageDeSucesso: function (mensagemDeSucesso){
+			const rotaEmpresa = "appEmpresa";
 			MessageBox.success(mensagemDeSucesso, {
 			   id: "messageBoxSucesso",
 			   styleClass: sResponsivePaddingClasses,
@@ -72,10 +90,21 @@ sap.ui.define([
 			   actions: [MessageBox.Action.OK],
 			   onClose: (sAction) => {
 				  if(sAction == MessageBox.Action.OK){
-						 this.getRouter().navTo("appEmpresa", {}, true);
+						 this.getRouter().navTo(rotaEmpresa, {}, true);
 				  }
 			   }
 			})
 		 },
+
+		 deletarEmpresa: function (url, empresa){
+			const mensagemDeSucesso = `${empresa} foi removido com sucesso!`
+			fetch(url, {
+			   method: "DELETE",
+			})
+			.then(res => {return !res.ok? 
+				  res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
+				  this.mensageDeSucesso(mensagemDeSucesso);
+			})
+		 }
 	});
 });

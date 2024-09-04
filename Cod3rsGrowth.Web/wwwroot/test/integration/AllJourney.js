@@ -4,8 +4,10 @@ sap.ui.define([
     './EmpresaJourney',
     './AdicionarEmpresaJourney',
     './DetalhesEmpresaJourney',
-    './EditarEmpresaJourney'
-], function(Opa5, Startup, EmpresaJourney, AdicionarEmpresaJourney, DetalhesEmpresa, Editar) {
+    './EditarEmpresaJourney',
+    './RemoverEmpresaJourney',
+
+], function(Opa5, Startup, EmpresaJourney, AdicionarEmpresaJourney, DetalhesEmpresa, Editar, RemoverEmpresaJourney) {
     'use strict';
  
     Opa5.extendConfig({

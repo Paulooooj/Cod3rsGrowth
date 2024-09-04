@@ -2,7 +2,6 @@ using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Dominio.Migrations;
 using Cod3rsGrowth.Dominio.Servicos;
 using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Infra.DeletarEmpresa;
 using Cod3rsGrowth.Infra.Interfaces;
 using Cod3rsGrowth.Infra.Repositorio;
 using Cod3rsGrowth.Servico.Servicos;
@@ -88,14 +87,5 @@ app.UseFileServer(new FileServerOptions
 app.UseAuthorization();
 
 app.MapControllers();
-
-if (args?.FirstOrDefault() == "BancoTeste")
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbCoders = scope.ServiceProvider.GetRequiredService<DbCod3rsGrowth>();
-        DeletarEmpresaTeste.DeletarEmpresaUsadaNosTestes(dbCoders);
-    }
-}
 
 app.Run();

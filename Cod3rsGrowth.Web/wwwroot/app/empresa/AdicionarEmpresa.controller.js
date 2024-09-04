@@ -84,23 +84,6 @@ sap.ui.define([
                   res.json().then(res => {this.validacao.mensagemDeErro(res, view)})
             })
 		 },
-
-      _adicionarEmpresaNaApi: function (empresa, requisicao){
-         let view = this.getView();
-         const url = '/api/Empresa';
-         const options = {
-            method: requisicao,
-            body: JSON.stringify(empresa),
-            headers: {
-               "Content-Type": "application/json",
-            }
-         };
-         fetch(url, options)
-         .then( res => {return !res.ok? 
-            res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
-            this.mensageDeSucesso(empresa);
-         })
-      },
     
       aoClicarEmSalvar: function (){
          let empresa = {};
@@ -120,7 +103,7 @@ sap.ui.define([
          }
 
          if(verificarValidacao)
-            this._adicionarEmpresaNaApi(empresa, requisicaoSalvar);
+            this.adicionarEAtualizarEmpresaNaApi(empresa, requisicaoSalvar);
       }, 
 
       aoClicarEmCancelar: function (){
