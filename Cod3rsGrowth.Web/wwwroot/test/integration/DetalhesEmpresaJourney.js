@@ -8,39 +8,48 @@ sap.ui.define([
 		opaTest("Deve ir para tela de detalhes", function (Given, When, Then) {
 			Given.euInicioMinhaApp({
 			});
+            When
+                .detalhesEmpresa
+                .deveIrParaATelaDeDetalhes("Microsoft");
 
-            When.detalhesEmpresa.deveIrParaATelaDeDetalhes("Microsoft");
-
-            Then.detalhesEmpresa.deveVerificarSeFoiParaPaginaDeDetalhes();
+            Then
+                .detalhesEmpresa
+                .deveVerificarSeFoiParaPaginaDeDetalhes();
 		});
 
         opaTest("Deve verificar se o Razão Social da Empresa está correta", function (Given, When, Then){
-
-            Then.detalhesEmpresa.verificarSeARazaoSocialEstaCorreta();
+            Then
+                .detalhesEmpresa.verificarSeARazaoSocialEstaCorreta();
         })
 
         opaTest("Deve verificar se o CNPJ está correto", function (Given, When, Then){
-
-            Then.detalhesEmpresa.verificarSeCnpjEstaCorreta();
+            Then
+                .detalhesEmpresa.verificarSeCnpjEstaCorreta();
         })
 
         opaTest("Deve verificar se o Ramo está correto", function(Given, When, Then){
-
-            Then.detalhesEmpresa.verificarSeORamoEstaCorreto();
+            Then
+                .detalhesEmpresa
+                .verificarSeORamoEstaCorreto();
         })
 
         opaTest("Deve verificar rota do botão de editar está correto", function(Given, When, Then){
+            When
+                .detalhesEmpresa
+                .deveApertarNoBotaoDeEditar();
 
-            When.detalhesEmpresa.deveApertarNoBotaoDeEditar();
-
-            Then.detalhesEmpresa.deveVerificarSeEstaNaPaginaDeEditar();
+            Then
+                .detalhesEmpresa.deveVerificarSeEstaNaPaginaDeEditar();
         })
 
         opaTest("Deve voltar para a página de listagem", function(Given, When, Then){
+            When
+                .detalhesEmpresa
+                .deveVoltarParaTelaDeListagemEmpresa("empresa.AdicionarEmpresa");
 
-            When.detalhesEmpresa.deveVoltarParaTelaDeDetalhesEmpresa("empresa.AdicionarEmpresa");
-
-            Then.detalhesEmpresa.deveConfirmarQueEstaNaTelaDeListagem();
+            Then
+                .detalhesEmpresa
+                .deveConfirmarQueEstaNaTelaDeListagem();
 
             Then.iTeardownMyApp();
         })

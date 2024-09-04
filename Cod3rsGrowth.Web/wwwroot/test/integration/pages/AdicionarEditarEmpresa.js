@@ -1,15 +1,13 @@
 sap.ui.define([
 	"sap/ui/test/Opa5",
-	'sap/ui/test/matchers/AggregationLengthEquals',
 	'sap/ui/test/actions/EnterText',
 	'sap/ui/test/matchers/I18NText',
 	'sap/ui/test/actions/Press',
     'sap/ui/test/matchers/Properties',
 	'sap/ui/test/matchers/PropertyStrictEquals'
 
-], (Opa5, AggregationLengthEquals, EnterText, I18NText, Press, Properties, PropertyStrictEquals) => {
+], (Opa5, EnterText, I18NText, Press, Properties, PropertyStrictEquals) => {
 	"use strict";
-
 	const sViewName = "empresa.AdicionarEmpresa";
 	const tituloPaginaAdicionar = "Cadastro Empresa";
 	const viewNamePaginaListagemEmpresa = "empresa.Empresa";
@@ -129,7 +127,6 @@ sap.ui.define([
 					})
 				}
 			},
-
 			assertions: {
 				verificarSeFoiParaTelaDetalhes: function (){
 					return this.waitFor({
@@ -196,7 +193,6 @@ sap.ui.define([
 							Opa5.assert.ok(true, "A mensagem de erro e valor de status está correta");
 						},
 						errorMessage: "Não tem mensagem de erro e nem valor de status"
-						
 					});
 				},
 				

@@ -24,18 +24,9 @@ sap.ui.define([
                     })
                 },
 				
-				deveVoltarParaTelaDeDetalhesEmpresa: function (view){
-					return this.waitFor({
-						id: "botaoDeNavegarDeVoltar",
-						viewName: view,
-						actions: new Press(),
-						errorMessage : "Não foi possivel encontrar o botão!"
-					});
-				},
-
 				deveVoltarParaTelaDeListagemEmpresa: function (view){
 					return this.waitFor({
-						id: "botaoDeNavegarDeVoltar",
+						id: "idBotaoDeNavegarAdicionarEditar",
 						viewName: view,
 						actions: new Press(),
 						errorMessage : "Não foi possivel encontrar o botão!"
@@ -87,7 +78,6 @@ sap.ui.define([
 					})
 				},
 			},
-
 			assertions: {
                 deveVerificarSeFoiParaPaginaDeDetalhes: function (){
 					return this.waitFor({
@@ -117,6 +107,7 @@ sap.ui.define([
                     const mensageDeSucesso = "O CNPJ está correto";
 					const mensagemErro = "O CNPJ está incorreto";
                     const cnpj = "87.439.722/0001-25";
+
                     this.deveVerificarSeAsInformacoesEstaoCorretas(mensageDeSucesso, mensagemErro, cnpj);
                 },
 
@@ -124,6 +115,7 @@ sap.ui.define([
 						const mensageDeSucesso = "O Ramo está correto";
 						const mensagemErro = "O Ramo está incorreto";
                         const ramo = "Serviço";
+						
                         this.deveVerificarSeAsInformacoesEstaoCorretas(mensageDeSucesso, mensagemErro, ramo);
                 },
 

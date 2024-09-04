@@ -3,10 +3,8 @@ sap.ui.define([
    "../model/formatter",
 	"sap/m/MessageBox",
    "../servico/validacao",
-	"sap/ui/model/json/JSONModel",
- ], function (BaseController, formatter, MessageBox, validacao, JSONModel) {
+ ], function (BaseController, formatter, MessageBox, validacao) {
     "use strict";
-
     const IdInputRazaoSocial = "idInputRazaoSocial";
     const IdInputCnpj = "idInputCNPJ";
     const IdSelectRamo = "idSelectRamoAdicionar";

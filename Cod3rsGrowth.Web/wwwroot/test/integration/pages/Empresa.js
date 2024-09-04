@@ -9,7 +9,6 @@ sap.ui.define([
 
 ], (Opa5, AggregationLengthEquals, EnterText, I18NText, Press, Properties, PropertyStrictEquals) => {
 	"use strict";
-
 	const sViewName = "empresa.Empresa";
 	var sTableId = "idTabelaEmpresa";
 	var mensagemDeAcerto = "";
@@ -21,7 +20,7 @@ sap.ui.define([
 			actions: {
 				bucarPor: function (sBuscaString) {
 					return this.waitFor({
-						id: "idInputRazaoSocial",
+						id: "idBarraPesquisaRazaoSocial",
 						viewName: sViewName,
 						actions: new EnterText({
 							text: sBuscaString
@@ -79,7 +78,6 @@ sap.ui.define([
 					})
 				}
 			},
-
 			assertions: {
 				verificarSeTemPaginacaoNaTabela: function () {
 					mensagemDeAcerto = "A tabela tem 20 Empresas na primeira página";

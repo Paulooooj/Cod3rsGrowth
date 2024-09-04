@@ -94,8 +94,9 @@ sap.ui.define([
       aoClicarIrParaTelaDetalhes: function (itemPressionado){
          const rotaTelaDetalhes = "appDetalhesEmpresa";
          const contexto = "listaEmpresa";
+         const id = "id";
          this.getRouter().navTo(rotaTelaDetalhes, {
-            empresaId: itemPressionado.getSource().getBindingContext(contexto).getProperty("id")
+            empresaId: itemPressionado.getSource().getBindingContext(contexto).getProperty(id)
          }, true);
       }
    });

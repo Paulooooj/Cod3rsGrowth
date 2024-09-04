@@ -46,7 +46,7 @@
                <Title id = "idtituloTabela" text="" titleStyle="H4"/>
                <ToolbarSpacer/>
                <SearchField 
-               id="idInputRazaoSocial"
+               id="idBarraPesquisaRazaoSocial"
                width="25%"
                placeholder="{i18n>barraDePesquisaEmpresa}"
                liveChange="filtroBarraDePesquisa"/>
