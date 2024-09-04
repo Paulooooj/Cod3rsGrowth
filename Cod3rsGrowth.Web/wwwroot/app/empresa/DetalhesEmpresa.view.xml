@@ -44,8 +44,7 @@
             icon="sap-icon://delete"
             text="{i18n>botaoRemoverDetalhes}"
             id="idBotaoRemoverDetalhes"
-            press="aoClicarDeveRemoverEmpresa"
-            type="Reject"/>
+            press="aoClicarDeveRemoverEmpresa"/>
       </Toolbar>
       <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" >
          <f:title>

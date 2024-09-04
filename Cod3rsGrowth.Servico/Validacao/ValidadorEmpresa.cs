@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Dominio.Entidades;
 using Cod3rsGrowth.Infra.Interfaces;
 using FluentValidation;
+using System.Linq;
 
 namespace Cod3rsGrowth.Servico.Validacao
 {
@@ -28,7 +29,7 @@ namespace Cod3rsGrowth.Servico.Validacao
             RuleFor(x => x.CNPJ)
                 .NotEmpty()
                 .WithMessage("O campo CNPJ é obrigatorio")
-                .Must((x, _) => ValidarSeECNPJ(x.CNPJ))
+                .Must((x, _) => ValidarCNPJ(x.CNPJ))
                 .WithMessage("CNPJ inválido");
 
             RuleFor(x => x.Ramo)
@@ -37,43 +38,29 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .Must((x, _) => VerificarSeOEnumEstaVazio(x.Ramo)).WithMessage("O campo enum é obrigatório");
         }
 
-        private static bool ValidarSeECNPJ(string cnpj)
+        private static bool ValidarCNPJ(string cnpj)
         {
-            if (cnpj != null)
-            {
-                int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-                int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
-                int soma;
-                int resto;
-                string digito;
-                string tempCnpj;
-                cnpj = cnpj.Trim();
-                cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
-                if (cnpj.Length != 14)
-                    return false;
-                tempCnpj = cnpj.Substring(0, 12);
-                soma = 0;
-                for (int i = 0; i < 12; i++)
-                    soma += int.Parse(tempCnpj[i].ToString()) * multiplicador1[i];
-                resto = (soma % 11);
-                if (resto < 2)
-                    resto = 0;
-                else
-                    resto = 11 - resto;
-                digito = resto.ToString();
-                tempCnpj = tempCnpj + digito;
-                soma = 0;
-                for (int i = 0; i < 13; i++)
-                    soma += int.Parse(tempCnpj[i].ToString()) * multiplicador2[i];
-                resto = (soma % 11);
-                if (resto < 2)
-                    resto = 0;
-                else
-                    resto = 11 - resto;
-                digito = digito + resto.ToString();
-                return cnpj.EndsWith(digito);
-            }
-            return false;
+            if (cnpj == null) return false;
+             
+            cnpj = new string(cnpj.Where(char.IsDigit).ToArray());
+
+            if (cnpj.Length != 14)
+                return false;
+
+            if (cnpj.All(c => c == cnpj[0]))
+                return false;
+
+            int[] pesosPrimeiroDigito = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int somaPrimeiroDigito = cnpj.Take(12).Select((c, i) => (c - '0') * pesosPrimeiroDigito[i]).Sum();
+            int restoPrimeiroDigito = somaPrimeiroDigito % 11;
+            int digitoVerificador1 = restoPrimeiroDigito < 2 ? 0 : 11 - restoPrimeiroDigito;
+
+            int[] pesosSegundoDigito = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int somaSegundoDigito = cnpj.Take(13).Select((c, i) => (c - '0') * pesosSegundoDigito[i]).Sum();
+            int restoSegundoDigito = somaSegundoDigito % 11;
+            int digitoVerificador2 = restoSegundoDigito < 2 ? 0 : 11 - restoSegundoDigito;
+
+            return cnpj.EndsWith($"{digitoVerificador1}{digitoVerificador2}");
         }
 
         public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa)

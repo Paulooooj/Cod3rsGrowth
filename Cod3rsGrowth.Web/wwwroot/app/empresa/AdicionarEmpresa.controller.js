@@ -38,10 +38,16 @@ sap.ui.define([
          this.getView().byId(IdSelectRamo).setValueState(removerValueState);
          this.getView().byId(IdSelectRamo).setSelectedKey(removerValueState);
 
+         idEmpresaAtualizar = "";
          idEmpresaAtualizar = this._obterIdPelaRota(oEvent);
          if (idEmpresaAtualizar){
-            this._mudarTituto();
+            const nomeTituloEditar = "tituloPagindaEditar";
+            this._mudarTituto(nomeTituloEditar);
             this._fazerUrlRequisicaoPreencherCamposEditar();
+         }
+         else {
+            const nomeTituloAdicionar = "nomeTituloAdicionar";
+            this._mudarTituto(nomeTituloAdicionar);
          }
       },
 
@@ -50,8 +56,10 @@ sap.ui.define([
          return empresaId;
       },
 
-      _mudarTituto: function () {
-         const tituloEditar = "Editar Empresa";
+      _mudarTituto: function (nomeTitulo) {
+         const propiedade = "i18n";
+         const propiedadeI18n = this.getView().getModel(propiedade).getResourceBundle();
+         const tituloEditar = propiedadeI18n.getText(nomeTitulo);
          const idTitulo = "idTituloAdicionarEditar";
          this.getView().byId(idTitulo).setText(tituloEditar);
       },
@@ -99,18 +107,22 @@ sap.ui.define([
          }
 
          if(verificarValidacao)
-            this.adicionarEAtualizarEmpresaNaApi(empresa, requisicaoSalvar);
+            this.adicionarEAtualizarEmpresa(empresa, requisicaoSalvar);
       }, 
 
       aoClicarEmCancelar: function (){
-         const mensagemDeSucesso = `Deseja mesmo cancelar?`
+         const mensagemDeSucesso = `Deseja mesmo cancelar?`;
+         const rotaTelaEmpresa = "appEmpresa";
+         const rotaTelaDetalhes = "appDetalhesEmpresa";
          MessageBox.warning(mensagemDeSucesso, {
             styleClass: sResponsivePaddingClasses,
             dependentOn: this.getView(),
             actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
             onClose: (sAction) => {
                if(sAction == MessageBox.Action.OK){
-				      this.getRouter().navTo("appEmpresa", {}, true);
+                  idEmpresaAtualizar? 
+                     this.getRouter().navTo(rotaTelaDetalhes, {empresaId: idEmpresaAtualizar}, true):
+                     this.getRouter().navTo(rotaTelaEmpresa, {}, true)
                }
             }
          })

@@ -240,5 +240,27 @@ namespace Cod3rsGrowth.Testes.Testes
             listaDeEmpresasSingleton.AddRange(listaEmpresa);
             return listaEmpresa;
         }
+
+        [Theory]
+        [InlineData("22222222222222")]
+        [InlineData("00000000000000")]
+        [InlineData("/2asdf")]
+        [InlineData("sdfddf")]
+        [InlineData("777777777777777")]
+        [InlineData("77777777")]
+        [InlineData("7777777798987897237894578792364872634")]
+        [InlineData("00000000000000")]
+        public void deve_estourar_uma_excecao_ao_mandar_um_cnpj_vazio123(string cnpjInvalido)
+        {
+            var empresa = new Empresa 
+            { 
+                Id = 1, 
+                RazaoSocial = "EmpresaTestea", 
+                Ramo = EnumRamoDaEmpresa.Servico,
+                CNPJ = cnpjInvalido
+            };
+
+            Assert.Throws<FluentValidation.ValidationException>(() => _servicoEmpresa.Adicionar(empresa));
+        }
     }
 }

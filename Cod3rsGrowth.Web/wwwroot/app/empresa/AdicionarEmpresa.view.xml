@@ -51,7 +51,6 @@
 					<Button 
 					id="idBotaoCancelar"
 					text="{i18n>botaoCancelarAdicionar}"
-					type="Reject"
 					icon="sap-icon://sys-cancel-2"
 					press="aoClicarEmCancelar"/>
 					</OverflowToolbar>

@@ -63,8 +63,9 @@ sap.ui.define([
 			document.title = sTitulo;
 		 },
 
-		 adicionarEAtualizarEmpresaNaApi: function (empresa, requisicao){
+		 adicionarEAtualizarEmpresa: function (empresa, requisicao){
 			let view = this.getView();
+			const id = empresa.id;
 			const mensagemDeSucesso = `${empresa.razaoSocial} foi salvo com sucesso!`
 			const url = '/api/Empresa';
 			const options = {
@@ -77,12 +78,13 @@ sap.ui.define([
 			fetch(url, options)
 			.then( res => {return !res.ok? 
 			   res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
-			   this.mensageDeSucesso(mensagemDeSucesso);
+			   this.mensageDeSucesso(mensagemDeSucesso, id);
 			})
 		 },
 
-		 mensageDeSucesso: function (mensagemDeSucesso){
+		 mensageDeSucesso: function (mensagemDeSucesso, id){
 			const rotaEmpresa = "appEmpresa";
+			const rotaTelaDetalhes = "appDetalhesEmpresa";;
 			MessageBox.success(mensagemDeSucesso, {
 			   id: "messageBoxSucesso",
 			   styleClass: sResponsivePaddingClasses,
@@ -90,6 +92,8 @@ sap.ui.define([
 			   actions: [MessageBox.Action.OK],
 			   onClose: (sAction) => {
 				  if(sAction == MessageBox.Action.OK){
+						 id?
+						 this.getRouter().navTo(rotaTelaDetalhes, {empresaId: id}, true):
 						 this.getRouter().navTo(rotaEmpresa, {}, true);
 				  }
 			   }
