@@ -31,16 +31,13 @@ sap.ui.define([
       _urlDeTodosOsFiltros: function (){
          let query = {};
 
-         if(filtroBarraDePesquisa){
+         if(filtroBarraDePesquisa)
             query.razaoSocialECnpj = filtroBarraDePesquisa;
-         }
 
-         if(filtroSelect && filtroSelect != "Todos"){
+         if(filtroSelect && filtroSelect != "Todos")
             query.ramo = filtroSelect;
-         }
 
          let urlObterTodos = '/api/Empresa?' + new URLSearchParams(query);
-
          this._obterTodos(urlObterTodos);
       },
       
@@ -81,7 +78,8 @@ sap.ui.define([
             const oBundle = this.getView().getModel("i18n").getResourceBundle();
 			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
 				sTitle = oBundle.getText("nomeBarraFerramentasEmpresaCount", [iTotalItems]);
-			} else {
+			} 
+         else {
 				sTitle = oBundle.getText("nomeBarraDeFerramentas");
 			}
          this.getView().byId("idtituloTabela").setProperty("text", sTitle);

@@ -25,7 +25,6 @@ sap.ui.define([
          this.obterEmpresa(urlEnum, viewAtual, nomeContexto);
 
          const rotaTelaDeAdicionar = "appAdicionarEmpresa";
-         
          this.getRouter().getRoute(rotaTelaDeAdicionar).attachMatched(this._aoCoincidirRota, this);
       },
 
@@ -92,7 +91,6 @@ sap.ui.define([
 
          let view = this.getView();
          var verificarValidacao = this.validacao.validacaoDeTela(view, empresa);
-
          let requisicaoSalvar = "Post";
 
          if(idEmpresaAtualizar){
