@@ -33,7 +33,7 @@ sap.ui.define([
 
       aoClicarDeveIrParaTelaDeEdicao: function (){
          const rotaAtualizar = "appAdicionarEmpresa"; 
-         this.getRouter().navTo(rotaAtualizar, {empresaId: idEmpresa}); 
+         this.getRouter().navTo(rotaAtualizar, {empresaId: idEmpresa}, true); 
       },
 
       aoClicarDeveRemoverEmpresa: function (){

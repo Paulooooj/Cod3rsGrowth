@@ -40,8 +40,6 @@ sap.ui.define([
 
             When.detalhesEmpresa.deveVoltarParaTelaDeDetalhesEmpresa("empresa.AdicionarEmpresa");
 
-            When.detalhesEmpresa.deveVoltarParaTelaDeListagemEmpresa("empresa.AdicionarEmpresa");
-
             Then.detalhesEmpresa.deveConfirmarQueEstaNaTelaDeListagem();
 
             Then.iTeardownMyApp();
