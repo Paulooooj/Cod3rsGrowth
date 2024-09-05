@@ -19,7 +19,7 @@ namespace Cod3rsGrowth.Infra.Repositorio
 
         public void Adicionar(Empresa empresa)
         {
-            _db.Insert(empresa);
+           empresa.Id = _db.InsertWithInt32Identity(empresa);
         }
 
         public void Atualizar(Empresa empresa)

@@ -9,7 +9,6 @@ sap.ui.define([
     const IdInputCnpj = "idInputCNPJ";
     const IdSelectRamo = "idSelectRamoAdicionar";
     const removerValueState = "None";
-	 var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
     var idEmpresaAtualizar = "";
 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa", {
@@ -111,21 +110,8 @@ sap.ui.define([
       }, 
 
       aoClicarEmCancelar: function (){
-         const mensagemDeSucesso = `Deseja mesmo cancelar?`;
-         const rotaTelaEmpresa = "appEmpresa";
-         const rotaTelaDetalhes = "appDetalhesEmpresa";
-         MessageBox.warning(mensagemDeSucesso, {
-            styleClass: sResponsivePaddingClasses,
-            dependentOn: this.getView(),
-            actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-            onClose: (sAction) => {
-               if(sAction == MessageBox.Action.OK){
-                  idEmpresaAtualizar? 
-                     this.getRouter().navTo(rotaTelaDetalhes, {empresaId: idEmpresaAtualizar}, true):
-                     this.getRouter().navTo(rotaTelaEmpresa, {}, true)
-               }
-            }
-         })
+         const mensagemDeAviso = `Deseja mesmo cancelar?`;
+         this.mensagemDeAviso(mensagemDeAviso, idEmpresaAtualizar);
       },
     });
  });

@@ -5,7 +5,6 @@ sap.ui.define([
  ], function (BaseController, formatter, MessageBox) {
     "use strict";
     var idEmpresa = "";
-	 var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
 
     return BaseController.extend("ui5.cod3rsgrowth.app.empresa.DetalhesEmpresa", {
      formatter: formatter,
@@ -39,18 +38,8 @@ sap.ui.define([
          const idNomeEmpresa = "idNomeEmpresaTitulo";
          const nomeDaEmpresa = this.getView().byId(idNomeEmpresa).getText();
          const mensagemDeAviso = `Deseja mesmo remover ${nomeDaEmpresa}?`
-         const url = `/api/Empresa/${idEmpresa}`;
 
-         MessageBox.warning(mensagemDeAviso, {
-            styleClass: sResponsivePaddingClasses,
-            dependentOn: this.getView(),
-            actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-            onClose: (sAction) => {
-               if(sAction == MessageBox.Action.OK){
-                  this.deletarEmpresa(url, nomeDaEmpresa);
-               }
-            }
-         })
+         this.mensagemDeAviso(mensagemDeAviso, idEmpresa, nomeDaEmpresa);
       },
     });
  });

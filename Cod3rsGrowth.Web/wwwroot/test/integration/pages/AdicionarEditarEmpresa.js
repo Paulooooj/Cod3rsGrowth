@@ -40,10 +40,10 @@ sap.ui.define([
 										controlType: "sap.m.Button",
 										matchers: new PropertyStrictEquals({
 											name: "text",
-											value: "OK" 
+											value: "Sim" 
 										}),
 										actions: new Press(),  
-										errorMessage: "O botão 'OK' não foi encontrado na Message Box."
+										errorMessage: "O botão 'Sim' não foi encontrado na Message Box."
 									});
 								},
 								errorMessage: "A Message Box não foi encontrada."
@@ -118,12 +118,21 @@ sap.ui.define([
 					})
 				},
 
-				deveIrParaTelaDeEditar: function(){
+				deveIrParaTelaDeEditar: function (){
 					return this.waitFor({
 						id: "idBotaoEditarDetalhes",
 						viewName: "empresa.DetalhesEmpresa",
 						actions: new Press(),
 						errorMessage: "Não foi possível encontrar o botão de editar"
+					})
+				},
+
+				deveVoltarParaTelaDeListagem: function (){
+					return this.waitFor({
+						id: "idBotaoDeNavegarDeVoltaDetalhes",
+						viewName: "empresa.DetalhesEmpresa",
+						actions: new Press(),
+						errorMessage: "Não foi possível encontrar o botão de voltar na tela de detalhes"
 					})
 				}
 			},

@@ -25,11 +25,11 @@ sap.ui.define([
         opaTest("Deve clicar em remover depois em cancel da mensagem box de confirmação", function(Given, When, Then){
             When
                 .detalhesEmpresa
-                .deveApertarNoBotaoDeSalvar();
+                .deveApertarNoBotaoDeRemover();
 
             When
                 .detalhesEmpresa
-                .deveApertarNoBotaoMensagemBox("Cancelar");
+                .deveApertarNoBotaoMensagemBox("Não");
 
             Then
                 .detalhesEmpresa
@@ -39,11 +39,11 @@ sap.ui.define([
         opaTest("Deve apagar o item a empresa Yooso da lista", function(Given, When, Then){
             When
                 .detalhesEmpresa
-                .deveApertarNoBotaoDeSalvar();
+                .deveApertarNoBotaoDeRemover();
 
             When
                 .detalhesEmpresa
-                .deveApertarNoBotaoMensagemBox("OK");
+                .deveApertarNoBotaoMensagemBox("Sim");
 
             When
                 .detalhesEmpresa

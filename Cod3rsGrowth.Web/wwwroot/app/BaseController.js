@@ -6,7 +6,12 @@ sap.ui.define([
 	"sap/ui/model/resource/ResourceModel",
 	"sap/m/MessageBox",
 	"ui5/cod3rsgrowth/app/servico/validacao",
-], function(Controller, History, UIComponent, JSONModel, ResourceModel, MessageBox, validacao) {
+	"sap/m/Dialog",
+    "sap/m/Button",
+    "sap/m/library",
+    "sap/m/Text",
+    "sap/ui/core/library",
+], function(Controller, History, UIComponent, JSONModel, ResourceModel, MessageBox, validacao, Dialog, Button, mobileLibrary, Text, coreLibrary) {
 	"use strict";
 	var sResponsivePaddingClasses = "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer";
 	
@@ -65,7 +70,7 @@ sap.ui.define([
 
 		 adicionarEAtualizarEmpresa: function (empresa, requisicao){
 			let view = this.getView();
-			const id = empresa.id;
+			const idEmpresa = empresa.id;
 			const mensagemDeSucesso = `${empresa.razaoSocial} foi salvo com sucesso!`
 			const url = '/api/Empresa';
 			const options = {
@@ -75,11 +80,20 @@ sap.ui.define([
 				  "Content-Type": "application/json",
 			   }
 			};
+
 			fetch(url, options)
-			.then( res => {return !res.ok? 
-			   res.json().then(res => this.validacao.mensagemDeErro(res, view)) : 
-			   this.mensageDeSucesso(mensagemDeSucesso, id);
-			})
+               .then(res => {
+                    if (!res.ok) {
+                        res.json()
+                            .then(res => {
+                                this.validacao.mensagemDeErro(res, view)
+                            });
+                    }else {
+						!!idEmpresa
+						?this.mensageDeSucesso(mensagemDeSucesso, idEmpresa)
+						:res.json().then(res => this.mensageDeSucesso(mensagemDeSucesso, res.id));
+					}
+                })
 		 },
 
 		 mensageDeSucesso: function (mensagemDeSucesso, id){
@@ -92,13 +106,49 @@ sap.ui.define([
 			   actions: [MessageBox.Action.OK],
 			   onClose: (sAction) => {
 				  if(sAction == MessageBox.Action.OK){
-						 id?
-						 this.getRouter().navTo(rotaTelaDetalhes, {empresaId: id}, true):
-						 this.getRouter().navTo(rotaEmpresa, {}, true);
+					!!id
+						? this.getRouter().navTo(rotaTelaDetalhes, {empresaId: id}, true)
+						: this.getRouter().navTo(rotaEmpresa, {}, true)
 				  }
 			   }
 			})
 		 },
+
+		 mensagemDeAviso: function(mensagemDeAviso, idEmpresa, nomeEmpresa){
+			const url = `/api/Empresa/${idEmpresa}`;
+				this.mensagemDeCancelarEmpresa = new Dialog({
+                    type: mobileLibrary.DialogType.Message,
+                    title: "Aviso",
+                    state: coreLibrary.ValueState.Warning,
+                    content: new Text({ text: mensagemDeAviso }),
+                    beginButton: new Button({
+                        type: mobileLibrary.ButtonType.Negative,
+                        text: "Sim",
+                        press: function () {
+                            this.mensagemDeCancelarEmpresa.close();
+                           nomeEmpresa?
+						   	this.deletarEmpresa(url, nomeEmpresa):
+							this._navegarPara(idEmpresa);
+                        }.bind(this)
+                    }),
+                    endButton: new Button({
+                        type: mobileLibrary.ButtonType.Success,
+                        text: "Não",
+                        press: function () {
+                            this.mensagemDeCancelarEmpresa.close();
+                        }.bind(this)
+                    })
+                });
+			this.mensagemDeCancelarEmpresa.open();
+		 },
+
+		_navegarPara: function (idEmpresa){
+			const rotaTelaEmpresa = "appEmpresa";
+			const rotaTelaDetalhes = "appDetalhesEmpresa";
+			!!idEmpresa
+				? this.getRouter().navTo(rotaTelaDetalhes, {empresaId: idEmpresa}, true)
+				: this.getRouter().navTo(rotaTelaEmpresa, {}, true)
+		},
 
 		 deletarEmpresa: function (url, empresa){
 			const mensagemDeSucesso = `${empresa} foi removido com sucesso!`

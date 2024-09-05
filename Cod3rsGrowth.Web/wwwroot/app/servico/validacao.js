@@ -19,13 +19,13 @@ return ("ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa",{
             else
                 view.byId(IdInputRazaoSocial).setValueState(removerValueState);
         
-            empresa.cnpj === razaoSocialECNPJVazio? 
-                view.byId(IdInputCnpj).setValueState(valueStateErro) : 
-                view.byId(IdInputCnpj).setValueState(removerValueState);
+            empresa.cnpj === razaoSocialECNPJVazio
+                ? view.byId(IdInputCnpj).setValueState(valueStateErro) 
+                : view.byId(IdInputCnpj).setValueState(removerValueState);
 
-            empresa.ramo === ramoNaoDefinido? 
-                view.byId(IdSelectRamo).setValueState(valueStateErro) : 
-                view.byId(IdSelectRamo).setValueState(removerValueState);
+            empresa.ramo === ramoNaoDefinido
+                ? view.byId(IdSelectRamo).setValueState(valueStateErro) 
+                : view.byId(IdSelectRamo).setValueState(removerValueState);
 
             if(empresa.razaoSocial && empresa.cnpj && empresa.ramo){
                 return true;

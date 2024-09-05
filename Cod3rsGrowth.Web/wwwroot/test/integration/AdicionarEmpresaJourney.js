@@ -118,6 +118,10 @@ sap.ui.define([
 			When
 				.adicionarEditarEmpresa
 				.confirmarNoOkAposSalvar();
+			
+			When
+				.adicionarEditarEmpresa
+				.deveVoltarParaTelaDeListagem();
 
 			Then
 				.adicionarEditarEmpresa

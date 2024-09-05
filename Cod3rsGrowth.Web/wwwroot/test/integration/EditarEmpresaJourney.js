@@ -46,20 +46,17 @@ sap.ui.define([
 				.deveVerificarSeValorSelectEstaCorreto();
         })
 
-		opaTest("Deve verificar se o botão de ok da message box de cancelar volta para a tela de empresa", function (Given, When, Then) {
+		opaTest("Deve verificar se o botão de ok da message box de cancelar volta para a tela de detalhes", function (Given, When, Then) {
 			When
 				.adicionarEditarEmpresa
 				.deverClicarNoBotaoDeOk();
 
 			Then
 				.adicionarEditarEmpresa
-				.verificarSeFoiParaPaginaListagemEmpresa("empresa.Empresa");
+				.verificarSeFoiParaPaginaListagemEmpresa("empresa.DetalhesEmpresa");
 		});
 
 		opaTest("Deve voltar para a tela de Editar apos usar o botão de cancelar", function (Given, When, Then) {
-			When
-				.adicionarEditarEmpresa
-				.irParaTelaDetalhaes();
 
             When
 				.adicionarEditarEmpresa
@@ -150,7 +147,7 @@ sap.ui.define([
 				.apertarNoBotaoFecharMessagemErro();
 		})
 		
-		opaTest("Deve verificar se item foi editado corretamente", function(Given, When, Then) {
+		opaTest("Deve salvar o item e ir para tela de listagem", function(Given, When, Then) {
             When
 				.adicionarEditarEmpresa
 				.preencherInputs("idInputRazaoSocial", "Buriti Shopping");
@@ -170,6 +167,10 @@ sap.ui.define([
 			When
 				.adicionarEditarEmpresa
 				.confirmarNoOkAposSalvar();
+
+			When
+				.adicionarEditarEmpresa
+				.deveVoltarParaTelaDeListagem();
 
             Then
 				.adicionarEditarEmpresa

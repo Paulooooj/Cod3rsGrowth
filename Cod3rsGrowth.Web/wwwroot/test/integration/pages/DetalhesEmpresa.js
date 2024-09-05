@@ -51,7 +51,7 @@ sap.ui.define([
 					})
 				},
 
-				deveApertarNoBotaoDeSalvar: function(){
+				deveApertarNoBotaoDeRemover: function(){
 					return this.waitFor({
 						id: "idBotaoRemoverDetalhes",
 						viewName: viewName,
@@ -62,20 +62,14 @@ sap.ui.define([
 
 				deveApertarNoBotaoMensagemBox: function(botaoMessageBox){
 					return this.waitFor({
-						controlType: "sap.m.Dialog",
-						viewName: viewName,  
-						success: function(oDialog) {
-							return this.waitFor({
-								controlType: "sap.m.Button",
-								matchers: new PropertyStrictEquals({
-									name: "text",
-									value: botaoMessageBox 
-								}),
-								actions: new Press(), 
-								errorMessage: "O botão 'OK' não foi encontrado na Message Box."
-							});
-						}
-					})
+						controlType: "sap.m.Button",
+						matchers: new PropertyStrictEquals({
+							name: "text",
+							value: botaoMessageBox 
+						}),
+						actions: new Press(), 
+						errorMessage: "O botão 'OK' não foi encontrado na Message Box."
+					});
 				},
 			},
 			assertions: {

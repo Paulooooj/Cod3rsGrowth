@@ -210,6 +210,28 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Equivalent(empresa, retornoEmpresa);
         }
 
+        [Theory]
+        [InlineData("22222222222222")]
+        [InlineData("00000000000000")]
+        [InlineData("/2asdf")]
+        [InlineData("sdfddf")]
+        [InlineData("777777777777777")]
+        [InlineData("77777777")]
+        [InlineData("7777777798987897237894578792364872634")]
+        [InlineData("00000000000000")]
+        public void deve_estourar_uma_excecao_ao_mandar_um_cnpj_invalido(string cnpjInvalido)
+        {
+            var empresa = new Empresa
+            {
+                Id = 1,
+                RazaoSocial = "EmpresaTestea",
+                Ramo = EnumRamoDaEmpresa.Servico,
+                CNPJ = cnpjInvalido
+            };
+
+            Assert.Throws<FluentValidation.ValidationException>(() => _servicoEmpresa.Adicionar(empresa));
+        }
+
         public List<Empresa> CriarLista()
         {
             var listaEmpresa = new List<Empresa>
@@ -239,28 +261,6 @@ namespace Cod3rsGrowth.Testes.Testes
             var listaDeEmpresasSingleton = EmpresaSingleton.Instancia;
             listaDeEmpresasSingleton.AddRange(listaEmpresa);
             return listaEmpresa;
-        }
-
-        [Theory]
-        [InlineData("22222222222222")]
-        [InlineData("00000000000000")]
-        [InlineData("/2asdf")]
-        [InlineData("sdfddf")]
-        [InlineData("777777777777777")]
-        [InlineData("77777777")]
-        [InlineData("7777777798987897237894578792364872634")]
-        [InlineData("00000000000000")]
-        public void deve_estourar_uma_excecao_ao_mandar_um_cnpj_vazio123(string cnpjInvalido)
-        {
-            var empresa = new Empresa 
-            { 
-                Id = 1, 
-                RazaoSocial = "EmpresaTestea", 
-                Ramo = EnumRamoDaEmpresa.Servico,
-                CNPJ = cnpjInvalido
-            };
-
-            Assert.Throws<FluentValidation.ValidationException>(() => _servicoEmpresa.Adicionar(empresa));
         }
     }
 }
