@@ -1,0 +1,24 @@
+<mvc:View
+   controllerName="ui5.cod3rsgrowth.app.notFound.NotFound"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <Page title="{i18n>paginaNaoEncontrada}" 
+      class="sapUiResponsiveContentPadding"
+      showNavButton="true"
+      navButtonPress="onNavBack"
+      titleAlignment="Center"
+      >
+       <headerContent>
+      <Toolbar >
+         <Button icon="sap-icon://home"
+         text="{i18n>botaovoltarPaginaInicial}"
+         press="voltarPaginaInicial"></Button>
+      </Toolbar>
+   </headerContent>
+      <MessagePage
+      showHeader="false"
+      text="{i18n>paginaNaoEncontrada.texto}"
+      description="{i18n>paginaNaoEncontrada.descricao}"
+      />
+   </Page >
+</mvc:View>

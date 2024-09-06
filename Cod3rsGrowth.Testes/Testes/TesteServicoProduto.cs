@@ -53,7 +53,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
                 TemDataValidade = true,
-                DataValidade = DateTime.Parse("10/11/2024"),
+                DataValidade = DateTime.Now.AddMonths(3),
                 EmpresaId = 5
             };
             _repositorioProduto.Adicionar(produto);
@@ -69,7 +69,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "teste",
                 DataCadastro = DateTime.Today,
                 TemDataValidade = true,
-                DataValidade = DateTime.Parse("12/10/2024"),
+                DataValidade = DateTime.Now.AddMonths(3),
                 EmpresaId = 3
             };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
@@ -84,10 +84,43 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 12.50m,
                 DataCadastro = DateTime.Today,
                 TemDataValidade = true,
-                DataValidade = DateTime.Parse("12/10/2024"),
+                DataValidade = DateTime.Now.AddMonths(3),
                 EmpresaId = 3
             };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
+        }
+
+        [Fact]
+        public void deve_estourar_uma_excecao_ao_mandar_uma_data_de_validade_menor_que_tres_meses()
+        {
+            var produto = new Produto
+            {
+                Id = 2,
+                Nome = "Samsung",
+                ValorDoProduto = 12.50m,
+                DataCadastro = DateTime.Today,
+                TemDataValidade = true,
+                DataValidade = DateTime.Now,
+                EmpresaId = 3
+            };
+            Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
+        }
+
+        [Fact]
+        public void deve_estourar_uma_excecao_ao_mandar_uma_data_de_validade_menor_que_tres_meses_e_verificar_se_a_mensagem_esta_correta()
+        {
+            var produto = new Produto
+            {
+                Id = 2,
+                Nome = "Samsung",
+                ValorDoProduto = 12.50m,
+                DataCadastro = DateTime.Today,
+                TemDataValidade = true,
+                DataValidade = DateTime.Now,
+                EmpresaId = 3
+            };
+           var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
+            Assert.Equal("O produto deve ter data de validade de no mínimo três meses", mensagemDeErro.Errors.Single().ErrorMessage);
         }
 
         [Fact]
@@ -98,7 +131,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 Nome = "teste",
                 DataCadastro = DateTime.Today,
                 TemDataValidade = true,
-                DataValidade = DateTime.Parse("12/10/2024"),
+                DataValidade = DateTime.Now.AddMonths(3),
                 EmpresaId = 3
             };
             var mensagemDeErro = Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Adicionar(produto));
@@ -116,7 +149,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
                 TemDataValidade = true,
-                DataValidade = DateTime.Parse("30/12/2024"),
+                DataValidade = DateTime.Now.AddMonths(3),
                 EmpresaId = 1
             };
             _repositorioProduto.Atualizar(produto);
@@ -134,7 +167,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
                 TemDataValidade = false,
-                DataValidade = DateTime.Parse("30/11/2024"),
+                DataValidade = DateTime.Now.AddMonths(3),
                 EmpresaId = 1
             };
             Assert.Throws<FluentValidation.ValidationException>(() => _repositorioProduto.Atualizar(produto));
@@ -220,7 +253,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 ValorDoProduto = 10500m,
                 DataCadastro = DateTime.Today,
                 TemDataValidade = false,
-                DataValidade = DateTime.Parse("30/11/2024"),
+                DataValidade = DateTime.Now.AddMonths(3),
                 EmpresaId = 1
             };
             Assert.Throws<System.Exception>(() => _repositorioProduto.Atualizar(produto));

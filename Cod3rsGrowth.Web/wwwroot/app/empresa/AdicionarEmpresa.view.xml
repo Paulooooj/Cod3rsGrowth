@@ -1,0 +1,75 @@
+<mvc:View xmlns:cards="sap.f.cards" xmlns:vk="sap.ui.vk" 
+	xmlns:form="sap.ui.layout.form"
+	controllerName="ui5.cod3rsgrowth.app.empresa.AdicionarEmpresa"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+	displayBlock="true">
+	<Page title="{i18n>nomeDaPaginaEmpresa.titulo}"  showNavButton="true" navButtonPress="onNavBack"> 
+		<customHeader>
+			<Toolbar>
+			<Button id="idBotaoDeNavegarAdicionarEditar" type="Back" press="onNavBack"></Button>
+			 <Title text="{i18n>nomeDaPaginaEmpresa.titulo}" titleStyle="H4" class="sapUiResponsiveMargin" ></Title>
+			 <ToolbarSpacer />
+         <MenuButton 
+         icon="sap-icon://action-settings"
+         menuPosition="EndBottom"
+         type="Transparent">
+         <menu>
+            <Menu >
+               <MenuItem 
+               icon="sap-icon://palette">
+                  <items>
+                     <MenuItem icon="sap-icon://light-mode" text="Claro" press="mudarDeTema"/>
+                     <MenuItem icon="sap-icon://dark-mode" text="Escuro" press="mudarDeTema"/>
+                  </items>
+               </MenuItem>
+            </Menu>
+         </menu>
+         </MenuButton>
+			</Toolbar>
+		</customHeader>
+		<FlexBox class="sapUiResponsiveMargin" justifyContent="SpaceBetween" direction="Column" backgroundDesign="Translucent">
+			<form:SimpleForm 
+				maxContainerCols="2"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				labelSpanL="1" labelSpanM="1"
+				emptySpanL="8" emptySpanM="8"
+				columnsL="1" columnsM="1"
+				>
+				<form:toolbar>
+					<OverflowToolbar> 
+					<Title id="idTituloAdicionarEditar" text="{i18n>nomeTituloAdicionar}" titleStyle="H4"/>
+					<ToolbarSpacer/>
+					<Button 
+					id="idBotaoSalvar"
+					text="{i18n>botaoSalvarAdicionar}"
+					icon="sap-icon://save"
+					press="aoClicarEmSalvar"
+					/>
+					<Button 
+					id="idBotaoCancelar"
+					text="{i18n>botaoCancelarAdicionar}"
+					icon="sap-icon://sys-cancel-2"
+					press="aoClicarEmCancelar"/>
+					</OverflowToolbar>
+				</form:toolbar >
+				<form:content> 
+					<Label text="{i18n>textoLabelAdicionar.razaoSocial}" required="true"/>
+					<Input id="idInputRazaoSocial" required="true" placeholder="{i18n>placeHolderAdicionar.razaoSocial}" valueStateText="{i18n>mensagemDeErroInput.razaoSocial}"/>
+					<Label text="{i18n>textoLabelAdicionar.cnpj}" required="true"/>
+					<MaskInput id="idInputCNPJ" mask="99.999.999/9999-99" placeholderSymbol="_" placeholder="{i18n>placeHolderAdicionar.ramo}" showClearIcon="true" required="true" valueStateText="{i18n>mensagemDeErroInput.cnpj}"/>
+					<Label text="{i18n>textoLabelAdicionar.ramo}" required="true" />
+					<Select
+						id="idSelectRamoAdicionar"
+               			width="50%"
+						valueStateText="{i18n>mensagemDeErroSelect}"
+               			items="{listaEnum>/}"> 
+               			<core:ListItem key="{listaEnum>key}" text="{path: 'listaEnum>descricao', formatter: '.formatter.formatarValorPadraoComboboxAdicionar'}"/>
+               		</Select>
+				</form:content>
+			</form:SimpleForm>
+			</FlexBox>
+		</Page>
+</mvc:View>

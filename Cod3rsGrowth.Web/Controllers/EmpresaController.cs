@@ -18,12 +18,12 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet]
         public IActionResult ObterTodos([FromQuery] FiltroEmpresa filtro) 
         {
-            var listaDeEmpresas =_servicoEmpresa.ObterTodos(filtro);
+            var listaDeEmpresas = _servicoEmpresa.ObterTodos(filtro);
             return Ok(listaDeEmpresas);
         }
 
         [HttpGet("{id}")]
-        public IActionResult ObterPorId(int id) 
+        public IActionResult ObterPorId([FromRoute]int id) 
         {
             var empresa = _servicoEmpresa.ObterPorId(id);
             return Ok(empresa);
@@ -33,7 +33,7 @@ namespace Cod3rsGrowth.Web.Controllers
         public IActionResult Adicionar([FromBody] Empresa empresa) 
         { 
             _servicoEmpresa.Adicionar(empresa);
-            return Ok();
+            return Ok(empresa);
         }
 
         [HttpDelete("{id}")]

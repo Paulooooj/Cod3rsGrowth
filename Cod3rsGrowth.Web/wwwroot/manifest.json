@@ -1,0 +1,101 @@
+{
+    "_version": "1.58.0",
+    "sap.app": {
+      "id": "ui5.cod3rsgrowth",
+      "i18n": "i18n/i18n.properties",
+      "type": "application",
+      "applicationVersion": {
+        "version": "1.0.0"
+      }
+    },
+    "sap.ui": {
+      "technology": "UI5",
+      "deviceTypes": {
+          "desktop": true,
+          "tablet": true,
+          "phone": true
+      }
+    },
+    "sap.ui5": {
+      "dependencies": {
+        "minUI5Version": "1.108.0",
+        "libs": {
+          "sap.ui.core": {},
+          "sap.m": {}
+        }
+      },
+      "models": {
+        "i18n": {
+          "type": "sap.ui.model.resource.ResourceModel",
+          "settings": {
+            "bundleName": "ui5.cod3rsgrowth.i18n.i18n",
+            "supportedLocales": [""],
+            "fallbackLocale": ""
+          }
+        }
+      },
+      "rootView": {
+          "viewName": "ui5.cod3rsgrowth.app.App",
+          "type": "XML",
+          "async": true,
+          "id": "app"
+      },
+      "routing": {
+         "config": {
+            "routerClass": "sap.m.routing.Router",
+            "type": "View",
+            "viewType": "XML",
+            "path": "ui5.cod3rsgrowth.app",
+            "controlId": "app",
+            "controlAggregation": "pages",
+            "transition": "slide",
+            "bypassed": {
+              "target" : "notFound"
+            },
+            "async": true
+         },
+         "routes": [{
+            "pattern": "",
+            "name": "appEmpresa",
+            "target": "empresa"
+         }, 
+         {
+            "pattern" : "AdicionarEmpresa/:empresaId:",
+            "name" : "appAdicionarEmpresa",
+            "target": "adicionar"
+         },
+         {
+          "pattern" : "DetalhesEmpresa/{empresaId}",
+          "name" : "appDetalhesEmpresa",
+          "target": "detalhes"
+       }
+        ],
+         "targets": {
+            "empresa": {
+              "path" :"ui5.cod3rsgrowth.app.empresa",
+               "id": "empresa",
+               "name": "Empresa",
+               "level" : 1
+            },
+            "notFound" : {
+              "path" :"ui5.cod3rsgrowth.app.notFound",
+              "id": "notFound",
+              "name": "NotFound",
+              "transition" : "show"
+            },
+            "adicionar" : {
+              "id": "adicionarEmpresa",
+              "path": "ui5.cod3rsgrowth.app.empresa",
+              "name": "AdicionarEmpresa",
+              "level": 2
+            },
+            "detalhes" : {
+              "id": "detalhesEmpresa",
+              "path": "ui5.cod3rsgrowth.app.empresa",
+              "name": "DetalhesEmpresa",
+              "level": 3
+            }
+         }
+      }
+    }
+  }
