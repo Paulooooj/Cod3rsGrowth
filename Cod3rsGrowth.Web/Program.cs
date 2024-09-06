@@ -7,21 +7,23 @@ using Cod3rsGrowth.Infra.Repositorio;
 using Cod3rsGrowth.Servico.Servicos;
 using Cod3rsGrowth.Servico.Validacao;
 using Cod3rsGrowth.Web;
+using Cod3rsGrowth.Web.MetodosAuxiliares;
 using FluentMigrator.Runner;
 using FluentValidation;
 using LinqToDB;
 using LinqToDB.AspNet;
-
-
-
-
-
+using Microsoft.Extensions.FileProviders;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const string variavelAmbienteStringConexao = "ConnectionString";
-var stringConexao = Environment.GetEnvironmentVariable(variavelAmbienteStringConexao)
-    ?? throw new Exception($"Variavel de ambiente [{variavelAmbienteStringConexao}] nao encontrada");
+if(args?.FirstOrDefault() == "BancoTeste")
+{
+    ConnectionString.connectionString = "ConnectionStringTeste";
+}
+
+var stringConexao = Environment.GetEnvironmentVariable(ConnectionString.connectionString)
+    ?? throw new Exception($"Variavel de ambiente [{ConnectionString.connectionString}] nao encontrada");
 
 builder.Services.AddFluentMigratorCore().ConfigureRunner(rb => rb.
 AddSqlServer()
@@ -41,6 +43,19 @@ builder.Services.AddScoped<IValidator<Produto>, ValidadorProduto>();
 builder.Services.AddScoped<IRepositorioEmpresa, RepositorioEmpresa>();
 builder.Services.AddScoped<IRepositorioProduto, RepositorioProduto>();
 
+var tipoClientes = Enum.GetValues(typeof(EnumRamoDaEmpresa)).Cast<EnumRamoDaEmpresa>().Select(x => new { Descricao = DescricaoEnum.PegarDescricaoEnum(x)});
+var options = new JsonSerializerOptions();
+
+builder.Services.AddMvc().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.Converters.Add(new Converter<EnumRamoDaEmpresa>());
+});
+
+builder.Services.AddCors(p => p.AddPolicy("SAPApp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -58,6 +73,17 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("SAPApp");
+
+app.UseStaticFiles(new StaticFileOptions { ServeUnknownFileTypes = true });
+
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "wwwroot")),
+    EnableDirectoryBrowsing = true
+});
+
 app.UseAuthorization();
 
 app.MapControllers();

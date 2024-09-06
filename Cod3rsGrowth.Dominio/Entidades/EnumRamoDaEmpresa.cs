@@ -4,13 +4,13 @@ namespace Cod3rsGrowth.Dominio.Entidades
 {
     public enum EnumRamoDaEmpresa
     {
-        [Description("Enum vazio")]
+        [Description("Não Definido")]
         NaoDefinido,
-        [Description("Tem como objetivo a produção de produtos")]
+        [Description("Indústria")]
         Industria,
-        [Description("Movimenta diferentes tipos de produtos")]
+        [Description("Comércio")]
         Comercio,
-        [Description("Foco na venda do seu serviço")]
+        [Description("Serviço")]
         Servico
     }
 }
