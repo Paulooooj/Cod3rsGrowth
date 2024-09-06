@@ -75,7 +75,7 @@ sap.ui.define([
          var sTitle,
 				oTable = oEvent.getSource(),
 				iTotalItems = oEvent.getParameter("total");
-            const oBundle = this.getView().getModel("i18n").getResourceBundle();
+         const oBundle = this.getView().getModel("i18n").getResourceBundle();
 			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
 				sTitle = oBundle.getText("nomeBarraFerramentasEmpresaCount", [iTotalItems]);
 			} 

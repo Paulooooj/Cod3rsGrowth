@@ -14,7 +14,7 @@ sap.ui.define([
       },
 
       _aoCoincidirRota: function (oEvent) {
-       const nomeDaAba = "nomeDaAbaPaginaIniciar";
+       const nomeDaAba = "nomeAbaPagindaDetalhes";
        this.mudarNomeDaAba(nomeDaAba);
 
        idEmpresa = this._obterIdPelaRota(oEvent);

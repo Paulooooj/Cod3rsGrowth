@@ -15,9 +15,6 @@ sap.ui.define([
       formatter: formatter,
       validacao: validacao,
       onInit: function () {
-         const nomeDaAba = "nomeDaAbaPaginaIniciar";
-         this.mudarNomeDaAba(nomeDaAba);
-
          const urlEnum = '/api/Enum';
          const viewAtual = this.getView();
          const nomeContexto = "listaEnum";
@@ -43,10 +40,14 @@ sap.ui.define([
             const nomeTituloEditar = "tituloPagindaEditar";
             this._mudarTituto(nomeTituloEditar);
             this._fazerUrlRequisicaoPreencherCamposEditar();
+            const nomeDaAba = "nomeDaAbaPaginaEditar";
+            this.mudarNomeDaAba(nomeDaAba);
          }
          else {
             const nomeTituloAdicionar = "nomeTituloAdicionar";
             this._mudarTituto(nomeTituloAdicionar);
+            const nomeDaAba = "nomeDaAbaPaginaAdicionarEmpresa";
+            this.mudarNomeDaAba(nomeDaAba);
          }
       },
 
