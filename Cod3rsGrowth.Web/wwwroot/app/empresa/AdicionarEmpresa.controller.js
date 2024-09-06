@@ -36,18 +36,18 @@ sap.ui.define([
 
          idEmpresaAtualizar = "";
          idEmpresaAtualizar = this._obterIdPelaRota(oEvent);
-         if (idEmpresaAtualizar){
-            const nomeTituloEditar = "tituloPagindaEditar";
-            this._mudarTituto(nomeTituloEditar);
-            this._fazerUrlRequisicaoPreencherCamposEditar();
+         if (!!idEmpresaAtualizar){
             const nomeDaAba = "nomeDaAbaPaginaEditar";
             this.mudarNomeDaAba(nomeDaAba);
+            const nomeTituloEditar = "tituloPaginaEditar";
+            this._mudarTituto(nomeTituloEditar);
+            this._fazerUrlRequisicaoPreencherCamposEditar();
          }
          else {
-            const nomeTituloAdicionar = "nomeTituloAdicionar";
-            this._mudarTituto(nomeTituloAdicionar);
             const nomeDaAba = "nomeDaAbaPaginaAdicionarEmpresa";
             this.mudarNomeDaAba(nomeDaAba);
+            const nomeTituloAdicionar = "nomeTituloAdicionar";
+            this._mudarTituto(nomeTituloAdicionar);
          }
       },
 
@@ -57,8 +57,8 @@ sap.ui.define([
       },
 
       _mudarTituto: function (nomeTitulo) {
-         const propiedade = "i18n";
-         const propiedadeI18n = this.getView().getModel(propiedade).getResourceBundle();
+         const propriedade = "i18n";
+         const propiedadeI18n = this.getView().getModel(propriedade).getResourceBundle();
          const tituloEditar = propiedadeI18n.getText(nomeTitulo);
          const idTitulo = "idTituloAdicionarEditar";
          this.getView().byId(idTitulo).setText(tituloEditar);
