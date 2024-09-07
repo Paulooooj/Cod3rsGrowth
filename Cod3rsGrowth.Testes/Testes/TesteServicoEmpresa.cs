@@ -144,7 +144,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 {
                    Id = 1,
                    RazaoSocial = "InventSoftware",
-                   CNPJ = "16274837465234",
+                   CNPJ = "67215136000190",
                    Ramo = EnumRamoDaEmpresa.Servico
                 }
             };
@@ -232,6 +232,38 @@ namespace Cod3rsGrowth.Testes.Testes
             Assert.Throws<FluentValidation.ValidationException>(() => _servicoEmpresa.Adicionar(empresa));
         }
 
+        [Fact]
+        public void deve_verificar_se_ao_mandar_cnpj_invalido_vai_gerar_excecao()
+        {
+            CriarLista();
+            var empresa = new Empresa
+            {
+                Id = 1,
+                RazaoSocial = "InventSoftware",
+                CNPJ = "12345678912345",
+                Ramo = EnumRamoDaEmpresa.Servico
+            };
+            Assert.Throws<FluentValidation.ValidationException>(() => _servicoEmpresa.Atualizar(empresa));
+        }
+
+        [Fact]
+        public void deve_verificar_se_ao_mandar_cnpj_tentar_atualizar_empresa_com_mesmo_cnpj_vai_atualizar()
+        {
+            CriarLista();
+            var empresa = new Empresa
+            {
+                Id = 1,
+                RazaoSocial = "InventSoftware",
+                CNPJ = "67215136000190",
+                Ramo = EnumRamoDaEmpresa.Servico
+            };
+            
+            _servicoEmpresa.Adicionar(empresa); 
+            var retornoEmpresa = EmpresaSingleton.Instancia.Find(x => x.Id == empresa.Id);
+
+            Assert.Equivalent(empresa, retornoEmpresa);
+        }
+
         public List<Empresa> CriarLista()
         {
             var listaEmpresa = new List<Empresa>
@@ -240,7 +272,7 @@ namespace Cod3rsGrowth.Testes.Testes
                 {
                    Id = 1,
                    RazaoSocial = "InventSoftware",
-                   CNPJ = "16274837465234",
+                   CNPJ = "67215136000190",
                    Ramo = EnumRamoDaEmpresa.Servico
                 },
                 new Empresa

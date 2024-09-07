@@ -13,12 +13,12 @@ namespace Cod3rsGrowth.Servico.Validacao
         {
             _repositorioEmpresa = repositorioEmpresa;
 
-            ClassLevelCascadeMode = CascadeMode.Continue;
+            ClassLevelCascadeMode = CascadeMode.Continue; 
 
             RuleFor(x => x.RazaoSocial)
                 .NotEmpty()
                 .WithMessage("O campo Razão Social é obrigatorio")
-                .MaximumLength(20)
+                .MaximumLength(100)
                 .WithMessage("Número máximo de caracteres atingido");
 
 
@@ -31,6 +31,10 @@ namespace Cod3rsGrowth.Servico.Validacao
                 .WithMessage("O campo CNPJ é obrigatorio")
                 .Must((x, _) => ValidarCNPJ(x.CNPJ))
                 .WithMessage("CNPJ inválido");
+
+            RuleFor(x => x)
+                .Must(x => EhCnpjExistenteNoBanco(x, _repositorioEmpresa))
+                .WithMessage("Esse CNPJ já existe");
 
             RuleFor(x => x.Ramo)
                 .IsInEnum()
@@ -61,6 +65,12 @@ namespace Cod3rsGrowth.Servico.Validacao
             int digitoVerificador2 = restoSegundoDigito < 2 ? 0 : 11 - restoSegundoDigito;
 
             return cnpj.EndsWith($"{digitoVerificador1}{digitoVerificador2}");
+        }
+
+        private static bool EhCnpjExistenteNoBanco(Empresa empresa, IRepositorioEmpresa _repositorioEmpresa)
+        {
+            var empresaBusca = _repositorioEmpresa.ObterTodos();
+            return !empresaBusca.Any(x => x.CNPJ == empresa.CNPJ && x.Id != empresa.Id);
         }
 
         public static bool VerificarSeOEnumEstaVazio(EnumRamoDaEmpresa enumRamoEmpresa)
