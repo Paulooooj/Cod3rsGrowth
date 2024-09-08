@@ -3,7 +3,8 @@ sap.ui.define([
    "../model/formatter",
 	"sap/m/MessageBox",
    "../servico/validacao",
- ], function (BaseController, formatter, MessageBox, validacao) {
+   "../model/formatter",
+ ], function (BaseController, formatter, MessageBox, validacao, formatter) {
     "use strict";
     const IdInputRazaoSocial = "idInputRazaoSocial";
     const IdInputCnpj = "idInputCNPJ";

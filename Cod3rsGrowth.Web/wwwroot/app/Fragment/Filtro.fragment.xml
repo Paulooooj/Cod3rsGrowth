@@ -1,0 +1,52 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ViewSettingsDialog
+        id="settingsDialog"
+        confirm="handleConfirm"
+        cancel="handleCancel"
+        resetFilters="handleResetFilters">
+        <filterItems>
+            <ViewSettingsCustomItem
+                id="idCustomFilterItem"
+                text="Valor"
+                key="myFilter">
+                <customControl>
+					<VBox >
+						<Input
+						id="valueInput"
+						placeholder="Digite um valor"
+						type="Number"
+						liveChange="onValueChange" />
+						<Input
+						id=""
+						placeholder="Digite um valor"
+						type="Number"
+						liveChange="onValueChange" />
+					</VBox>
+                </customControl>
+            </ViewSettingsCustomItem>
+            <ViewSettingsCustomItem
+                id="idDateFilterItem"
+                text="Data"
+                key="dateFilter">
+                <customControl>
+                    <VBox>
+                        <DatePicker
+                            id="startDatePicker"
+                            valueFormat="yyyy-MM-dd"
+                            displayFormat="dd/MM/yyyy"
+                            placeholder="Data Inicial"
+                            change="onStartDateChange" />
+                        <DatePicker
+                            id="endDatePicker"
+                            valueFormat="yyyy-MM-dd"
+                            displayFormat="dd/MM/yyyy"
+                            placeholder="Data Final"
+                            change="onEndDateChange" />
+                    </VBox>
+                </customControl>
+            </ViewSettingsCustomItem>
+        </filterItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

@@ -46,7 +46,7 @@
             id="idBotaoRemoverDetalhes"
             press="aoClicarDeveRemoverEmpresa"/>
       </Toolbar>
-      <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" >
+      <f:DynamicPage id="dynamicPageId" >
          <f:title>
             <f:DynamicPageTitle>
                <f:heading>
@@ -67,6 +67,109 @@
             </f:DynamicPageHeader>
          </f:header>
       </f:DynamicPage>
+         <Table
+         busyIndicatorDelay="5"
+         class="sapUiResponsiveMargin"
+         alternateRowColors="true"
+         growing="true"
+         growingThreshold="20"
+         sticky="ColumnHeaders,HeaderToolbar"
+         width="auto"
+         fixedLayout="false"
+         autoPopinMode="true"
+         hiddenInPopin="None"
+         updateFinished="atualizarTitulo"
+         items="{listaProduto>/}">
+         <headerToolbar>
+            <Toolbar>
+               <Title text="{i18n>tituloTabelaProduto}" titleStyle="H4"/>
+               <ToolbarSpacer/>
+               <SearchField 
+               width="25%"
+               placeholder="{i18n>barraPesquisa}"
+               liveChange="buscarPorProduto"
+              />
+               <ToolbarSeparator />
+               <Button 
+               icon="sap-icon://filter"
+               press="handleViewSettingsDialogPress"/>
+               <ToolbarSeparator />
+               <Button
+               text="Adicionar"
+               enabled="true"
+               icon="sap-icon://sys-add"
+              />
+            </Toolbar>
+         </headerToolbar>
+         <columns> 
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Begin">
+               <header>
+                  <Label text="{i18n>tabelaFilho.nome}" />
+               </header>
+            </Column>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>tabelaFilho.valorProduto}"/>
+               </header>
+            </Column>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>tabelaFilho.dataCadastro}"/>
+               </header>
+            </Column>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>tabelaFilho.temDataValidade}"/>
+               </header>
+            </Column>
+            <Column 
+            minScreenWidth="Small"
+            demandPopin="true"
+            vAlign="Middle"
+            hAlign="Center">
+               <header>
+                  <Label text="{i18n>tabelaFilho.dataValidade}"/>
+               </header>
+            </Column>
+         </columns>
+         <items>
+            <ColumnListItem type="Navigation">
+               <cells>
+                  <ObjectIdentifier title="{listaProduto>nome}"/>
+                  <Text text="{
+                     path: 'listaProduto>valorDoProduto',
+                     formatter: '.formatter.formatarValoresProduto'}"/>
+                  <Text text="{
+                     path: 'listaProduto>dataCadastro',
+                     type: 'sap.ca.ui.model.type.Date',
+                     formatOptions: {pattern: 'dd/MM/YYYY'}
+                  }"/>
+                  <Text text="{listaProduto>temDataValidade}"/>
+                  <Text text="{
+                        path: 'listaProduto>dataValidade',
+                        type: 'sap.ca.ui.model.type.Date',
+                        formatOptions: {pattern: 'dd/MM/YYYY'}
+                     }"/>  
+               </cells>
+            </ColumnListItem>
+         </items>
+        </Table>
    </FlexBox>
 		</Page>
 </mvc:View>
